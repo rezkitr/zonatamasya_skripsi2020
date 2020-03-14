@@ -20,7 +20,7 @@ function CalendarList(props) {
                 let now = new Date()
                 let dateTemp = new Date(schedItem)
 
-                if(dateTemp <= now) {
+                if(dateTemp < now) {
                   pass = true
                 }
 
