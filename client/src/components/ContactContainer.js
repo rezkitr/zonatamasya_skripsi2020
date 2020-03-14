@@ -5,7 +5,7 @@ function ContactContainer() {
     <div className="container-fluid" >
       <div className="row pt-5">
         <div className="col-md text-center">
-          <h2 className="font-weight-bold" >Hubungi Kami</h2>
+          <h2 className="font-weight-bold">Hubungi Kami</h2>
         </div>
       </div>
       <div className="row">
