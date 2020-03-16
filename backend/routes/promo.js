@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
 
 // getPromo
 router.route('/:code').get((req, res) => {
-  Promo.find({code : req.params.code})
+  Promo.find({ code: req.params.code })
     .then(promo => res.json(promo))
     .catch(err => res.status(400).json('Error : ' + err))
 });
@@ -24,10 +24,13 @@ router.route('/id/:id').get((req, res) => {
 
 // addPromo
 router.route('/add').post((req, res) => {
+  const tripId = req.body.tripId;
   const code = req.body.code;
   const discount = req.body.discount;
+  const description = req.body.description;
+  const expDate = req.body.expDate;
 
-  const newPromo = new Promo({ code, discount });
+  const newPromo = new Promo({ tripId, code, discount, description, expDate });
 
   newPromo.save()
     .then(() => res.json('New promo added'))

@@ -26,13 +26,17 @@ connection.once('open', () => {
   console.log('MongoDB database connection established successfully');
 });
 
+app.use('/uploads', express.static('uploads'));
+
 const reservationRouter = require('./routes/reservation');
 const adminRouter = require('./routes/admin');
 const promoRouter = require('./routes/promo');
+const imageRouter = require('./routes/images');
 
 app.use('/reservation', reservationRouter);
 app.use('/admin', adminRouter);
 app.use('/promo', promoRouter);
+app.use('/image', imageRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port : ${port}`);

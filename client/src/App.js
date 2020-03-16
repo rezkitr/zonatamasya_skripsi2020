@@ -22,7 +22,10 @@ import PromoEditPage from './adminpage/PromoEdit'
 import PromoAddPage from './adminpage/PromoAdd'
 import AdminEditPage from './adminpage/AdminEdit'
 import AdminAddPage from './adminpage/AdminAdd'
+import OpenTripAddPage from './adminpage/OpenTripAdd'
 
+
+import Upload from './pages/UploadTest'
 
 
 class App extends Component {
@@ -32,7 +35,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    store.set('loggedIn', false)
+    // change to false later
+    store.set('loggedIn', true)
   }
 
   handleAuth = () => {
@@ -59,6 +63,7 @@ class App extends Component {
                     <Route path="/galeri" exact strict component={GalleryPage} />
                     <Route path="/kalendaropentrip" exact strict component={CalendarPage} />
                     <Route path="/contact" exact strict component={ContactPage} />
+                    <Route path="/upload" exact strict component={Upload} />
                   </Switch>
                 </ScrollToTop>
                 <Footer />
@@ -74,6 +79,7 @@ class App extends Component {
                     <Route path="/admin/promo/add" exact strict render={(props) => (<PromoAddPage {...props} />)} />
                     <Route path="/admin/admuser/edit/:adminId" exact strict render={(props) => (<AdminEditPage {...props} />)} />
                     <Route path="/admin/admuser/add" exact strict render={(props) => (<AdminAddPage {...props} />)} />
+                    <Route path="/admin/opentrip/add" exact strict render={(props) => (<OpenTripAddPage {...props} />)} />
                   </Switch>
                 </>
               )

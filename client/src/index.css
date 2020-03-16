@@ -63,7 +63,8 @@ body {
 }
 
 .filter-section,
-.reservation-form {
+.reservation-form,
+.tripadd-form {
   margin-top: 140px;
 }
 

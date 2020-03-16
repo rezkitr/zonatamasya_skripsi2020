@@ -1,5 +1,5 @@
 import React from 'react'
-import helpers from './helperFunction'
+import helpers from '../helperFunction'
 import { Link } from 'react-router-dom'
 
 function TripCard(props) {

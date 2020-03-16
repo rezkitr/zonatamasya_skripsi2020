@@ -1,5 +1,5 @@
 import React from 'react'
-import helpers from './helperFunction'
+import helpers from '../helperFunction'
 import DataSource from '../dataSource'
 
 function CalendarList(props) {

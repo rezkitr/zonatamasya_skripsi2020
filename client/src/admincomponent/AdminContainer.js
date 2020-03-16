@@ -8,6 +8,7 @@ import logo from '../assets/logo2.png'
 import RsvList from './ReservationList'
 import PromoList from './PromoList'
 import AdminList from './AdminList'
+import OpenTripList from './OpenTripList'
 
 class AdminContainer extends Component {
 
@@ -40,6 +41,7 @@ class AdminContainer extends Component {
             <div className="sidebar-heading text-center pt-4"><img src={logo} alt="ztlogo" width="120" /></div>
             <div className="list-group list-group-flush mt-3">
               <a onClick={() => this.setState({menuSelected : 'rsv'})} className="list-group-item list-group-item-action primary-color-dark text-white"><i className="far fa-file-alt fa-lg mr-3 text-white"></i>Reservations</a>
+              <a onClick={() => this.setState({menuSelected : 'ot'})} className="list-group-item list-group-item-action primary-color-dark text-white"><i className="fas fa-suitcase-rolling fa-lg mr-3 text-white"></i>Open Trip</a>
               <a onClick={() => this.setState({menuSelected : 'prm'})} className="list-group-item list-group-item-action primary-color-dark text-white"><i className="fas fa-tag fa-lg mr-3 text-white"></i>Promo</a>
               <a onClick={() => this.setState({menuSelected : 'adm'})} className="list-group-item list-group-item-action primary-color-dark text-white"><i className="fas fa-user-secret  fa-lg mr-3 text-white"></i>Admin</a>
             </div>
@@ -72,7 +74,7 @@ class AdminContainer extends Component {
               <div className="row justify-content-center">
                 <div className="col-md">
                   {
-                    this.state.menuSelected === 'rsv' ? (<RsvList />) : this.state.menuSelected === 'prm' ? (<PromoList />) : (<AdminList />)
+                    this.state.menuSelected === 'rsv' ? (<RsvList />) : this.state.menuSelected === 'prm' ? (<PromoList />) : this.state.menuSelected === 'ot' ?  (<OpenTripList />) : (<AdminList />)
                   }
                   
                 </div>

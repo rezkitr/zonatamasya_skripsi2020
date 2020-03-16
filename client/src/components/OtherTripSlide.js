@@ -1,5 +1,5 @@
 import React from 'react'
-import helpers from './helperFunction'
+import helpers from '../helperFunction'
 import { Link } from 'react-router-dom'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'

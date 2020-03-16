@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import helpers from './helperFunction'
+import helpers from '../helperFunction'
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
@@ -25,6 +25,7 @@ class ReservationForm extends Component {
 
   render() {
     // predefined field
+    let tripId = ''
     let tripName = ''
     let tripStart = ''
     let mepo = []
@@ -36,6 +37,7 @@ class ReservationForm extends Component {
 
     this.props.tripData.map(item => {
       if (item.tripID === this.props.tripId) {
+        tripId = item.tripID
         tripName = item.tripName
         tripStart = item.tripDeparture.start
         mepo = item.tripDeparture.mepo
@@ -57,6 +59,7 @@ class ReservationForm extends Component {
                   enableReinitialize
                   initialValues={
                     {
+                      tripId : tripId,
                       tripName: tripName.toUpperCase(),
                       tripStart: tripStart.toUpperCase(),
                       mepo: ''.toUpperCase(),
@@ -80,7 +83,6 @@ class ReservationForm extends Component {
                   }
                   validationSchema={ValidationSchema}
                   onSubmit={(values ,{ setSubmitting }) => {
-                    console.log(JSON.stringify(values, null, 2))
                     setTimeout(() => {
                       axios.post('http://localhost:4000/reservation/add', values)
                       .then(res => alert(res.data))
