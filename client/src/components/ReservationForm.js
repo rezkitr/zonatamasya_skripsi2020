@@ -3,14 +3,16 @@ import helpers from '../helperFunction'
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { confirmAlert } from 'react-confirm-alert'
 
 import DataSource from '../dataSource'
 
 class ReservationForm extends Component {
 
   state = {
-    currentStep: 3,
-    promoData: null
+    currentStep: 1,
+    promoData: null,
+    promoValid: false
   }
 
   _next = () => {
@@ -24,13 +26,82 @@ class ReservationForm extends Component {
     }))
   }
 
-  handlePromo = (promocode) => {
+  getPromo = (promocode, paymentType) => {
     let ignoreCasePromo = promocode.toUpperCase()
-    axios.get(`http://localhost:4000/promo/${ignoreCasePromo}`)
-      .then(res => {
-        this.setState({ promoData: res.data })
-      })
-      .catch(err => console.log(err))
+
+    if (ignoreCasePromo.length > 0) {
+      axios.get(`http://localhost:4000/promo/${ignoreCasePromo}`)
+        .then(res => {
+          this.setState({ promoData: res.data })
+        }).
+        then(() => {
+          if (this.state.promoData && this.state.promoData.length > 0) {
+            let now = new Date()
+            let expDate = new Date(this.state.promoData[0].expDate)
+
+            if (paymentType === 'LUNAS') {
+              if (this.state.promoData[0].tripId === this.props.tripId) {
+                if (now < expDate) {
+                  this.setState({ promoValid: true })
+                }
+                else {
+                  confirmAlert({
+                    message: 'Promo telah berakhir',
+                    buttons: [
+                      {
+                        label: 'OK'
+                      }
+                    ]
+                  })
+                }
+              }
+              else {
+                confirmAlert({
+                  message: 'Promo tidak sesuai dengan open trip ini',
+                  buttons: [
+                    {
+                      label: 'OK'
+                    }
+                  ]
+                })
+              }
+            }
+            else {
+              confirmAlert({
+                message: 'Promo hanya berlaku untuk pembayaran LUNAS',
+                buttons: [
+                  {
+                    label: 'OK'
+                  }
+                ]
+              })
+            }
+          }
+          else {
+            confirmAlert({
+              message: 'Tidak dapat menemukan promo',
+              buttons: [
+                {
+                  label: 'OK'
+                }
+              ]
+            })
+          }
+        })
+        .catch(err => console.log(err))
+    }
+    else {
+      this.setState({ promoData: null })
+    }
+  }
+
+  getDiscount() {
+    if (this.state.promoValid) {
+      return this.state.promoData[0].discount
+    }
+    else {
+      return 0
+    }
   }
 
   render() {
@@ -93,12 +164,13 @@ class ReservationForm extends Component {
                   }
                   validationSchema={ValidationSchema}
                   onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
+                    alert(JSON.stringify(values, true, 2))
+                    {/* setTimeout(() => {
                       axios.post('http://localhost:4000/reservation/add', values)
                         .then(res => alert(res.data))
                         .catch(err => alert(err))
                       setSubmitting(false)
-                    }, 200)
+                    }, 200) */}
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
@@ -418,7 +490,11 @@ class ReservationForm extends Component {
                                 <div className="col-md-4">
                                   <div className="card mb-3">
                                     <ul className="list-group list-group-flush">
-                                      <li className="list-group-item text-secondary"><strong>{values.participant.coordinator.coorName}</strong>{` (${values.participant.coordinator.coorGender})`}</li>
+                                      <li className="list-group-item text-secondary"><strong>{values.participant.coordinator.coorName}</strong>
+                                        {
+                                          values.participant.coordinator.coorGender === 'L' ? (<i className="fas fa-mars fa-lg ml-2"></i>) : (<i className="fas fa-venus fa-lg ml-2"></i>)
+                                        }
+                                      </li>
                                       <li className="list-group-item">{values.participant.coordinator.coorTelp}</li>
                                       <li className="list-group-item email-part">{values.participant.coordinator.coorEmail}</li>
                                     </ul>
@@ -431,7 +507,11 @@ class ReservationForm extends Component {
                                         <div className="col-md-4">
                                           <div className="card mb-3">
                                             <ul className="list-group list-group-flush">
-                                              <li className="list-group-item"><strong>{item.memberName}</strong>{` (${item.memberGender})`}</li>
+                                              <li className="list-group-item"><strong>{item.memberName}</strong>
+                                                {
+                                                  item.memberGender === 'L' ? (<i className="fas fa-mars fa-lg ml-2"></i>) : (<i className="fas fa-venus fa-lg ml-2"></i>)
+                                                }
+                                              </li>
                                               <li className="list-group-item">{item.memberTelp}</li>
                                               <li className="list-group-item email-part">-</li>
                                             </ul>
@@ -464,7 +544,7 @@ class ReservationForm extends Component {
                                           id="payFull"
                                           name="payment.type"
                                           value="LUNAS"
-                                          checked={values.payment.type === 'LUNAS' ? values.payment.amount = values.totalParticipant * tripPrice : false}
+                                          checked={(values.payment.type === 'LUNAS' && this.state.promoData == null) || (values.payment.type === 'LUNAS' && this.state.promoData && this.state.promoData.length == 0) ? values.payment.amount = values.totalParticipant * tripPrice : values.payment.type === 'LUNAS' && this.state.promoData && this.state.promoData.length > 0 ? values.payment.amount = (values.totalParticipant * tripPrice) - this.getDiscount() : false}
                                           className="custom-control-input"
                                         />
                                         <label className="custom-control-label" htmlFor="payFull"><h4><span className="badge badge-secondary">LUNAS</span></h4></label>
@@ -473,7 +553,7 @@ class ReservationForm extends Component {
                                   </div>
                                   <div className="row mt-3">
                                     <div className="col-md">
-                                      <h2 className="font-weight-bold">Rp{helpers.priceFormat(values.payment.amount)}</h2>
+                                      <h2 className={`font-weight-bold ${this.state.promoValid ? 'deep-purple-text' : ''}`}>Rp{helpers.priceFormat(values.payment.amount)}</h2>
                                     </div>
                                   </div>
                                   <ErrorMessage
@@ -484,22 +564,23 @@ class ReservationForm extends Component {
                                 </div>
 
                                 <div className="col-md">
-                                  <p className="font-weight-bold mt-5">KODE PROMO</p>
+                                  <p className="font-weight-bold mt-5">KODE PROMO*</p>
                                   <div className="input-group">
                                     <Field
                                       type="text"
                                       name="promoCode"
-                                      placeholder="Masukkann Kode Promo"
+                                      placeholder="Masukkan Kode Promo"
                                       className="form-control"
                                     />
                                     <div className="input-group-append">
-                                      <button type="button" className="btn btn-md btn-amber rounded-right m-0 px-3 py-2 z-depth-0 font-weight-bold"  >APPLY</button>
+                                      <button type="button" className="btn btn-md btn-amber rounded-right m-0 px-3 py-2 z-depth-0 font-weight-bold" onClick={() => this.getPromo(values.promoCode, values.payment.type)} >APPLY</button>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-
-
+                              <div className="mt-4">
+                                <small id="passwordHelpBlock" className="form-text text-muted mt-0">*Promo hanya berlaku untuk pembayaran LUNAS</small>
+                              </div>
                               <div className="text-right" >
                                 <button type="button" className="btn btn-sm btn-cyan font-weight-bold" style={{ fontSize: "14px" }} onClick={this._prev} ><i className="fas fa-angle-left mr-2"></i> KEMBALI</button>
                                 <button type="button" className="btn btn-sm btn-success font-weight-bold" style={{ fontSize: "14px" }} onClick={this._next} >CHECK OUT<i className="fas fa-angle-right ml-2"></i></button>
