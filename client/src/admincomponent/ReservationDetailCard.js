@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import helpers from '../helperFunction'
 import axios from 'axios'
 
 class ReservationDetail extends Component {
@@ -14,29 +15,6 @@ class ReservationDetail extends Component {
         this.setState({ rsv: res.data })
       })
       .catch(err => console.log(err))
-  }
-
-  formatDate(strDate) {
-    let months = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    ]
-
-    let dateTemp = new Date(strDate)
-    let monthIndex = dateTemp.getMonth()
-    let monthName = months[monthIndex]
-    let day = dateTemp.getDate().toString()
-    let year = dateTemp.getFullYear()
-
-    if (day.length < 2) {
-      day = `0${day}`
-    }
-    let formattedDate = `${day} ${monthName} ${year}`
-    return formattedDate
-  }
-
-  priceFormat(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
   render() {
@@ -76,7 +54,7 @@ class ReservationDetail extends Component {
                   <div className="row mt-4">
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Tgl. Keberangkatan</p>
-                      <h4 className="purple-text" >{this.formatDate(this.state.rsv[0].tripDate)}</h4>
+                      <h4 className="purple-text" >{helpers.formatDate(this.state.rsv[0].tripDate)}</h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Jumlah Peserta</p>
@@ -125,12 +103,16 @@ class ReservationDetail extends Component {
                 <div className="card-body p-5">
                   <div className="row">
                     <div className="col-md">
-                      <p className="h6 font-weight-bold">Status</p>
+                      <p className="h6 font-weight-bold">Jenis</p>
                       <h4 className="purple-text" >{this.state.rsv[0].payment.type}</h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Jumlah</p>
-                      <h4 className="purple-text" >Rp{this.priceFormat(this.state.rsv[0].payment.amount)}</h4>
+                      <h4 className="purple-text" >Rp{helpers.priceFormat(this.state.rsv[0].payment.amount)}</h4>
+                    </div>
+                    <div className="col-md">
+                      <p className="h6 font-weight-bold">Promo</p>
+                      <h4 className="purple-text" >{this.state.rsv[0].promoCode}</h4>
                     </div>
                   </div>
                 </div>

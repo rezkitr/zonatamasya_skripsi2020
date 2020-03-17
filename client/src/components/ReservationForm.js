@@ -164,18 +164,17 @@ class ReservationForm extends Component {
                         type: '',
                         amount: 0
                       },
-                      promoCode: ''
+                      promoCode: ''.toUpperCase()
                     }
                   }
                   validationSchema={ValidationSchema}
                   onSubmit={(values, { setSubmitting }) => {
-                    alert(JSON.stringify(values, true, 2))
-                    {/* setTimeout(() => {
+                    setTimeout(() => {
                       axios.post('http://localhost:4000/reservation/add', values)
                         .then(res => alert(res.data))
                         .catch(err => alert(err))
                       setSubmitting(false)
-                    }, 200) */}
+                    }, 200)
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
