@@ -3,7 +3,8 @@ import helpers from '../helperFunction'
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
-import { confirmAlert } from 'react-confirm-alert'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import DataSource from '../dataSource'
 
@@ -41,50 +42,53 @@ class ReservationForm extends Component {
 
             if (paymentType === 'LUNAS') {
               if (this.state.promoData[0].tripId === this.props.tripId) {
-                if (now < expDate) {
+                if (now <= expDate) {
                   this.setState({ promoValid: true })
+                  toast.success('Berhasil menggunakan promo', {
+                    position: 'top-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true
+                  })
                 }
                 else {
-                  confirmAlert({
-                    message: 'Promo telah berakhir',
-                    buttons: [
-                      {
-                        label: 'OK'
-                      }
-                    ]
+                  toast.warn('Promo telah berakhir', {
+                    position: 'top-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true
                   })
                 }
               }
               else {
-                confirmAlert({
-                  message: 'Promo tidak sesuai dengan open trip ini',
-                  buttons: [
-                    {
-                      label: 'OK'
-                    }
-                  ]
+                toast.warn('Promo tidak berlaku untuk open trip ini', {
+                  position: 'top-center',
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true
                 })
               }
             }
             else {
-              confirmAlert({
-                message: 'Promo hanya berlaku untuk pembayaran LUNAS',
-                buttons: [
-                  {
-                    label: 'OK'
-                  }
-                ]
+              toast.info('Promo hanya berlaku untuk pembayaran LUNAS', {
+                position: 'top-center',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true
               })
             }
           }
           else {
-            confirmAlert({
-              message: 'Tidak dapat menemukan promo',
-              buttons: [
-                {
-                  label: 'OK'
-                }
-              ]
+            toast.error('Tidak dapat menemukan promo', {
+              position: 'top-center',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true
             })
           }
         })
@@ -130,6 +134,7 @@ class ReservationForm extends Component {
 
     return (
       <div className="container-fluid reservation-form"  >
+        <ToastContainer />
         <div className="row justify-content-center">
           <div className="col-md-6 mb-3">
             <div className="card">
@@ -553,7 +558,7 @@ class ReservationForm extends Component {
                                   </div>
                                   <div className="row mt-3">
                                     <div className="col-md">
-                                      <h2 className={`font-weight-bold ${this.state.promoValid ? 'deep-purple-text' : ''}`}>Rp{helpers.priceFormat(values.payment.amount)}</h2>
+                                      <h2 className="font-weight-bold">Rp{helpers.priceFormat(values.payment.amount)}</h2>
                                     </div>
                                   </div>
                                   <ErrorMessage
