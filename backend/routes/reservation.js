@@ -3,16 +3,16 @@ let Reservation = require('../models/reservation.model');
 
 // getAll
 router.route('/').get((req, res) => {
-  Reservation.find().sort({'tripName' : 'asc','tripDate' : 'asc'})
+  Reservation.find().sort({ 'tripName': 'asc', 'tripDate': 'asc' })
     .then(rsv => res.json(rsv))
     .catch(err => res.status(400).json('Error : ' + err));
 });
 
 // findRsv
 router.route('/:rsvId').get((req, res) => {
-  Reservation.find({_id : req.params.rsvId})
-  .then(rsv => res.json(rsv))
-  .catch(err => res.status(400).json('Error : ' + err))
+  Reservation.find({ _id: req.params.rsvId })
+    .then(rsv => res.json(rsv))
+    .catch(err => res.status(400).json('Error : ' + err))
 })
 
 // AddRsv
@@ -25,9 +25,10 @@ router.route('/add').post((req, res) => {
   const totalParticipant = req.body.totalParticipant;
   const participant = req.body.participant;
   const payment = req.body.payment;
+  const promoCode = req.body.promoCode;
 
   const newReservation = new Reservation({
-    tripName, tripStart, mepo, reservationDate, tripDate, totalParticipant, participant, payment
+    tripName, tripStart, mepo, reservationDate, tripDate, totalParticipant, participant, payment, promoCode
   });
 
   newReservation.save()
@@ -55,6 +56,7 @@ router.route('/update/:id').post((req, res) => {
       rsv.totalParticipant = req.body.totalParticipant;
       rsv.participant = req.body.participant;
       rsv.payment = req.body.payment;
+      rsv.promoCode = req.body.promoCode;
 
       rsv.save()
         .then(() => res.json('Reservation updated'))

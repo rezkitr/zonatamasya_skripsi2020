@@ -15,9 +15,9 @@ const reservationSchema = new Schema({
     type: String,
     required: true
   },
-  reservationDate : {
-    type : String,
-    required : true
+  reservationDate: {
+    type: String,
+    required: true
   },
   tripDate: {
     type: String,
@@ -71,6 +71,9 @@ const reservationSchema = new Schema({
       type: Number,
       required: true
     }
+  },
+  promoCode: {
+    type: String
   }
 },
   {
