@@ -9,7 +9,8 @@ import DataSource from '../dataSource'
 class ReservationForm extends Component {
 
   state = {
-    currentStep: 1,
+    currentStep: 3,
+    promoData: null
   }
 
   _next = () => {
@@ -23,6 +24,15 @@ class ReservationForm extends Component {
     }))
   }
 
+  handlePromo = (promocode) => {
+    let ignoreCasePromo = promocode.toUpperCase()
+    axios.get(`http://localhost:4000/promo/${ignoreCasePromo}`)
+      .then(res => {
+        this.setState({ promoData: res.data })
+      })
+      .catch(err => console.log(err))
+  }
+
   render() {
     // predefined field
     let tripId = ''
@@ -33,7 +43,6 @@ class ReservationForm extends Component {
     let bgUrl = ''
     let tripPrice = 0
     let tripDP = 0
-    let totalTemp = 0
 
     this.props.tripData.map(item => {
       if (item.tripID === this.props.tripId) {
@@ -59,7 +68,7 @@ class ReservationForm extends Component {
                   enableReinitialize
                   initialValues={
                     {
-                      tripId : tripId,
+                      tripId: tripId,
                       tripName: tripName.toUpperCase(),
                       tripStart: tripStart.toUpperCase(),
                       mepo: ''.toUpperCase(),
@@ -78,15 +87,16 @@ class ReservationForm extends Component {
                       payment: {
                         type: '',
                         amount: 0
-                      }
+                      },
+                      promoCode: ''
                     }
                   }
                   validationSchema={ValidationSchema}
-                  onSubmit={(values ,{ setSubmitting }) => {
+                  onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
                       axios.post('http://localhost:4000/reservation/add', values)
-                      .then(res => alert(res.data))
-                      .catch(err => alert(err))
+                        .then(res => alert(res.data))
+                        .catch(err => alert(err))
                       setSubmitting(false)
                     }, 200)
                   }}
@@ -431,47 +441,69 @@ class ReservationForm extends Component {
                                     }) : null
                                 }
                               </div>
-                              <p className="font-weight-bold mt-5">PEMBAYARAN</p>
-                              <div className="form-row align-items-center ">
+
+                              <div className="row">
                                 <div className="col-md">
-                                  <div className="custom-control custom-radio custom-control-inline">
-                                    <Field
-                                      type="radio"
-                                      id="payDP"
-                                      name="payment.type"
-                                      value="DP"
-                                      checked={values.payment.type === 'DP' ? values.payment.amount = values.totalParticipant * tripDP : false}
-                                      className="custom-control-input"
-                                    />
-                                    <label className="custom-control-label" htmlFor="payDP"><h4><span className="badge badge-warning">DP</span></h4></label>
+                                  <p className="font-weight-bold mt-5">PEMBAYARAN</p>
+                                  <div className="form-row align-items-center ">
+                                    <div className="col-md">
+                                      <div className="custom-control custom-radio custom-control-inline">
+                                        <Field
+                                          type="radio"
+                                          id="payDP"
+                                          name="payment.type"
+                                          value="DP"
+                                          checked={values.payment.type === 'DP' ? values.payment.amount = values.totalParticipant * tripDP : false}
+                                          className="custom-control-input"
+                                        />
+                                        <label className="custom-control-label" htmlFor="payDP"><h4><span className="badge badge-warning">DP</span></h4></label>
+                                      </div>
+                                      <div className="custom-control custom-radio custom-control-inline">
+                                        <Field
+                                          type="radio"
+                                          id="payFull"
+                                          name="payment.type"
+                                          value="LUNAS"
+                                          checked={values.payment.type === 'LUNAS' ? values.payment.amount = values.totalParticipant * tripPrice : false}
+                                          className="custom-control-input"
+                                        />
+                                        <label className="custom-control-label" htmlFor="payFull"><h4><span className="badge badge-secondary">LUNAS</span></h4></label>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div className="custom-control custom-radio custom-control-inline">
+                                  <div className="row mt-3">
+                                    <div className="col-md">
+                                      <h2 className="font-weight-bold">Rp{helpers.priceFormat(values.payment.amount)}</h2>
+                                    </div>
+                                  </div>
+                                  <ErrorMessage
+                                    component="div"
+                                    name="payment.type"
+                                    className="invalid-feedback"
+                                  />
+                                </div>
+
+                                <div className="col-md">
+                                  <p className="font-weight-bold mt-5">KODE PROMO</p>
+                                  <div className="input-group">
                                     <Field
-                                      type="radio"
-                                      id="payFull"
-                                      name="payment.type"
-                                      value="LUNAS"
-                                      checked={values.payment.type === 'LUNAS' ? values.payment.amount = values.totalParticipant * tripPrice : false}
-                                      className="custom-control-input"
+                                      type="text"
+                                      name="promoCode"
+                                      placeholder="Masukkann Kode Promo"
+                                      className="form-control"
                                     />
-                                    <label className="custom-control-label" htmlFor="payFull"><h4><span className="badge badge-secondary">LUNAS</span></h4></label>
+                                    <div className="input-group-append">
+                                      <button type="button" className="btn btn-md btn-amber rounded-right m-0 px-3 py-2 z-depth-0 font-weight-bold"  >APPLY</button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div className="row mt-3">
-                                <div className="col-md">
-                                  <h2 className="font-weight-bold">Rp{helpers.priceFormat(values.payment.amount)}</h2>
-                                </div>
-                              </div>
-                              <ErrorMessage
-                                component="div"
-                                name="payment.type"
-                                className="invalid-feedback"
-                              />
+
+
                               <div className="text-right" >
                                 <button type="button" className="btn btn-sm btn-cyan font-weight-bold" style={{ fontSize: "14px" }} onClick={this._prev} ><i className="fas fa-angle-left mr-2"></i> KEMBALI</button>
-                                <button type="button" className="btn btn-sm btn-success font-weight-bold" style={{ fontSize: "14px" }} onClick={this._next} >SELANJUTNYA<i className="fas fa-angle-right ml-2"></i></button>
-                               <button type="submit">{isSubmitting ? 'Loading...' : 'Submit'}</button>
+                                <button type="button" className="btn btn-sm btn-success font-weight-bold" style={{ fontSize: "14px" }} onClick={this._next} >CHECK OUT<i className="fas fa-angle-right ml-2"></i></button>
+                                <button type="submit">{isSubmitting ? 'Loading...' : 'Submit'}</button>
                               </div>
                             </div>
                       }

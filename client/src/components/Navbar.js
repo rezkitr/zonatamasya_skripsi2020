@@ -1,10 +1,8 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
-import Scroll from 'react-scroll'
+import { NavLink } from 'react-router-dom'
 
 import logo from '../assets/logo2.png'
 
-const ScrollLink = Scroll.Link
 
 function Navbar() {
   return (

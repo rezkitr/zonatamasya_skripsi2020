@@ -161,8 +161,9 @@ class PromoAddForm extends Component {
 
 const ValidationSchema = Yup.object().shape({
   code: Yup.string()
-    .required("Silahkan masukkan kode promo")
-    .uppercase("Gunakan huruf kapital"),
+  .uppercase("Gunakan huruf kapital")
+  .required("Silahkan masukkan kode promo")
+  .strict(true),
   discount: Yup.number()
     .required("Silahkan masukkan nominal diskon")
 })
