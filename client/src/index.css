@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .home-page,
@@ -25,7 +25,7 @@ body {
 }
 
 .navbar {
-  font-family: 'Muli', sans-serif;
+  font-family: "Muli", sans-serif;
   font-size: 16px;
   min-height: 75px;
 }
@@ -41,11 +41,29 @@ body {
 }
 
 .searchtrip-section {
-  background-color: #F7F7F7;
-
+  background-color: #ffc048;
   padding-top: 40px;
   padding-bottom: 60px;
+}
 
+.menupanel-section {
+  margin-bottom: 80px;
+  background-color: #ffc048;
+  height: 310px;
+  border-radius: 0 0 100% 100%;
+}
+
+.menu-panel {
+  background-color: white;
+  box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 20px;
+}
+
+.menu-panel img {
+  width: 70px;
+  height: 70px;
 }
 
 .card-img-top {
@@ -89,60 +107,62 @@ body {
 }
 
 .flip-vertical-fwd {
-  -webkit-animation: flip-vertical-fwd .4s cubic-bezier(.455, .03, .515, .955) both;
-  animation: flip-vertical-fwd .4s cubic-bezier(.455, .03, .515, .955) both
+  -webkit-animation: flip-vertical-fwd 0.4s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-fwd 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 .flip-vertical-bck {
-  -webkit-animation: flip-vertical-bck .4s cubic-bezier(.455, .03, .515, .955) both;
-  animation: flip-vertical-bck .4s cubic-bezier(.455, .03, .515, .955) both
+  -webkit-animation: flip-vertical-bck 0.4s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-bck 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
 }
 
 @-webkit-keyframes flip-vertical-fwd {
   0% {
     -webkit-transform: translateZ(0) rotateY(0);
-    transform: translateZ(0) rotateY(0)
+    transform: translateZ(0) rotateY(0);
   }
 
   100% {
     -webkit-transform: translateZ(160px) rotateY(360deg);
-    transform: translateZ(160px) rotateY(360deg)
+    transform: translateZ(160px) rotateY(360deg);
   }
 }
 
 @keyframes flip-vertical-fwd {
   0% {
     -webkit-transform: translateZ(0) rotateY(0);
-    transform: translateZ(0) rotateY(0)
+    transform: translateZ(0) rotateY(0);
   }
 
   100% {
     -webkit-transform: translateZ(160px) rotateY(360deg);
-    transform: translateZ(160px) rotateY(360deg)
+    transform: translateZ(160px) rotateY(360deg);
   }
 }
 
 @-webkit-keyframes flip-vertical-bck {
   0% {
     -webkit-transform: translateZ(0) rotateY(0);
-    transform: translateZ(0) rotateY(0)
+    transform: translateZ(0) rotateY(0);
   }
 
   100% {
     -webkit-transform: translateZ(-260px) rotateY(-360deg);
-    transform: translateZ(-260px) rotateY(-360deg)
+    transform: translateZ(-260px) rotateY(-360deg);
   }
 }
 
 @keyframes flip-vertical-bck {
   0% {
     -webkit-transform: translateZ(0) rotateY(0);
-    transform: translateZ(0) rotateY(0)
+    transform: translateZ(0) rotateY(0);
   }
 
   100% {
     -webkit-transform: translateZ(-260px) rotateY(-360deg);
-    transform: translateZ(-260px) rotateY(-360deg)
+    transform: translateZ(-260px) rotateY(-360deg);
   }
 }
 
@@ -253,10 +273,10 @@ label {
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -277,11 +297,11 @@ label {
 }
 
 .rotate-90-cw {
-  animation: rotate-90-cw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: rotate-90-cw 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .rotate-90-ccw {
-  animation: rotate-90-ccw 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: rotate-90-ccw 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @keyframes rotate-90-cw {
@@ -304,8 +324,6 @@ label {
   }
 }
 
-
-
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;
@@ -321,9 +339,7 @@ label {
   }
 }
 
-
 @media (min-width: 576px) {
-
   .navbar {
     text-align: center;
   }

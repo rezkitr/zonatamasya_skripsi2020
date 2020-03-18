@@ -22,10 +22,13 @@ function Navbar() {
                 <NavLink to="/opentrip" activeClassName="navActive" className="nav-link"><i className="fas fa-suitcase mr-1"></i>Open Trip</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/galeri" activeClassName="navActive" className="nav-link"><i className="far fa-image mr-1"></i>Galeri</NavLink>
+                <NavLink to="/promo" activeClassName="navActive" className="nav-link"><i className="fas fa-percentage mr-1"></i>Promo</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/kalendaropentrip" activeClassName="navActive" className="nav-link"><i className="far fa-calendar-alt mr-1"></i>Kalendar</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/galeri" activeClassName="navActive" className="nav-link"><i className="far fa-image mr-1"></i>Galeri</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/contact" activeClassName="navActive" className="nav-link"><i className="fas fa-headset mr-1"></i>Contact</NavLink>
