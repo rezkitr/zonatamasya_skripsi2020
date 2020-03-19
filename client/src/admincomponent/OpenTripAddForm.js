@@ -1,4 +1,5 @@
 import React from "react";
+import helpers from "../helperFunction";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -39,7 +40,9 @@ function OpenTripAddForm() {
                     itinerary: [],
                     facility: [],
                     tripKeywordTemp: "",
-                    highlightedTemp: ""
+                    highlightedTemp: "",
+                    mepoTemp: "",
+                    scheduleTemp: ""
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
@@ -66,7 +69,7 @@ function OpenTripAddForm() {
                           <div>
                             <div className="form-group">
                               <label
-                                htmlFor="tripKeywordTemp"
+                                htmlFor="tripKeyword"
                                 className="font-weight-bold"
                               >
                                 Keyword
@@ -74,7 +77,7 @@ function OpenTripAddForm() {
                               <div className="input-group">
                                 <Field
                                   type="text"
-                                  id="tripKeywordTemp"
+                                  id="tripKeyword"
                                   name="tripKeywordTemp"
                                   className="form-control"
                                 />
@@ -102,19 +105,17 @@ function OpenTripAddForm() {
                             {values.tripKeyword && values.tripKeyword.length > 0
                               ? values.tripKeyword.map((item, index) => {
                                   return (
-                                    <h5 className="d-inline mr-2">
-                                      <span className="badge badge-info p-2">
-                                        {item}
-                                        <a>
-                                          <i
-                                            className="fas fa-times text-danger ml-3"
-                                            onClick={() =>
-                                              arrayHelpers.remove(index)
-                                            }
-                                          ></i>
-                                        </a>
-                                      </span>
-                                    </h5>
+                                    <span className="badge badge-info p-2 p-2 mr-2 mb-2">
+                                      {item}
+                                      <a>
+                                        <i
+                                          className="fas fa-times text-danger ml-3"
+                                          onClick={() =>
+                                            arrayHelpers.remove(index)
+                                          }
+                                        ></i>
+                                      </a>
+                                    </span>
                                   );
                                 })
                               : null}
@@ -142,6 +143,7 @@ function OpenTripAddForm() {
                           <option value="bali">Bali</option>
                         </Field>
                       </div>
+
                       <div className="form-group">
                         <label className="font-weight-bold">Highlight</label>
                         <br />
@@ -183,13 +185,11 @@ function OpenTripAddForm() {
                             : (values.highlighted = false)}
                         </div>
                       </div>
-                      <div className="form-row">
+
+                      <div className="form-row mt-4">
                         <div className="form-group col-md">
-                          <label
-                            htmlFor="featured"
-                            className="font-weight-bold"
-                          >
-                            Gambar Card
+                          <label className="font-weight-bold">
+                            Gambar Thumbnail Card
                           </label>
                           <input
                             type="file"
@@ -198,10 +198,7 @@ function OpenTripAddForm() {
                           />
                         </div>
                         <div className="form-group col-md">
-                          <label
-                            htmlFor="featured"
-                            className="font-weight-bold"
-                          >
+                          <label className="font-weight-bold">
                             Gambar Banner
                           </label>
                           <input
@@ -212,36 +209,90 @@ function OpenTripAddForm() {
                         </div>
                       </div>
                       <div className="form-group">
-                        <label htmlFor="featured" className="font-weight-bold">
+                        <label htmlFor="duration" className="font-weight-bold">
                           Durasi
                         </label>
-                        <input
+                        <Field
                           type="text"
+                          id="duration"
+                          name="duration"
                           className="form-control"
-                          id="region"
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="featured" className="font-weight-bold">
+                        <label htmlFor="tripStart" className="font-weight-bold">
                           Start
                         </label>
-                        <input
+                        <Field
                           type="text"
+                          id="tripStart"
+                          name="tripDeparture.start"
                           className="form-control"
-                          id="region"
                         />
                       </div>
-                      <div className="form-group">
-                        <label htmlFor="featured" className="font-weight-bold">
-                          Meeting Point
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="region"
-                        />
-                      </div>
-                      <div className="form-row">
+
+                      <FieldArray
+                        name="tripDeparture.mepo"
+                        render={arrayHelpers => (
+                          <div>
+                            <div className="form-group">
+                              <label
+                                htmlFor="tripMepo"
+                                className="font-weight-bold"
+                              >
+                                Meeting Point
+                              </label>
+                              <div className="input-group">
+                                <Field
+                                  type="text"
+                                  id="tripMepo"
+                                  name="mepoTemp"
+                                  className="form-control"
+                                />
+                                <div className="input-group-append">
+                                  <button
+                                    className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
+                                    type="button"
+                                    onClick={() => {
+                                      values.tripDeparture.mepo.length > 0
+                                        ? arrayHelpers.insert(
+                                            values.tripDeparture.mepo.length +
+                                              1,
+                                            values.mepoTemp
+                                          )
+                                        : arrayHelpers.insert(
+                                            0,
+                                            values.mepoTemp
+                                          );
+                                    }}
+                                  >
+                                    <i className="fas fa-plus fa-lg mx-2"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            {values.tripDeparture.mepo &&
+                            values.tripDeparture.mepo.length > 0
+                              ? values.tripDeparture.mepo.map((item, index) => {
+                                  return (
+                                    <span className="badge badge-info p-2 mr-2 mb-2">
+                                      {item}
+                                      <a>
+                                        <i
+                                          className="fas fa-times text-danger ml-3"
+                                          onClick={() =>
+                                            arrayHelpers.remove(index)
+                                          }
+                                        ></i>
+                                      </a>
+                                    </span>
+                                  );
+                                })
+                              : null}
+                          </div>
+                        )}
+                      ></FieldArray>
+                      <div className="form-row mt-4">
                         <div className="form-group col-md">
                           <label
                             htmlFor="featured"
@@ -270,15 +321,67 @@ function OpenTripAddForm() {
                         </div>
                       </div>
                       <div className="form-group">
-                        <label htmlFor="featured" className="font-weight-bold">
-                          Jadwal
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="region"
-                        />
+                        <FieldArray
+                          name="schedule"
+                          render={arrayHelpers => (
+                            <div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="schedule"
+                                  className="font-weight-bold"
+                                >
+                                  Jadwal
+                                </label>
+                                <div className="input-group">
+                                  <Field
+                                    type="date"
+                                    id="schedule"
+                                    name="scheduleTemp"
+                                    className="form-control"
+                                  />
+                                  <div className="input-group-append">
+                                    <button
+                                      className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
+                                      type="button"
+                                      onClick={() => {
+                                        values.schedule.length > 0
+                                          ? arrayHelpers.insert(
+                                              values.schedule.length + 1,
+                                              values.scheduleTemp
+                                            )
+                                          : arrayHelpers.insert(
+                                              0,
+                                              values.scheduleTemp
+                                            );
+                                      }}
+                                    >
+                                      <i className="fas fa-plus fa-lg mx-2"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              {values.schedule && values.schedule.length > 0
+                                ? values.schedule.map((item, index) => {
+                                    return (
+                                      <span className="badge badge-info p-2 p-2 mr-2 mb-2">
+                                        {helpers.formatDate(item)}
+                                        <a>
+                                          <i
+                                            className="fas fa-times text-danger ml-3"
+                                            onClick={() =>
+                                              arrayHelpers.remove(index)
+                                            }
+                                          ></i>
+                                        </a>
+                                      </span>
+                                    );
+                                  })
+                                : null}
+                            </div>
+                          )}
+                        ></FieldArray>
                       </div>
+
                       <div className="form-group">
                         <label htmlFor="featured" className="font-weight-bold">
                           Itinerary
