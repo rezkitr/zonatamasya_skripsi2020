@@ -6,7 +6,7 @@ export default class TripSearch extends Component {
       <div className="searchtrip-section">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <form>
                 <label htmlFor="searchtrip" className="font-weight-bold">
                   Cari Open Trip

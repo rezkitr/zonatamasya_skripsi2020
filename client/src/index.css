@@ -47,7 +47,7 @@ body {
 }
 
 .menupanel-section {
-  margin-bottom: 80px;
+  margin-bottom: 240px;
   background-color: #ffc048;
   height: 310px;
   border-radius: 0 0 100% 100%;
@@ -342,5 +342,8 @@ label {
 @media (min-width: 576px) {
   .navbar {
     text-align: center;
+  }
+  .menupanel-section {
+    margin-bottom: 80px;
   }
 }
