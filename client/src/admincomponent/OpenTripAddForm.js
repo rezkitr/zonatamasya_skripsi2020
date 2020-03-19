@@ -42,7 +42,8 @@ function OpenTripAddForm() {
                     tripKeywordTemp: "",
                     highlightedTemp: "",
                     mepoTemp: "",
-                    scheduleTemp: ""
+                    scheduleTemp: "",
+                    facilityTemp: ""
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
@@ -292,31 +293,31 @@ function OpenTripAddForm() {
                           </div>
                         )}
                       ></FieldArray>
+
                       <div className="form-row mt-4">
                         <div className="form-group col-md">
                           <label
-                            htmlFor="featured"
+                            htmlFor="priceFull"
                             className="font-weight-bold"
                           >
                             Harga Lunas
                           </label>
-                          <input
+                          <Field
                             type="number"
+                            id="priceFull"
+                            name="price.priceFull"
                             className="form-control"
-                            id="region"
                           />
                         </div>
                         <div className="form-group col-md">
-                          <label
-                            htmlFor="featured"
-                            className="font-weight-bold"
-                          >
+                          <label htmlFor="priceDP" className="font-weight-bold">
                             Harga DP
                           </label>
-                          <input
+                          <Field
                             type="number"
+                            id="priceDP"
+                            name="price.priceDP"
                             className="form-control"
-                            id="region"
                           />
                         </div>
                       </div>
@@ -393,14 +394,65 @@ function OpenTripAddForm() {
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="featured" className="font-weight-bold">
-                          Fasilitas
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="region"
-                        />
+                        <FieldArray
+                          name="facility"
+                          render={arrayHelpers => (
+                            <div>
+                              <div className="form-group">
+                                <label
+                                  htmlFor="tripFacility"
+                                  className="font-weight-bold"
+                                >
+                                  Fasilitas
+                                </label>
+                                <div className="input-group">
+                                  <Field
+                                    type="text"
+                                    id="tripFacility"
+                                    name="facilityTemp"
+                                    className="form-control"
+                                  />
+                                  <div className="input-group-append">
+                                    <button
+                                      className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
+                                      type="button"
+                                      onClick={() => {
+                                        values.facility.length > 0
+                                          ? arrayHelpers.insert(
+                                              values.facility.length + 1,
+                                              values.facilityTemp
+                                            )
+                                          : arrayHelpers.insert(
+                                              0,
+                                              values.facilityTemp
+                                            );
+                                      }}
+                                    >
+                                      <i className="fas fa-plus fa-lg mx-2"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              {values.facility && values.facility.length > 0
+                                ? values.facility.map((item, index) => {
+                                    return (
+                                      <span className="badge badge-info p-2 p-2 mr-2 mb-2">
+                                        {item}
+                                        <a>
+                                          <i
+                                            className="fas fa-times text-danger ml-3"
+                                            onClick={() =>
+                                              arrayHelpers.remove(index)
+                                            }
+                                          ></i>
+                                        </a>
+                                      </span>
+                                    );
+                                  })
+                                : null}
+                            </div>
+                          )}
+                        ></FieldArray>
                       </div>
                     </Form>
                   )}
