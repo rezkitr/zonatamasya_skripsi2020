@@ -11,7 +11,10 @@ class OpenTripAddForm extends Component {
     mepoTemp: "",
     scheduleTemp: "",
     facilityTemp: "",
-    itineraryTemp: []
+    itineraryDay: [],
+    itineraryItem: "",
+    splittedItineraryItem: [],
+    dayCounter: 0
   };
 
   handleChange = event => {
@@ -19,6 +22,25 @@ class OpenTripAddForm extends Component {
     this.setState({
       [name]: value
     });
+  };
+
+  addDay = () => {
+    this.setState({
+      dayCounter: this.state.dayCounter + 1
+    });
+  };
+
+  handleItineraryInput = event => {
+    this.setState({ itineraryItem: event.target.value }, () => {
+      this.splitItineraryItem(this.state.itineraryItem);
+    });
+  };
+
+  splitItineraryItem = item => {
+    if (this.state.itineraryItem.length > 0) {
+      let result = item.split("\n");
+      this.setState({ splittedItineraryItem: result });
+    }
   };
 
   render() {
@@ -34,7 +56,10 @@ class OpenTripAddForm extends Component {
                     <small>Tambah Data Open Trip</small>
                   </p>
                 </div>
-                <div className="card-body mt-4 px-5 py-3">
+                <div
+                  className="card-body mt-4 px-5 py-3"
+                  style={{ textTransform: "none" }}
+                >
                   <Formik
                     enableReinitialize
                     initialValues={{
@@ -56,6 +81,9 @@ class OpenTripAddForm extends Component {
                       schedule: [],
                       itinerary: [],
                       facility: []
+                    }}
+                    onSubmit={(values, { setSubmitting }) => {
+                      console.log(JSON.stringify(values, true, 2));
                     }}
                   >
                     {({ errors, touched, values, isSubmitting }) => (
@@ -104,15 +132,9 @@ class OpenTripAddForm extends Component {
                                       className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                       type="button"
                                       onClick={() => {
-                                        values.tripKeyword.length > 0
-                                          ? arrayHelpers.insert(
-                                              values.tripKeyword.length + 1,
-                                              this.state.tripKeywordTemp
-                                            )
-                                          : arrayHelpers.insert(
-                                              0,
-                                              this.state.tripKeywordTemp
-                                            );
+                                        arrayHelpers.push(
+                                          this.state.tripKeywordTemp
+                                        );
 
                                         this.setState({ tripKeywordTemp: "" });
                                       }}
@@ -285,16 +307,7 @@ class OpenTripAddForm extends Component {
                                       className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                       type="button"
                                       onClick={() => {
-                                        values.tripDeparture.mepo.length > 0
-                                          ? arrayHelpers.insert(
-                                              values.tripDeparture.mepo.length +
-                                                1,
-                                              this.state.mepoTemp
-                                            )
-                                          : arrayHelpers.insert(
-                                              0,
-                                              this.state.mepoTemp
-                                            );
+                                        arrayHelpers.push(this.state.mepoTemp);
 
                                         this.setState({ mepoTemp: "" });
                                       }}
@@ -384,15 +397,9 @@ class OpenTripAddForm extends Component {
                                         className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                         type="button"
                                         onClick={() => {
-                                          values.schedule.length > 0
-                                            ? arrayHelpers.insert(
-                                                values.schedule.length + 1,
-                                                this.state.scheduleTemp
-                                              )
-                                            : arrayHelpers.insert(
-                                                0,
-                                                this.state.scheduleTemp
-                                              );
+                                          arrayHelpers.push(
+                                            this.state.scheduleTemp
+                                          );
                                           this.setState({ scheduleTemp: "" });
                                         }}
                                       >
@@ -424,17 +431,100 @@ class OpenTripAddForm extends Component {
                         </div>
 
                         <div className="form-group">
-                          <label
-                            htmlFor="featured"
-                            className="font-weight-bold"
-                          >
-                            Itinerary
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="region"
-                          />
+                          <FieldArray
+                            name="itinerary"
+                            render={arrayHelpers => (
+                              <div>
+                                <div className="form-group">
+                                  <label
+                                    htmlFor="schedule"
+                                    className="font-weight-bold"
+                                  >
+                                    Itinerary
+                                  </label>
+                                  <br />
+                                  <button
+                                    type="button"
+                                    className="btn btn-sm btn-success py-2 px-3 mr-3"
+                                    onClick={() => {
+                                      this.addDay();
+                                      arrayHelpers.push(
+                                        this.state.itineraryDay
+                                      );
+                                    }}
+                                  >
+                                    <i className="fas fa-plus fa-lg mr-2"></i>
+                                    Hari
+                                  </button>
+                                  {values.itinerary.length > 0 ? (
+                                    <label htmlFor="itineraryItem">
+                                      Hari :{" "}
+                                      <span
+                                        className="badge badge-warning"
+                                        style={{ fontSize: "20px" }}
+                                      >
+                                        {values.itinerary.length}
+                                      </span>
+                                    </label>
+                                  ) : null}
+                                  <br />
+
+                                  <FieldArray
+                                    name={`itinerary[${this.state.dayCounter -
+                                      1}]`}
+                                    render={arrayHelpers => (
+                                      <div>
+                                        {this.state.dayCounter > 0 ? (
+                                          <div className="form-group">
+                                            <small className="form-text text-muted mt-3">
+                                              Masukkan item itinerary untuk
+                                              masing-masing hari
+                                            </small>
+                                            <small className="form-text text-muted">
+                                              Format : waktu#kegiatan#keterangan
+                                            </small>
+                                            <small className="form-text text-muted mb-2">
+                                              Setiap item ditempatkan pada baris
+                                              baru (Enter)
+                                            </small>
+                                            <div className="input-group">
+                                              <textarea
+                                                name="itineraryItem"
+                                                id="itineraryItem"
+                                                value={this.state.itineraryItem}
+                                                className="form-control"
+                                                onChange={
+                                                  this.handleItineraryInput
+                                                }
+                                              />
+                                              <div className="input-group-append">
+                                                <button
+                                                  className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
+                                                  type="button"
+                                                  onClick={() => {
+                                                    this.state.splittedItineraryItem.map(
+                                                      item => {
+                                                        arrayHelpers.push(item);
+                                                      }
+                                                    );
+                                                    this.setState({
+                                                      itineraryItem: ""
+                                                    });
+                                                  }}
+                                                >
+                                                  <i className="fas fa-plus fa-lg mx-2"></i>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        ) : null}
+                                      </div>
+                                    )}
+                                  ></FieldArray>
+                                </div>
+                              </div>
+                            )}
+                          ></FieldArray>
                         </div>
                         <div className="form-group">
                           <FieldArray
@@ -462,15 +552,9 @@ class OpenTripAddForm extends Component {
                                         className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                         type="button"
                                         onClick={() => {
-                                          values.facility.length > 0
-                                            ? arrayHelpers.insert(
-                                                values.facility.length + 1,
-                                                this.state.facilityTemp
-                                              )
-                                            : arrayHelpers.insert(
-                                                0,
-                                                this.state.facilityTemp
-                                              );
+                                          arrayHelpers.push(
+                                            this.state.facilityTemp
+                                          );
 
                                           this.setState({ facilityTemp: "" });
                                         }}
@@ -500,6 +584,22 @@ class OpenTripAddForm extends Component {
                               </div>
                             )}
                           ></FieldArray>
+                        </div>
+                        <div className="text-right">
+                          <button
+                            className="btn btn-sm btn-unique"
+                            onClick={() => {
+                              this.props.history.push("/admin");
+                            }}
+                          >
+                            <i className="fas fa-angle-left mr-2"></i>KEMBALI
+                          </button>
+                          <button
+                            className={`btn btn-sm btn-success`}
+                            type="submit"
+                          >
+                            <i className="far fa-plus-square mr-2"></i>TAMBAH
+                          </button>
                         </div>
                       </Form>
                     )}
