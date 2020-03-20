@@ -457,24 +457,132 @@ class OpenTripAddForm extends Component {
                                     Hari
                                   </button>
                                   {values.itinerary.length > 0 ? (
-                                    <label htmlFor="itineraryItem">
-                                      Hari :{" "}
-                                      <span
-                                        className="badge badge-warning"
-                                        style={{ fontSize: "20px" }}
+                                    <>
+                                      <label htmlFor="itineraryItem">
+                                        Hari :{" "}
+                                        <span
+                                          className="badge badge-warning"
+                                          style={{ fontSize: "20px" }}
+                                        >
+                                          {values.itinerary.length}
+                                        </span>
+                                      </label>
+                                      <a
+                                        data-toggle="modal"
+                                        data-target="#itnmodal"
                                       >
-                                        {values.itinerary.length}
-                                      </span>
-                                    </label>
+                                        <i className="far fa-eye fa-lg text-info ml-3"></i>
+                                      </a>
+                                      <a
+                                        onClick={() => {
+                                          values.itinerary = [];
+                                          this.setState({ dayCounter: 0 });
+                                        }}
+                                      >
+                                        <i className="fas fa-redo text-secondary ml-3"></i>
+                                      </a>
+                                    </>
                                   ) : null}
                                   <br />
+
+                                  <div
+                                    className="modal fade"
+                                    id="itnmodal"
+                                    tabindex="-1"
+                                    role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle"
+                                    aria-hidden="true"
+                                  >
+                                    <div
+                                      className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+                                      role="document"
+                                    >
+                                      <div className="modal-content">
+                                        <div className="modal-header">
+                                          <h5
+                                            className="modal-title"
+                                            id="exampleModalLongTitle"
+                                          >
+                                            Itinerary
+                                          </h5>
+                                          <button
+                                            type="button"
+                                            className="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close"
+                                          >
+                                            <span aria-hidden="true">
+                                              &times;
+                                            </span>
+                                          </button>
+                                        </div>
+                                        <div className="modal-body">
+                                          <table className="table table-sm mx-auto w-75">
+                                            {values.itinerary.length > 0
+                                              ? values.itinerary.map(
+                                                  (item, index) => {
+                                                    return (
+                                                      <>
+                                                        {values.itinerary[0]
+                                                          .length > 0 ? (
+                                                          <thead>
+                                                            <tr>
+                                                              <tr>
+                                                                <th
+                                                                  scope="col"
+                                                                  className="font-weight-bold"
+                                                                >
+                                                                  <span
+                                                                    className="badge badge-warning"
+                                                                    style={{
+                                                                      fontSize:
+                                                                        "16px"
+                                                                    }}
+                                                                  >
+                                                                    {`Hari ${index +
+                                                                      1}`}
+                                                                  </span>
+                                                                </th>
+                                                              </tr>
+                                                            </tr>
+                                                          </thead>
+                                                        ) : null}
+
+                                                        <tbody>
+                                                          {item.map(i => {
+                                                            return (
+                                                              <tr>
+                                                                <td>{i}</td>
+                                                              </tr>
+                                                            );
+                                                          })}
+                                                        </tbody>
+                                                      </>
+                                                    );
+                                                  }
+                                                )
+                                              : null}
+                                          </table>
+                                        </div>
+                                        <div className="modal-footer">
+                                          <button
+                                            type="button"
+                                            className="btn btn-secondary btn-sm"
+                                            data-dismiss="modal"
+                                          >
+                                            Close
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
 
                                   <FieldArray
                                     name={`itinerary[${this.state.dayCounter -
                                       1}]`}
                                     render={arrayHelpers => (
                                       <div>
-                                        {this.state.dayCounter > 0 ? (
+                                        {values.itinerary.length > 0 ? (
                                           <div className="form-group">
                                             <small className="form-text text-muted mt-3">
                                               Masukkan item itinerary untuk
@@ -485,7 +593,7 @@ class OpenTripAddForm extends Component {
                                             </small>
                                             <small className="form-text text-muted mb-2">
                                               Setiap item ditempatkan pada baris
-                                              baru (Enter)
+                                              baru (Enter) tanpa koma (,)
                                             </small>
                                             <div className="input-group">
                                               <textarea
@@ -585,7 +693,7 @@ class OpenTripAddForm extends Component {
                             )}
                           ></FieldArray>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right mt-5">
                           <button
                             className="btn btn-sm btn-unique"
                             onClick={() => {
