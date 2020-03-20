@@ -14,13 +14,22 @@ class OpenTripAddForm extends Component {
     itineraryDay: [],
     itineraryItem: "",
     splittedItineraryItem: [],
-    dayCounter: 0
+    dayCounter: 0,
+    cardImage: null,
+    bannerImage: null
   };
 
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
+    });
+  };
+
+  handleSelectImage = event => {
+    const { name, files } = event.target;
+    this.setState({
+      [name]: files[0]
     });
   };
 
@@ -45,7 +54,7 @@ class OpenTripAddForm extends Component {
 
   render() {
     return (
-      <div className="container-fluid mt-5">
+      <div className="container-fluid my-5">
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="card">
@@ -67,8 +76,6 @@ class OpenTripAddForm extends Component {
                       tripKeyword: [],
                       region: "",
                       highlighted: false,
-                      cardImage: "",
-                      bannerImage: "",
                       tripDuration: "",
                       tripDeparture: {
                         start: "",
@@ -83,7 +90,29 @@ class OpenTripAddForm extends Component {
                       facility: []
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                      console.log(JSON.stringify(values, true, 2));
+                      const data = new FormData();
+                      data.append("cardImage", this.state.cardImage);
+                      data.append("bannerImage", this.state.bannerImage);
+                      data.append("tripData", values);
+
+                      const config = {
+                        headers: {
+                          "Content-Type": "multipart/form-data"
+                        }
+                      };
+
+                      axios
+                        .post(
+                          "http://localhost:4000/opentrip/add",
+                          data,
+                          config
+                        )
+                        .then(res => {
+                          alert("sukses");
+                        })
+                        .catch(err => {
+                          alert("gagal");
+                        });
                     }}
                   >
                     {({ errors, touched, values, isSubmitting }) => (
@@ -132,9 +161,13 @@ class OpenTripAddForm extends Component {
                                       className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                       type="button"
                                       onClick={() => {
-                                        arrayHelpers.push(
-                                          this.state.tripKeywordTemp
-                                        );
+                                        if (
+                                          this.state.tripKeywordTemp.length > 0
+                                        ) {
+                                          arrayHelpers.push(
+                                            this.state.tripKeywordTemp
+                                          );
+                                        }
 
                                         this.setState({ tripKeywordTemp: "" });
                                       }}
@@ -239,7 +272,9 @@ class OpenTripAddForm extends Component {
                             <input
                               type="file"
                               className="form-control-file"
-                              id="region"
+                              name="cardImage"
+                              id="cardImage"
+                              onChange={this.handleSelectImage}
                             />
                           </div>
                           <div className="form-group col-md">
@@ -249,7 +284,9 @@ class OpenTripAddForm extends Component {
                             <input
                               type="file"
                               className="form-control-file"
-                              id="region"
+                              name="bannerImage"
+                              id="bannerImage"
+                              onChange={this.handleSelectImage}
                             />
                           </div>
                         </div>
@@ -263,7 +300,7 @@ class OpenTripAddForm extends Component {
                           <Field
                             type="text"
                             id="duration"
-                            name="duration"
+                            name="tripDuration"
                             className="form-control"
                           />
                         </div>
@@ -307,7 +344,11 @@ class OpenTripAddForm extends Component {
                                       className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                       type="button"
                                       onClick={() => {
-                                        arrayHelpers.push(this.state.mepoTemp);
+                                        if (this.state.mepoTemp.length > 0) {
+                                          arrayHelpers.push(
+                                            this.state.mepoTemp
+                                          );
+                                        }
 
                                         this.setState({ mepoTemp: "" });
                                       }}
@@ -397,9 +438,13 @@ class OpenTripAddForm extends Component {
                                         className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                         type="button"
                                         onClick={() => {
-                                          arrayHelpers.push(
-                                            this.state.scheduleTemp
-                                          );
+                                          if (
+                                            this.state.scheduleTemp.length > 0
+                                          ) {
+                                            arrayHelpers.push(
+                                              this.state.scheduleTemp
+                                            );
+                                          }
                                           this.setState({ scheduleTemp: "" });
                                         }}
                                       >
@@ -599,6 +644,7 @@ class OpenTripAddForm extends Component {
                                               <textarea
                                                 name="itineraryItem"
                                                 id="itineraryItem"
+                                                placeholder="06.30-07.00#Wisata di padang savanah#Photo session"
                                                 value={this.state.itineraryItem}
                                                 className="form-control"
                                                 onChange={
@@ -660,9 +706,13 @@ class OpenTripAddForm extends Component {
                                         className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                         type="button"
                                         onClick={() => {
-                                          arrayHelpers.push(
-                                            this.state.facilityTemp
-                                          );
+                                          if (
+                                            this.state.facilityTemp.length > 0
+                                          ) {
+                                            arrayHelpers.push(
+                                              this.state.facilityTemp
+                                            );
+                                          }
 
                                           this.setState({ facilityTemp: "" });
                                         }}
@@ -693,7 +743,7 @@ class OpenTripAddForm extends Component {
                             )}
                           ></FieldArray>
                         </div>
-                        <div className="text-right mt-5">
+                        <div className="text-right mt-4">
                           <button
                             className="btn btn-sm btn-unique"
                             onClick={() => {
