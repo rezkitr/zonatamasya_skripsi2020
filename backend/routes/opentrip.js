@@ -1,13 +1,26 @@
 const router = require("express").Router();
 let OpenTrip = require("../models/opentrip.model");
 const multer = require("multer");
+var path = require("path");
 
+// getAll
+router.route("/").get((req, res) => {
+  OpenTrip.find()
+    .sort({ tripName: "asc" })
+    .then(ot => res.json(ot))
+    .catch(err => res.status(400).json("Error : " + err));
+});
+
+// addOpenTrip
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "./uploads/");
+    cb(
+      null,
+      path.join(__dirname + "./../../client/public/upload/opentripImg/")
+    );
   },
   filename: function(req, file, cb) {
-    cb(null, Date.now() + file.originalname);
+    cb(null, "zt-" + Date.now() + "-" + file.originalname);
   }
 });
 
@@ -32,18 +45,17 @@ router
   .post(
     upload.fields([{ name: "cardImage" }, { name: "bannerImage" }]),
     (req, res) => {
-      console.log(req.body);
-
+      console.log(JSON.parse(req.body.itinerary));
       const tripName = req.body.tripName;
-      const tripKeyword = req.body.tripKeyword;
+      const tripKeyword = JSON.parse(req.body.tripKeyword);
       const region = req.body.region;
       const highlighted = req.body.highlighted;
       const tripDuration = req.body.tripDuration;
       const tripDeparture = JSON.parse(req.body.tripDeparture);
       const price = JSON.parse(req.body.price);
-      const schedule = req.body.schedule;
-      const itinerary = req.body.itinerary;
-      const facility = req.body.facility;
+      const schedule = JSON.parse(req.body.schedule);
+      const itinerary = JSON.parse(req.body.itinerary);
+      const facility = JSON.parse(req.body.facility);
       const cardImage = req.files.cardImage[0].filename;
       const bannerImage = req.files.bannerImage[0].filename;
 
@@ -65,7 +77,7 @@ router
       newOpenTrip
         .save()
         .then(() => res.json("New open trip added"))
-        .catch(err => console.log(err));
+        .catch(err => res.status(400).json("Error" + err));
     }
   );
 

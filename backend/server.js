@@ -30,7 +30,7 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 
 const reservationRouter = require("./routes/reservation");
 const adminRouter = require("./routes/admin");

@@ -40,7 +40,7 @@ const opentripSchema = new Schema(
         required: true
       },
       priceDP: {
-        type: String,
+        type: Number,
         required: true
       }
     },
@@ -49,7 +49,7 @@ const opentripSchema = new Schema(
       required: true
     },
     itinerary: {
-      type: [String],
+      type: [],
       required: true
     },
     facility: {

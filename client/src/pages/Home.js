@@ -1,12 +1,11 @@
-import React from 'react'
+import React from "react";
 
-import Carousel from '../components/Carousel'
-import SearchTrip from '../components/TripSearch'
-import MenuPanel from '../components/MenuPanel'
-import HighlightTripSection from '../components/HighlightTripSection'
-import GallerySection from '../components/GallerySection'
-import Services from '../components/Services'
-
+import Carousel from "../components/Carousel";
+import SearchTrip from "../components/TripSearch";
+import MenuPanel from "../components/MenuPanel";
+import HighlightTripSection from "../components/HighlightTripSection";
+import GallerySection from "../components/GallerySection";
+import Services from "../components/Services";
 
 function Home() {
   return (
@@ -18,7 +17,7 @@ function Home() {
       <GallerySection />
       <Services />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

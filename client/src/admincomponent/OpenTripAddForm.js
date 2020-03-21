@@ -94,7 +94,10 @@ class OpenTripAddForm extends Component {
                       data.append("cardImage", this.state.cardImage);
                       data.append("bannerImage", this.state.bannerImage);
                       data.append("tripName", values.tripName);
-                      data.append("tripKeyword", values.tripKeyword);
+                      data.append(
+                        "tripKeyword",
+                        JSON.stringify(values.tripKeyword)
+                      );
                       data.append("region", values.region);
                       data.append("highlighted", values.highlighted);
                       data.append("tripDuration", values.tripDuration);
@@ -103,9 +106,12 @@ class OpenTripAddForm extends Component {
                         JSON.stringify(values.tripDeparture)
                       );
                       data.append("price", JSON.stringify(values.price));
-                      data.append("schedule", values.schedule);
-                      data.append("itinerary", values.itinerary);
-                      data.append("facility", values.facility);
+                      data.append("schedule", JSON.stringify(values.schedule));
+                      data.append(
+                        "itinerary",
+                        JSON.stringify(values.itinerary)
+                      );
+                      data.append("facility", JSON.stringify(values.facility));
 
                       const config = {
                         headers: {

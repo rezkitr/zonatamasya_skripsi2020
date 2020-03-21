@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import MyGallery from '../components/MyGallery'
+import MyGallery from "../components/MyGallery";
 
 function Gallery() {
   return (
-    <div className="gallery-page" >
+    <div className="gallery-page">
       <MyGallery />
     </div>
-  )
+  );
 }
 
-export default Gallery
+export default Gallery;

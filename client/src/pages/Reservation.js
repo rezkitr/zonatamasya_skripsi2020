@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import ReservationForm from '../components/ReservationForm'
+import ReservationForm from "../components/ReservationForm";
 
 function Reservation(props) {
   return (
-    <div className="reservation-page" >
+    <div className="reservation-page">
       <ReservationForm tripId={props.match.params.tripId} />
     </div>
-  )
+  );
 }
 
-export default Reservation
+export default Reservation;
