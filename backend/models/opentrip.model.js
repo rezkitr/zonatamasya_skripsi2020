@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 
 const opentripSchema = new Schema(
   {
-    tripName: {
+    name: {
       type: String,
       required: true
     },
-    tripKeyword: {
+    keyword: {
       type: [String],
       required: true
     },
@@ -20,11 +20,11 @@ const opentripSchema = new Schema(
       type: Boolean,
       required: true
     },
-    tripDuration: {
+    duration: {
       type: String,
       required: true
     },
-    tripDeparture: {
+    departure: {
       start: {
         type: String,
         required: true

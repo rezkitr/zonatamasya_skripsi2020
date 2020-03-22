@@ -11,6 +11,13 @@ router.route("/").get((req, res) => {
     .catch(err => res.status(400).json("Error : " + err));
 });
 
+// getTripbyId
+router.route("/:id").get((req, res) => {
+  OpenTrip.findById(req.params.id)
+    .then(ot => res.json(ot))
+    .catch(err => res.status(400).json("Error : " + err));
+});
+
 // addOpenTrip
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -45,13 +52,12 @@ router
   .post(
     upload.fields([{ name: "cardImage" }, { name: "bannerImage" }]),
     (req, res) => {
-      console.log(JSON.parse(req.body.itinerary));
-      const tripName = req.body.tripName;
-      const tripKeyword = JSON.parse(req.body.tripKeyword);
+      const name = req.body.name;
+      const keyword = JSON.parse(req.body.keyword);
       const region = req.body.region;
       const highlighted = req.body.highlighted;
-      const tripDuration = req.body.tripDuration;
-      const tripDeparture = JSON.parse(req.body.tripDeparture);
+      const duration = req.body.duration;
+      const departure = JSON.parse(req.body.departure);
       const price = JSON.parse(req.body.price);
       const schedule = JSON.parse(req.body.schedule);
       const itinerary = JSON.parse(req.body.itinerary);
@@ -60,12 +66,12 @@ router
       const bannerImage = req.files.bannerImage[0].filename;
 
       const newOpenTrip = new OpenTrip({
-        tripName,
-        tripKeyword,
+        name,
+        keyword,
         region,
         highlighted,
-        tripDuration,
-        tripDeparture,
+        duration,
+        departure,
         price,
         schedule,
         itinerary,
@@ -80,5 +86,11 @@ router
         .catch(err => res.status(400).json("Error" + err));
     }
   );
+
+router.route("/:id").delete((req, res) => {
+  OpenTrip.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Trip deleted"))
+    .catch(err => res.status(400).json("Error : " + err));
+});
 
 module.exports = router;

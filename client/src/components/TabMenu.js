@@ -22,8 +22,8 @@ function TabMenu(props) {
       itinTemp = item.itinerary;
       facility = item.facility;
       price = item.price.priceFull;
-      start = item.tripDeparture.start;
-      duration = item.tripDuration;
+      start = item.departure.start;
+      duration = item.duration;
     }
   });
 

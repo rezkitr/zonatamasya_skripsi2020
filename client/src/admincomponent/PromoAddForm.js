@@ -78,8 +78,8 @@ class PromoAddForm extends Component {
                               {this.props.tripData
                                 ? this.props.tripData.map(item => {
                                     return (
-                                      <option value={item.tripID}>
-                                        {item.tripName}
+                                      <option value={item._id}>
+                                        {item.name}
                                       </option>
                                     );
                                   })

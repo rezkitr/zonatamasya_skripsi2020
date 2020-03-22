@@ -9,7 +9,7 @@ function TripBanner(props) {
   props.tripData.map(item => {
     if (item._id === props.tripId) {
       bannerImage = item.bannerImage;
-      tripName = item.tripName;
+      tripName = item.name;
     }
     return bannerImage, tripName;
   });

@@ -6,7 +6,7 @@ import axios from "axios";
 
 class OpenTripAddForm extends Component {
   state = {
-    tripKeywordTemp: "",
+    keywordTemp: "",
     highlightedTemp: "",
     mepoTemp: "",
     scheduleTemp: "",
@@ -72,12 +72,12 @@ class OpenTripAddForm extends Component {
                   <Formik
                     enableReinitialize
                     initialValues={{
-                      tripName: "",
-                      tripKeyword: [],
+                      name: "",
+                      keyword: [],
                       region: "",
                       highlighted: false,
-                      tripDuration: "",
-                      tripDeparture: {
+                      duration: "",
+                      departure: {
                         start: "",
                         mepo: []
                       },
@@ -93,17 +93,14 @@ class OpenTripAddForm extends Component {
                       const data = new FormData();
                       data.append("cardImage", this.state.cardImage);
                       data.append("bannerImage", this.state.bannerImage);
-                      data.append("tripName", values.tripName);
-                      data.append(
-                        "tripKeyword",
-                        JSON.stringify(values.tripKeyword)
-                      );
+                      data.append("name", values.name);
+                      data.append("keyword", JSON.stringify(values.keyword));
                       data.append("region", values.region);
                       data.append("highlighted", values.highlighted);
-                      data.append("tripDuration", values.tripDuration);
+                      data.append("duration", values.duration);
                       data.append(
-                        "tripDeparture",
-                        JSON.stringify(values.tripDeparture)
+                        "departure",
+                        JSON.stringify(values.departure)
                       );
                       data.append("price", JSON.stringify(values.price));
                       data.append("schedule", JSON.stringify(values.schedule));
@@ -136,31 +133,26 @@ class OpenTripAddForm extends Component {
                     {({ errors, touched, values, isSubmitting }) => (
                       <Form>
                         <div className="form-group">
-                          <label
-                            htmlFor="tripName"
-                            className="font-weight-bold"
-                          >
+                          <label htmlFor="name" className="font-weight-bold">
                             Nama Open Trip
                           </label>
                           <Field
                             type="text"
-                            id="tripName"
-                            name="tripName"
+                            id="name"
+                            name="name"
                             className={`form-control ${
-                              touched.tripName && errors.tripName
-                                ? "is-invalid"
-                                : ""
+                              touched.name && errors.name ? "is-invalid" : ""
                             }`}
                           />
                         </div>
 
                         <FieldArray
-                          name="tripKeyword"
+                          name="keyword"
                           render={arrayHelpers => (
                             <div>
                               <div className="form-group">
                                 <label
-                                  htmlFor="tripKeyword"
+                                  htmlFor="keyword"
                                   className="font-weight-bold"
                                 >
                                   Keyword
@@ -168,9 +160,9 @@ class OpenTripAddForm extends Component {
                                 <div className="input-group">
                                   <input
                                     type="text"
-                                    name="tripKeywordTemp"
-                                    id="tripKeyword"
-                                    value={this.state.tripKeywordTemp}
+                                    name="keywordTemp"
+                                    id="keyword"
+                                    value={this.state.keywordTemp}
                                     className="form-control"
                                     onChange={this.handleChange}
                                   />
@@ -179,15 +171,13 @@ class OpenTripAddForm extends Component {
                                       className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
                                       type="button"
                                       onClick={() => {
-                                        if (
-                                          this.state.tripKeywordTemp.length > 0
-                                        ) {
+                                        if (this.state.keywordTemp.length > 0) {
                                           arrayHelpers.push(
-                                            this.state.tripKeywordTemp
+                                            this.state.keywordTemp
                                           );
                                         }
 
-                                        this.setState({ tripKeywordTemp: "" });
+                                        this.setState({ keywordTemp: "" });
                                       }}
                                     >
                                       <i className="fas fa-plus fa-lg mx-2"></i>
@@ -195,9 +185,8 @@ class OpenTripAddForm extends Component {
                                   </div>
                                 </div>
                               </div>
-                              {values.tripKeyword &&
-                              values.tripKeyword.length > 0
-                                ? values.tripKeyword.map((item, index) => {
+                              {values.keyword && values.keyword.length > 0
+                                ? values.keyword.map((item, index) => {
                                     return (
                                       <span className="badge badge-info p-2 p-2 mr-2 mb-2">
                                         {item}
@@ -318,7 +307,7 @@ class OpenTripAddForm extends Component {
                           <Field
                             type="text"
                             id="duration"
-                            name="tripDuration"
+                            name="duration"
                             className="form-control"
                           />
                         </div>
@@ -332,13 +321,13 @@ class OpenTripAddForm extends Component {
                           <Field
                             type="text"
                             id="tripStart"
-                            name="tripDeparture.start"
+                            name="departure.start"
                             className="form-control"
                           />
                         </div>
 
                         <FieldArray
-                          name="tripDeparture.mepo"
+                          name="departure.mepo"
                           render={arrayHelpers => (
                             <div>
                               <div className="form-group">
@@ -376,25 +365,23 @@ class OpenTripAddForm extends Component {
                                   </div>
                                 </div>
                               </div>
-                              {values.tripDeparture.mepo &&
-                              values.tripDeparture.mepo.length > 0
-                                ? values.tripDeparture.mepo.map(
-                                    (item, index) => {
-                                      return (
-                                        <span className="badge badge-info p-2 mr-2 mb-2">
-                                          {item}
-                                          <a>
-                                            <i
-                                              className="fas fa-times text-danger ml-3"
-                                              onClick={() =>
-                                                arrayHelpers.remove(index)
-                                              }
-                                            ></i>
-                                          </a>
-                                        </span>
-                                      );
-                                    }
-                                  )
+                              {values.departure.mepo &&
+                              values.departure.mepo.length > 0
+                                ? values.departure.mepo.map((item, index) => {
+                                    return (
+                                      <span className="badge badge-info p-2 mr-2 mb-2">
+                                        {item}
+                                        <a>
+                                          <i
+                                            className="fas fa-times text-danger ml-3"
+                                            onClick={() =>
+                                              arrayHelpers.remove(index)
+                                            }
+                                          ></i>
+                                        </a>
+                                      </span>
+                                    );
+                                  })
                                 : null}
                             </div>
                           )}

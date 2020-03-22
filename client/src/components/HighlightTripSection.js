@@ -20,9 +20,9 @@ function TripCardContainer(props) {
                 key={item._id}
                 tripId={item._id}
                 cardImg={item.cardImage}
-                name={item.tripName}
+                name={item.name}
                 price={item.price.priceFull}
-                start={item.tripDeparture.start}
+                start={item.departure.start}
               />
             </div>
           ) : null

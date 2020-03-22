@@ -9,9 +9,9 @@ router.route("/").get((req, res) => {
     .catch(err => res.status(400).json("Error : " + err));
 });
 
-// findRsv
-router.route("/:rsvId").get((req, res) => {
-  Reservation.find({ _id: req.params.rsvId })
+// findRsvbyId
+router.route("/:id").get((req, res) => {
+  Reservation.findById(req.params.id)
     .then(rsv => res.json(rsv))
     .catch(err => res.status(400).json("Error : " + err));
 });

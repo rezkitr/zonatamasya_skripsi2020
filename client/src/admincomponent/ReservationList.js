@@ -1,28 +1,29 @@
 import React, { Component } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { Link } from "react-router-dom";
+import helpers from "../helperFunction";
 import axios from "axios";
 
 const ReservationItem = props => {
   return (
     <tr>
-      <td>{props.reservations.tripName}</td>
-      <td>{props.formatDate(props.reservations.tripDate)}</td>
-      <td>{props.reservations.tripStart}</td>
-      <td>{props.reservations.mepo}</td>
-      <td>{props.reservations.participant.coordinator.coorName}</td>
-      <td>{props.reservations.totalParticipant}</td>
-      <td>{props.reservations.payment.type}</td>
+      <td>{props.reservation.tripName}</td>
+      <td>{helpers.formatDate(props.reservation.tripDate)}</td>
+      <td>{props.reservation.tripStart}</td>
+      <td>{props.reservation.mepo}</td>
+      <td>{props.reservation.participant.coordinator.coorName}</td>
+      <td>{props.reservation.totalParticipant}</td>
+      <td>{props.reservation.payment.type}</td>
       <td>
         <Link
-          to={"/admin/rsv/detail/" + props.reservations._id}
+          to={"/admin/rsv/detail/" + props.reservation._id}
           className="text-info"
         >
           <i className="fas fa-search mx-2"></i>
         </Link>{" "}
         |{" "}
         <Link
-          to={"/admin/rsv/edit/" + props.reservations._id}
+          to={"/admin/rsv/edit/" + props.reservation._id}
           className="text-primary"
         >
           <i className="far fa-edit mx-2"></i>
@@ -31,7 +32,7 @@ const ReservationItem = props => {
         <a
           href="#"
           onClick={() => {
-            props.deleteReservation(props.reservations._id);
+            props.deleteReservation(props.reservation._id);
           }}
           className="text-danger"
         >
@@ -56,42 +57,12 @@ class ReservationList extends Component {
       .catch(err => console.log(err));
   }
 
-  formatDate(strDate) {
-    let months = [
-      "Januari",
-      "Februari",
-      "Maret",
-      "April",
-      "Mei",
-      "Juni",
-      "Juli",
-      "Agustus",
-      "September",
-      "Oktober",
-      "November",
-      "Desember"
-    ];
-
-    let dateTemp = new Date(strDate);
-    let monthIndex = dateTemp.getMonth();
-    let monthName = months[monthIndex];
-    let day = dateTemp.getDate().toString();
-    let year = dateTemp.getFullYear();
-
-    if (day.length < 2) {
-      day = `0${day}`;
-    }
-    let formattedDate = `${day} ${monthName} ${year}`;
-    return formattedDate;
-  }
-
   mapReservationList() {
     return this.state.reservations.map(item => {
       return (
         <ReservationItem
           key={item._id}
-          reservations={item}
-          formatDate={this.formatDate}
+          reservation={item}
           deleteReservation={this.deleteReservation}
         />
       );
@@ -128,7 +99,7 @@ class ReservationList extends Component {
     return (
       <div className="container-fluid mt-5" id="rsv-list">
         <div class="table-responsive text-nowrap">
-          <table className="table table-hover mx-auto w-100 ">
+          <table className="table table-hover mx-auto w-100">
             <thead>
               <tr>
                 <th scope="col">

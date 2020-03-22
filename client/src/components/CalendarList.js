@@ -8,13 +8,13 @@ function CalendarList(props) {
       <>
         <tr>
           <th scope="row" rowSpan="2" style={{ fontSize: "18px" }}>
-            {item.tripName}
+            {item.name}
           </th>
         </tr>
 
         <tr>
           <td>
-            {item.tripSchedule.map((schedItem, index) => {
+            {item.schedule.map(schedItem => {
               let pass = false;
               let now = new Date();
               let dateTemp = new Date(schedItem);
@@ -23,7 +23,7 @@ function CalendarList(props) {
                 pass = true;
               }
 
-              switch (schedItem.substr(0, 2)) {
+              switch (schedItem.substr(5, 2)) {
                 case "01":
                   return (
                     <span

@@ -109,20 +109,20 @@ class ReservationForm extends Component {
     let tripStart = "";
     let mepo = [];
     let tripSched = [];
-    let bgUrl = "";
-    let tripPrice = 0;
-    let tripDP = 0;
+    let formImage = "";
+    let priceFull = 0;
+    let priceDP = 0;
 
     this.props.tripData.map(item => {
-      if (item.tripID === this.props.tripId) {
-        tripId = item.tripID;
-        tripName = item.tripName;
-        tripStart = item.tripDeparture.start;
-        mepo = item.tripDeparture.mepo;
-        tripSched = item.tripSchedule;
-        bgUrl = item.tripCardImage;
-        tripPrice = item.tripPrice;
-        tripDP = item.tripDP;
+      if (item._id === this.props.tripId) {
+        tripId = item._id;
+        tripName = item.name;
+        tripStart = item.departure.start;
+        mepo = item.departure.mepo;
+        tripSched = item.schedule;
+        formImage = item.cardImage;
+        priceFull = item.price.priceFull;
+        priceDP = item.price.priceDP;
       }
     });
 
@@ -132,7 +132,13 @@ class ReservationForm extends Component {
         <div className="row justify-content-center">
           <div className="col-md-6 mb-3">
             <div className="card">
-              <img className="card-img-top" src={bgUrl} alt={bgUrl} />
+              <img
+                className="card-img-top"
+                src={
+                  process.env.PUBLIC_URL + "/upload/opentripImg/" + formImage
+                }
+                alt={formImage}
+              />
               <div className="card-body px-5 py-3">
                 <Formik
                   enableReinitialize
@@ -770,7 +776,7 @@ class ReservationForm extends Component {
                                       checked={
                                         values.payment.type === "DP"
                                           ? (values.payment.amount =
-                                              values.totalParticipant * tripDP)
+                                              values.totalParticipant * priceDP)
                                           : false
                                       }
                                       className="custom-control-input"
@@ -800,13 +806,13 @@ class ReservationForm extends Component {
                                           this.state.promoData.length == 0)
                                           ? (values.payment.amount =
                                               values.totalParticipant *
-                                              tripPrice)
+                                              priceFull)
                                           : values.payment.type === "LUNAS" &&
                                             this.state.promoData &&
                                             this.state.promoData.length > 0
                                           ? (values.payment.amount =
                                               values.totalParticipant *
-                                                tripPrice -
+                                                priceFull -
                                               this.getDiscount())
                                           : false
                                       }

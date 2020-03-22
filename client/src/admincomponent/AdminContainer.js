@@ -13,7 +13,7 @@ import OpenTripList from "./OpenTripList";
 class AdminContainer extends Component {
   state = {
     showSidebar: false,
-    menuSelected: "rsv"
+    menuSelected: "ot"
   };
 
   toggleSideBar = () => {

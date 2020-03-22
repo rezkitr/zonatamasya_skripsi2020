@@ -5,7 +5,7 @@ import axios from "axios";
 
 class ReservationDetail extends Component {
   state = {
-    rsv: []
+    rsv: null
   };
 
   componentDidMount() {
@@ -19,7 +19,7 @@ class ReservationDetail extends Component {
 
   render() {
     return (
-      this.state.rsv.length > 0 && (
+      this.state.rsv && (
         <div className="container my-5">
           <div className="row justify-content-center mb-5">
             <div className="col-md-10">
@@ -40,7 +40,7 @@ class ReservationDetail extends Component {
                     <p className="text-muted mb-1">
                       <small>
                         Dipesan pada :{" "}
-                        {this.state.rsv[0].reservationDate.substr(4)}
+                        {this.state.rsv.reservationDate.substr(4)}
                       </small>
                     </p>
                   </div>
@@ -49,32 +49,30 @@ class ReservationDetail extends Component {
                   <div className="row">
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Open Trip</p>
-                      <h4 className="purple-text">
-                        {this.state.rsv[0].tripName}
-                      </h4>
+                      <h4 className="purple-text">{this.state.rsv.tripName}</h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Start</p>
                       <h4 className="purple-text">
-                        {this.state.rsv[0].tripStart}
+                        {this.state.rsv.tripStart}
                       </h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Meeting Point</p>
-                      <h4 className="purple-text">{this.state.rsv[0].mepo}</h4>
+                      <h4 className="purple-text">{this.state.rsv.mepo}</h4>
                     </div>
                   </div>
                   <div className="row mt-4">
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Tgl. Keberangkatan</p>
                       <h4 className="purple-text">
-                        {helpers.formatDate(this.state.rsv[0].tripDate)}
+                        {helpers.formatDate(this.state.rsv.tripDate)}
                       </h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Jumlah Peserta</p>
                       <h4 className="purple-text">
-                        {this.state.rsv[0].totalParticipant} pax
+                        {this.state.rsv.totalParticipant} pax
                       </h4>
                     </div>
                     <div className="col-md"></div>
@@ -98,13 +96,13 @@ class ReservationDetail extends Component {
                           className="list-group-item h5 brown-text"
                           style={{ textTransform: "none" }}
                         >
-                          {this.state.rsv[0].participant.coordinator.coorName} (
-                          {this.state.rsv[0].participant.coordinator.coorGender}
-                          )<i className="fas fa-bell ml-2"></i> /{" "}
-                          {this.state.rsv[0].participant.coordinator.coorTelp} /{" "}
-                          {this.state.rsv[0].participant.coordinator.coorEmail}
+                          {this.state.rsv.participant.coordinator.coorName} (
+                          {this.state.rsv.participant.coordinator.coorGender})
+                          <i className="fas fa-bell ml-2"></i> /{" "}
+                          {this.state.rsv.participant.coordinator.coorTelp} /{" "}
+                          {this.state.rsv.participant.coordinator.coorEmail}
                         </p>
-                        {this.state.rsv[0].participant.member.map(item => {
+                        {this.state.rsv.participant.member.map(item => {
                           return (
                             <p
                               className="list-group-item h5"
@@ -134,20 +132,20 @@ class ReservationDetail extends Component {
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Jenis</p>
                       <h4 className="purple-text">
-                        {this.state.rsv[0].payment.type}
+                        {this.state.rsv.payment.type}
                       </h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Jumlah</p>
                       <h4 className="purple-text">
                         Rp
-                        {helpers.priceFormat(this.state.rsv[0].payment.amount)}
+                        {helpers.priceFormat(this.state.rsv.payment.amount)}
                       </h4>
                     </div>
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Promo</p>
                       <h4 className="purple-text">
-                        {this.state.rsv[0].promoCode}
+                        {this.state.rsv.promoCode}
                       </h4>
                     </div>
                   </div>
