@@ -13,7 +13,7 @@ import OpenTripList from "./OpenTripList";
 class AdminContainer extends Component {
   state = {
     showSidebar: false,
-    menuSelected: "ot"
+    menuSelected: "rsv"
   };
 
   toggleSideBar = () => {
@@ -90,6 +90,8 @@ class AdminContainer extends Component {
                   ? "Reservations"
                   : this.state.menuSelected === "prm"
                   ? "Promo"
+                  : this.state.menuSelected === "ot"
+                  ? "Open Trip"
                   : "Admin"}
               </Link>
 

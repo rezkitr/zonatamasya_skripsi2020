@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import { confirmAlert } from "react-confirm-alert";
+import helpers from "../helperFunction";
 
 class ReservationEditForm extends Component {
   state = {
@@ -15,35 +16,6 @@ class ReservationEditForm extends Component {
         this.setState({ rsv: res.data });
       })
       .catch(err => console.log(err));
-  }
-
-  formatDate(strDate) {
-    let months = [
-      "Januari",
-      "Februari",
-      "Maret",
-      "April",
-      "Mei",
-      "Juni",
-      "Juli",
-      "Agustus",
-      "September",
-      "Oktober",
-      "November",
-      "Desember"
-    ];
-
-    let dateTemp = new Date(strDate);
-    let monthIndex = dateTemp.getMonth();
-    let monthName = months[monthIndex];
-    let day = dateTemp.getDate().toString();
-    let year = dateTemp.getFullYear();
-
-    if (day.length < 2) {
-      day = `0${day}`;
-    }
-    let formattedDate = `${day} ${monthName} ${year}`;
-    return formattedDate;
   }
 
   render() {
@@ -64,32 +36,32 @@ class ReservationEditForm extends Component {
                 </div>
               </div>
               <div className="card-body p-5">
-                {this.state.rsv && this.state.rsv.length > 0 ? (
+                {this.state.rsv ? (
                   <Formik
                     enableReinitialize
                     initialValues={{
-                      tripName: this.state.rsv[0].tripName,
-                      tripStart: this.state.rsv[0].tripStart,
-                      mepo: this.state.rsv[0].mepo,
-                      reservationDate: this.state.rsv[0].reservationDate,
-                      tripDate: this.state.rsv[0].tripDate,
-                      totalParticipant: this.state.rsv[0].totalParticipant,
+                      tripName: this.state.rsv.tripName,
+                      tripStart: this.state.rsv.tripStart,
+                      mepo: this.state.rsv.mepo,
+                      reservationDate: this.state.rsv.reservationDate,
+                      tripDate: this.state.rsv.tripDate,
+                      totalParticipant: this.state.rsv.totalParticipant,
                       participant: {
                         coordinator: {
-                          coorName: this.state.rsv[0].participant.coordinator
+                          coorName: this.state.rsv.participant.coordinator
                             .coorName,
-                          coorGender: this.state.rsv[0].participant.coordinator
+                          coorGender: this.state.rsv.participant.coordinator
                             .coorGender,
-                          coorTelp: this.state.rsv[0].participant.coordinator
+                          coorTelp: this.state.rsv.participant.coordinator
                             .coorTelp,
-                          coorEmail: this.state.rsv[0].participant.coordinator
+                          coorEmail: this.state.rsv.participant.coordinator
                             .coorEmail
                         },
-                        member: this.state.rsv[0].participant.member
+                        member: this.state.rsv.participant.member
                       },
                       payment: {
-                        type: this.state.rsv[0].payment.type,
-                        amount: this.state.rsv[0].payment.amount
+                        type: this.state.rsv.payment.type,
+                        amount: this.state.rsv.payment.amount
                       }
                     }}
                     onSubmit={(values, { setSubmitting }) => {
@@ -184,7 +156,7 @@ class ReservationEditForm extends Component {
                                 type="text"
                                 id="tripDateTemp"
                                 name="tripDateTemp"
-                                value={this.formatDate(values.tripDate)}
+                                value={helpers.formatDate(values.tripDate)}
                                 readOnly
                                 className="form-control-plaintext"
                               />

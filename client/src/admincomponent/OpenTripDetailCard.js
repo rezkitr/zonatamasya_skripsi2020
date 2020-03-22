@@ -354,21 +354,78 @@ class OpenTripDetailCard extends Component {
             <div className="col-md-10">
               <div className="card mt-3">
                 <div className="px-3">
-                  <i className="fas fa-dollar-sign fa-lg orange lighten-1 z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                  <i className="fas fa-clipboard fa-lg brown lighten-1 z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
                 </div>
                 <div className="card-body p-5">
                   <div className="row">
                     <div className="col-md">
-                      <p className="h6 font-weight-bold">DP</p>
-                      <h4 className="purple-text">
-                        {helpers.priceFormat(this.state.ot.price.priceDP)}
-                      </h4>
+                      <table className="table table-sm mx-auto w-75">
+                        {this.state.ot.itinerary.length > 0
+                          ? this.state.ot.itinerary.map((item, index) => {
+                              return (
+                                <>
+                                  {this.state.ot.itinerary[0].length > 0 ? (
+                                    <thead>
+                                      <tr>
+                                        <tr>
+                                          <th
+                                            scope="col"
+                                            className="font-weight-bold"
+                                          >
+                                            <span
+                                              className="badge badge-secondary"
+                                              style={{
+                                                fontSize: "16px"
+                                              }}
+                                            >
+                                              {`Hari ${index + 1}`}
+                                            </span>
+                                          </th>
+                                        </tr>
+                                      </tr>
+                                    </thead>
+                                  ) : null}
+
+                                  <tbody>
+                                    {item.map(i => {
+                                      return (
+                                        <tr>
+                                          <td>{i}</td>
+                                        </tr>
+                                      );
+                                    })}
+                                  </tbody>
+                                </>
+                              );
+                            })
+                          : null}
+                      </table>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row justify-content-center mt-4">
+            <div className="col-md-10">
+              <div className="card mt-3">
+                <div className="px-3">
+                  <i className="fas fa-cocktail fa-lg pink lighten-1 z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                </div>
+                <div className="card-body p-5">
+                  <div className="row">
                     <div className="col-md">
-                      <p className="h6 font-weight-bold">Lunas</p>
-                      <h4 className="purple-text">
-                        {helpers.priceFormat(this.state.ot.price.priceFull)}
-                      </h4>
+                      {this.state.ot.facility.map(item => {
+                        return (
+                          <span
+                            className="badge badge-secondary mr-2 mb-2 p-2"
+                            style={{ fontSize: "14px" }}
+                          >
+                            {item}
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>

@@ -29,6 +29,7 @@ import AdminEditPage from "./adminpage/AdminEdit";
 import AdminAddPage from "./adminpage/AdminAdd";
 import OpenTripAddPage from "./adminpage/OpenTripAdd";
 import OpenTripDetailPage from "./adminpage/OpenTripDetail";
+import OpenTripEditPage from "./adminpage/OpenTripEdit";
 
 class App extends Component {
   state = {
@@ -158,6 +159,12 @@ class App extends Component {
                   exact
                   strict
                   component={OpenTripDetailPage}
+                />
+                <Route
+                  path="/admin/opentrip/edit/:tripId"
+                  exact
+                  strict
+                  render={props => <OpenTripEditPage {...props} />}
                 />
               </Switch>
             </>
