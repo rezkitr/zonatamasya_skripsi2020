@@ -17,7 +17,9 @@ class OpenTripEditForm extends Component {
     splittedItineraryItem: [],
     dayCounter: 0,
     cardImage: null,
-    bannerImage: null
+    bannerImage: null,
+    oldCardImage: "",
+    oldBannerImage: ""
   };
 
   componentDidMount() {
@@ -26,13 +28,17 @@ class OpenTripEditForm extends Component {
       .then(res => {
         this.setState({ opentripData: res.data }, () => {
           this.setHighlighted(this.state.opentripData.highlighted);
+          this.setState({
+            oldCardImage: this.state.opentripData.cardImage,
+            oldBannerImage: this.state.opentripData.bannerImage
+          });
         });
       })
       .catch(err => console.log(err));
   }
 
-  setHighlighted = highlight => {
-    if (highlight) {
+  setHighlighted = highlighted => {
+    if (highlighted) {
       this.setState({ highlightedTemp: "1" });
     } else {
       this.setState({ highlightedTemp: "0" });
@@ -52,6 +58,11 @@ class OpenTripEditForm extends Component {
       [name]: files[0]
     });
   };
+
+  checkNewImage() {
+    if (this.state.cardImage) {
+    }
+  }
 
   addDay = () => {
     this.setState({
@@ -111,31 +122,17 @@ class OpenTripEditForm extends Component {
                         facility: this.state.opentripData.facility
                       }}
                       onSubmit={(values, { setSubmitting }) => {
-                        const data = new FormData();
-                        data.append("cardImage", this.state.cardImage);
-                        data.append("bannerImage", this.state.bannerImage);
-                        data.append("name", values.name);
-                        data.append("keyword", JSON.stringify(values.keyword));
-                        data.append("region", values.region);
-                        data.append("highlighted", values.highlighted);
-                        data.append("duration", values.duration);
-                        data.append(
-                          "departure",
-                          JSON.stringify(values.departure)
-                        );
-                        data.append("price", JSON.stringify(values.price));
-                        data.append(
-                          "schedule",
-                          JSON.stringify(values.schedule)
-                        );
-                        data.append(
-                          "itinerary",
-                          JSON.stringify(values.itinerary)
-                        );
-                        data.append(
-                          "facility",
-                          JSON.stringify(values.facility)
-                        );
+                        axios
+                          .post(
+                            `http://localhost:4000/opentrip/update/${this.props.tripId}`,
+                            values
+                          )
+                          .then(res => {
+                            alert("sukses 1");
+                          })
+                          .catch(err => {
+                            console.log(err);
+                          });
 
                         const config = {
                           headers: {
@@ -143,18 +140,68 @@ class OpenTripEditForm extends Component {
                           }
                         };
 
-                        axios
-                          .post(
-                            "http://localhost:4000/opentrip/add",
-                            data,
-                            config
-                          )
-                          .then(res => {
-                            alert("sukses");
-                          })
-                          .catch(err => {
-                            console.log(err);
-                          });
+                        if (this.state.cardImage && this.state.bannerImage) {
+                          const newImgData = new FormData();
+                          newImgData.append("cardImage", this.state.cardImage);
+                          newImgData.append(
+                            "bannerImage",
+                            this.state.bannerImage
+                          );
+
+                          axios
+                            .post(
+                              `http://localhost:4000/opentrip/updateimg/${this.props.tripId}`,
+                              newImgData,
+                              config
+                            )
+                            .then(res => {
+                              alert("sukses 2");
+                            })
+                            .catch(err => {
+                              console.log(err);
+                            });
+                        } else if (
+                          this.state.cardImage &&
+                          this.state.bannerImage === null
+                        ) {
+                          const newImgData = new FormData();
+                          newImgData.append("cardImage", this.state.cardImage);
+
+                          axios
+                            .post(
+                              `http://localhost:4000/opentrip/updatecardimg/${this.props.tripId}`,
+                              newImgData,
+                              config
+                            )
+                            .then(res => {
+                              alert("sukses 3");
+                            })
+                            .catch(err => {
+                              console.log(err);
+                            });
+                        } else if (
+                          this.state.cardImage === null &&
+                          this.state.bannerImage
+                        ) {
+                          const newImgData = new FormData();
+                          newImgData.append(
+                            "bannerImage",
+                            this.state.bannerImage
+                          );
+
+                          axios
+                            .post(
+                              `http://localhost:4000/opentrip/updatebannerimg/${this.props.tripId}`,
+                              newImgData,
+                              config
+                            )
+                            .then(res => {
+                              alert("sukses 4");
+                            })
+                            .catch(err => {
+                              console.log(err);
+                            });
+                        }
                       }}
                     >
                       {({ errors, touched, values, isSubmitting }) => (

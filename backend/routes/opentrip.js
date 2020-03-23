@@ -31,6 +31,7 @@ const storage = multer.diskStorage({
   }
 });
 
+// add
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
@@ -87,6 +88,78 @@ router
     }
   );
 
+// update
+router.route("/update/:id").post((req, res) => {
+  OpenTrip.findById(req.params.id)
+    .then(ot => {
+      ot.name = req.body.name;
+      ot.keyword = req.body.keyword;
+      ot.region = req.body.region;
+      ot.highlighted = req.body.highlighted;
+      ot.duration = req.body.duration;
+      ot.departure = req.body.departure;
+      ot.price = req.body.price;
+      ot.schedule = req.body.schedule;
+      ot.itinerary = req.body.itinerary;
+      ot.facility = req.body.facility;
+
+      ot.save()
+        .then(() => res.json("Open trip updated"))
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+});
+
+// updateAllImage
+router
+  .route("/updateimg/:id")
+  .post(
+    upload.fields([{ name: "cardImage" }, { name: "bannerImage" }]),
+    (req, res) => {
+      OpenTrip.findById(req.params.id)
+        .then(ot => {
+          ot.cardImage = req.files.cardImage[0].filename;
+          ot.bannerImage = req.files.bannerImage[0].filename;
+
+          ot.save()
+            .then(() => res.json("Open trip image updated"))
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
+  );
+
+// updatecardImage
+router
+  .route("/updatecardimg/:id")
+  .post(upload.single("cardImage"), (req, res) => {
+    OpenTrip.findById(req.params.id)
+      .then(ot => {
+        ot.cardImage = req.file.filename;
+
+        ot.save()
+          .then(() => res.json("Open trip card image updated"))
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
+// updatebannerImage
+router
+  .route("/updatebannerimg/:id")
+  .post(upload.single("bannerImage"), (req, res) => {
+    OpenTrip.findById(req.params.id)
+      .then(ot => {
+        ot.bannerImage = req.file.filename;
+
+        ot.save()
+          .then(() => res.json("Open trip banner image updated"))
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
+// delete
 router.route("/:id").delete((req, res) => {
   OpenTrip.findByIdAndDelete(req.params.id)
     .then(() => res.json("Trip deleted"))
