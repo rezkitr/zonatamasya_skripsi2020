@@ -7,14 +7,22 @@ import helpers from "../helperFunction";
 
 class ReservationEditForm extends Component {
   state = {
-    rsv: null
+    rsv: null,
+    opentrip: null
   };
 
   componentDidMount() {
     axios
       .get(`http://localhost:4000/reservation/${this.props.rsvId}`)
       .then(res => {
-        this.setState({ rsv: res.data });
+        this.setState({ rsv: res.data }, () => {
+          axios
+            .get(`http://localhost:4000/opentrip/${this.state.rsv.tripId}`)
+            .then(res => {
+              this.setState({ opentrip: res.data });
+            })
+            .catch(err => console.log(err));
+        });
       })
       .catch(err => console.log(err));
   }
@@ -75,28 +83,26 @@ class ReservationEditForm extends Component {
                       }
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                      console.log(JSON.stringify(values, null, 2));
-                      setTimeout(() => {
-                        axios
-                          .post(
-                            `http://localhost:4000/reservation/update/${this.props.rsvId}`,
-                            values
-                          )
-                          .then(res =>
-                            confirmAlert({
-                              title: "Update Reservasi",
-                              message: "Data Reservasi Berhasil Diupdate",
-                              buttons: [
-                                {
-                                  label: "OK"
-                                }
-                              ]
-                            })
-                          )
-                          .catch(err => alert(err));
-                        setSubmitting(false);
-                        this.props.history.push("/admin");
-                      }, 200);
+                      axios
+                        .post(
+                          `http://localhost:4000/reservation/update/${this.props.rsvId}`,
+                          values
+                        )
+                        .then(res =>
+                          confirmAlert({
+                            title: "Update Reservasi",
+                            message: "Data Reservasi Berhasil Diupdate",
+                            buttons: [
+                              {
+                                label: "OK"
+                              }
+                            ]
+                          })
+                        )
+                        .catch(err => alert(err));
+
+                      setSubmitting(false);
+                      this.props.history.push("/admin");
                     }}
                   >
                     {({ values, isSubmitting }) => (
@@ -146,12 +152,31 @@ class ReservationEditForm extends Component {
                             </label>
                             <div className="col-sm-10 col-md-8">
                               <Field
-                                type="text"
+                                as="select"
                                 id="mepo"
                                 name="mepo"
-                                readOnly
-                                className="form-control-plaintext"
-                              />
+                                className="custom-select"
+                              >
+                                {this.state.opentrip && this.state.rsv
+                                  ? this.state.opentrip.departure.mepo.map(
+                                      item => {
+                                        return item.toUpperCase() ===
+                                          this.state.rsv.mepo ? (
+                                          <option
+                                            value={item.toUpperCase()}
+                                            selected
+                                          >
+                                            {item}
+                                          </option>
+                                        ) : (
+                                          <option value={item.toUpperCase()}>
+                                            {item}
+                                          </option>
+                                        );
+                                      }
+                                    )
+                                  : null}
+                              </Field>
                             </div>
                           </div>
                           <div className="form-group row">
@@ -163,13 +188,26 @@ class ReservationEditForm extends Component {
                             </label>
                             <div className="col-sm-10 col-md-8">
                               <Field
-                                type="text"
+                                as="select"
                                 id="tripDateTemp"
-                                name="tripDateTemp"
-                                value={helpers.formatDate(values.tripDate)}
-                                readOnly
-                                className="form-control-plaintext"
-                              />
+                                name="tripDate"
+                                className="custom-select"
+                              >
+                                {this.state.opentrip && this.state.rsv
+                                  ? this.state.opentrip.schedule.map(item => {
+                                      return item ===
+                                        this.state.rsv.tripDate ? (
+                                        <option value={item} selected>
+                                          {helpers.formatDate(item)}
+                                        </option>
+                                      ) : (
+                                        <option value={item}>
+                                          {helpers.formatDate(item)}
+                                        </option>
+                                      );
+                                    })
+                                  : null}
+                              </Field>
                             </div>
                           </div>
                           <hr />

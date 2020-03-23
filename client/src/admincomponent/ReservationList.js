@@ -57,6 +57,15 @@ class ReservationList extends Component {
       .catch(err => console.log(err));
   }
 
+  componentDidUpdate() {
+    axios
+      .get("http://localhost:4000/reservation/")
+      .then(res => {
+        this.setState({ reservations: res.data });
+      })
+      .catch(err => console.log(err));
+  }
+
   mapReservationList() {
     return this.state.reservations.map(item => {
       return (
@@ -98,7 +107,7 @@ class ReservationList extends Component {
   render() {
     return (
       <div className="container-fluid mt-5" id="rsv-list">
-        <div class="table-responsive text-nowrap">
+        <div class="table-responsive mt-4 text-nowrap">
           <table className="table table-hover mx-auto w-100">
             <thead>
               <tr>

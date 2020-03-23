@@ -101,6 +101,8 @@ class OpenTripAddForm extends Component {
                       facility: []
                     }}
                     validationSchema={ValidationSchema}
+                    validateOnChange={false}
+                    validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
                       const data = new FormData();
                       data.append("cardImage", this.state.cardImage);

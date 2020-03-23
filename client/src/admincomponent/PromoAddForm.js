@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
@@ -9,7 +10,16 @@ import DataSource from "../tripDataSource";
 class PromoAddForm extends Component {
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid my-5">
+        <div className="row justify-content-center mb-5">
+          <div className="col-md-4">
+            <Link to="/admin">
+              <p className="h5 text-dark">
+                <i className="fas fa-angle-left mr-2"></i>KEMBALI
+              </p>
+            </Link>
+          </div>
+        </div>
         <div className="row justify-content-center mt-5">
           <div className="col-md-4">
             <div className="card">
@@ -31,6 +41,7 @@ class PromoAddForm extends Component {
                       tripId: ""
                     }}
                     validationSchema={ValidationSchema}
+                    validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
                       setTimeout(() => {
                         axios
@@ -218,7 +229,14 @@ const ValidationSchema = Yup.object().shape({
     .uppercase("Gunakan huruf kapital")
     .required("Silahkan masukkan kode promo")
     .strict(true),
-  discount: Yup.number().required("Silahkan masukkan nominal diskon")
+  discount: Yup.number()
+    .required("Silahkan masukkan nominal diskon")
+    .min(0),
+  description: Yup.string().required("Silahkan masukkan deskripsi promo"),
+  expDate: Yup.string().required("Silahkan pilih tanggal batas berlaku promo"),
+  tripId: Yup.string()
+    .required("Silahkan pilih open trip")
+    .notOneOf([""])
 });
 
 export default DataSource(PromoAddForm);

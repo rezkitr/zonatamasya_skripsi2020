@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
+import * as Yup from "yup";
 import { confirmAlert } from "react-confirm-alert";
 import helpers from "../helperFunction";
 
@@ -20,7 +21,8 @@ class OpenTripEditForm extends Component {
     cardImage: null,
     bannerImage: null,
     oldCardImage: "",
-    oldBannerImage: ""
+    oldBannerImage: "",
+    submitting: false
   };
 
   componentDidMount() {
@@ -131,6 +133,9 @@ class OpenTripEditForm extends Component {
                         itinerary: this.state.opentripData.itinerary,
                         facility: this.state.opentripData.facility
                       }}
+                      validationSchema={ValidationSchema}
+                      validateOnChange={false}
+                      validateOnBlur={false}
                       onSubmit={(values, { setSubmitting }) => {
                         axios
                           .post(
@@ -228,6 +233,11 @@ class OpenTripEditForm extends Component {
                                 touched.name && errors.name ? "is-invalid" : ""
                               }`}
                             />
+                            <ErrorMessage
+                              component="div"
+                              name="name"
+                              className="invalid-feedback"
+                            />
                           </div>
 
                           <FieldArray
@@ -270,6 +280,14 @@ class OpenTripEditForm extends Component {
                                       </button>
                                     </div>
                                   </div>
+                                  {values.keyword.length === 0 &&
+                                  this.state.submitting ? (
+                                    <div className="pt-1">
+                                      <p className="my-invalid-feedback">
+                                        Silahkan masukkan keyword open trip
+                                      </p>
+                                    </div>
+                                  ) : null}
                                 </div>
                                 {values.keyword && values.keyword.length > 0
                                   ? values.keyword.map((item, index) => {
@@ -303,7 +321,11 @@ class OpenTripEditForm extends Component {
                               as="select"
                               id="region"
                               name="region"
-                              className="form-control"
+                              className={`custom-select ${
+                                touched.region && errors.region
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
                             >
                               <option value="" disabled>
                                 -
@@ -314,6 +336,11 @@ class OpenTripEditForm extends Component {
                               <option value="jogja">Jogjakarta</option>
                               <option value="bali">Bali</option>
                             </Field>
+                            <ErrorMessage
+                              component="div"
+                              name="region"
+                              className="invalid-feedback"
+                            />
                           </div>
 
                           <div className="form-group">
@@ -355,6 +382,14 @@ class OpenTripEditForm extends Component {
                                 Tidak
                               </label>
                             </div>
+                            {this.state.highlightedTemp === "" &&
+                            this.state.submitting ? (
+                              <div className="pt-1">
+                                <p className="my-invalid-feedback">
+                                  Belum dipilih
+                                </p>
+                              </div>
+                            ) : null}
                             <div className="d-none">
                               {this.state.highlightedTemp === "1"
                                 ? (values.highlighted = true)
@@ -399,7 +434,16 @@ class OpenTripEditForm extends Component {
                               type="text"
                               id="duration"
                               name="duration"
-                              className="form-control"
+                              className={`form-control ${
+                                touched.duration && errors.duration
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="duration"
+                              className="invalid-feedback"
                             />
                           </div>
                           <div className="form-group">
@@ -413,7 +457,17 @@ class OpenTripEditForm extends Component {
                               type="text"
                               id="tripStart"
                               name="departure.start"
-                              className="form-control"
+                              className={`form-control ${
+                                getIn(errors, "departure.start") &&
+                                getIn(touched, "departure.start")
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="departure.start"
+                              className="invalid-feedback"
                             />
                           </div>
 
@@ -455,6 +509,14 @@ class OpenTripEditForm extends Component {
                                       </button>
                                     </div>
                                   </div>
+                                  {values.departure.mepo.length === 0 &&
+                                  this.state.submitting ? (
+                                    <div className="pt-1">
+                                      <p className="my-invalid-feedback">
+                                        Silahkan masukkan lokasi meeting point
+                                      </p>
+                                    </div>
+                                  ) : null}
                                 </div>
                                 {values.departure.mepo &&
                                 values.departure.mepo.length > 0
@@ -490,7 +552,17 @@ class OpenTripEditForm extends Component {
                                 type="number"
                                 id="priceFull"
                                 name="price.priceFull"
-                                className="form-control"
+                                className={`form-control ${
+                                  getIn(errors, "price.priceFull") &&
+                                  getIn(touched, "price.priceFull")
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="price.priceFull"
+                                className="invalid-feedback"
                               />
                             </div>
                             <div className="form-group col-md">
@@ -504,7 +576,17 @@ class OpenTripEditForm extends Component {
                                 type="number"
                                 id="priceDP"
                                 name="price.priceDP"
-                                className="form-control"
+                                className={`form-control ${
+                                  getIn(errors, "price.priceDP") &&
+                                  getIn(touched, "price.priceDP")
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                              />
+                              <ErrorMessage
+                                component="div"
+                                name="price.priceDP"
+                                className="invalid-feedback"
                               />
                             </div>
                           </div>
@@ -548,6 +630,14 @@ class OpenTripEditForm extends Component {
                                         </button>
                                       </div>
                                     </div>
+                                    {values.schedule.length === 0 &&
+                                    this.state.submitting ? (
+                                      <div className="pt-1">
+                                        <p className="my-invalid-feedback">
+                                          Silahkan masukkan jadwal open trip
+                                        </p>
+                                      </div>
+                                    ) : null}
                                   </div>
                                   {values.schedule && values.schedule.length > 0
                                     ? values.schedule.map((item, index) => {
@@ -597,6 +687,14 @@ class OpenTripEditForm extends Component {
                                       <i className="fas fa-plus fa-lg mr-2"></i>
                                       Hari
                                     </button>
+                                    {values.itinerary.length === 0 &&
+                                    this.state.submitting ? (
+                                      <div className="pt-1">
+                                        <p className="my-invalid-feedback">
+                                          Silahkan masukkan itinerary
+                                        </p>
+                                      </div>
+                                    ) : null}
                                     {values.itinerary.length > 0 ? (
                                       <>
                                         <label htmlFor="itineraryItem">
@@ -823,6 +921,14 @@ class OpenTripEditForm extends Component {
                                         </button>
                                       </div>
                                     </div>
+                                    {values.facility.length === 0 &&
+                                    this.state.submitting ? (
+                                      <div className="pt-1">
+                                        <p className="my-invalid-feedback">
+                                          Silahkan masukkan itinerary
+                                        </p>
+                                      </div>
+                                    ) : null}
                                   </div>
                                   {values.facility && values.facility.length > 0
                                     ? values.facility.map((item, index) => {
@@ -858,6 +964,9 @@ class OpenTripEditForm extends Component {
                             <button
                               className={`btn btn-sm btn-success`}
                               type="submit"
+                              onClick={() =>
+                                this.setState({ submitting: true })
+                              }
                             >
                               <i className="fas fa-save mr-2"></i>SIMPAN
                             </button>
@@ -875,4 +984,39 @@ class OpenTripEditForm extends Component {
     );
   }
 }
+
+const ValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Silahkan masukkan nama open trip"),
+  keyword: Yup.array()
+    .required("Silahkan masukkan keyword open trip")
+    .min(1),
+  region: Yup.string()
+    .required("Silahkan pilih wilayah open trip")
+    .notOneOf([""]),
+  highlighted: Yup.boolean().required("Silahkan pilih"),
+  duration: Yup.string().required("Silahkan masukkan durasi open trip"),
+  departure: Yup.object().shape({
+    start: Yup.string().required("Silahkan masukkan kota keberangkatan"),
+    mepo: Yup.array()
+      .required("Silahkan masukkan lokasi meeting point keberangkatan")
+      .min(1)
+  }),
+  price: Yup.object().shape({
+    priceFull: Yup.number()
+      .required("Silahkan masukkan harga LUNAS")
+      .min(0),
+    priceDP: Yup.number()
+      .required("Silahkan masukkan harga DP")
+      .min(0)
+  }),
+  schedule: Yup.array()
+    .required("Silahkan masukkan tanggal keberangkatan")
+    .min(1),
+  itinerary: Yup.array()
+    .required("Silahkan masukkan itinerary")
+    .min(1),
+  facility: Yup.array()
+    .required("Silahkan masukkan fasilitas")
+    .min(1)
+});
 export default OpenTripEditForm;
