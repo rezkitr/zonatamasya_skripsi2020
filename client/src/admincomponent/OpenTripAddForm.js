@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import helpers from "../helperFunction";
+import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -16,7 +17,8 @@ class OpenTripAddForm extends Component {
     splittedItineraryItem: [],
     dayCounter: 0,
     cardImage: null,
-    bannerImage: null
+    bannerImage: null,
+    submitting: false
   };
 
   handleChange = event => {
@@ -55,6 +57,15 @@ class OpenTripAddForm extends Component {
   render() {
     return (
       <div className="container-fluid my-5">
+        <div className="row justify-content-center mb-5">
+          <div className="col-md-6">
+            <Link to="/admin">
+              <p className="h5 text-dark">
+                <i className="fas fa-angle-left mr-2"></i>KEMBALI
+              </p>
+            </Link>
+          </div>
+        </div>
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="card">
@@ -89,6 +100,7 @@ class OpenTripAddForm extends Component {
                       itinerary: [],
                       facility: []
                     }}
+                    validationSchema={ValidationSchema}
                     onSubmit={(values, { setSubmitting }) => {
                       const data = new FormData();
                       data.append("cardImage", this.state.cardImage);
@@ -144,6 +156,11 @@ class OpenTripAddForm extends Component {
                               touched.name && errors.name ? "is-invalid" : ""
                             }`}
                           />
+                          <ErrorMessage
+                            component="div"
+                            name="name"
+                            className="invalid-feedback"
+                          />
                         </div>
 
                         <FieldArray
@@ -166,6 +183,7 @@ class OpenTripAddForm extends Component {
                                     className="form-control"
                                     onChange={this.handleChange}
                                   />
+
                                   <div className="input-group-append">
                                     <button
                                       className="btn btn-md btn-primary rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
@@ -184,6 +202,14 @@ class OpenTripAddForm extends Component {
                                     </button>
                                   </div>
                                 </div>
+                                {values.keyword.length === 0 &&
+                                this.state.submitting ? (
+                                  <div className="pt-1">
+                                    <p className="my-invalid-feedback">
+                                      Silahkan masukkan keyword open trip
+                                    </p>
+                                  </div>
+                                ) : null}
                               </div>
                               {values.keyword && values.keyword.length > 0
                                 ? values.keyword.map((item, index) => {
@@ -214,7 +240,11 @@ class OpenTripAddForm extends Component {
                             as="select"
                             id="region"
                             name="region"
-                            className="form-control"
+                            className={`custom-select ${
+                              touched.region && errors.region
+                                ? "is-invalid"
+                                : ""
+                            }`}
                           >
                             <option value="" disabled>
                               -
@@ -225,6 +255,11 @@ class OpenTripAddForm extends Component {
                             <option value="jogja">Jogjakarta</option>
                             <option value="bali">Bali</option>
                           </Field>
+                          <ErrorMessage
+                            component="div"
+                            name="region"
+                            className="invalid-feedback"
+                          />
                         </div>
 
                         <div className="form-group">
@@ -264,6 +299,14 @@ class OpenTripAddForm extends Component {
                               Tidak
                             </label>
                           </div>
+                          {this.state.highlightedTemp === "" &&
+                          this.state.submitting ? (
+                            <div className="pt-1">
+                              <p className="my-invalid-feedback">
+                                Belum dipilih
+                              </p>
+                            </div>
+                          ) : null}
                           <div className="d-none">
                             {this.state.highlightedTemp === "1"
                               ? (values.highlighted = true)
@@ -283,6 +326,14 @@ class OpenTripAddForm extends Component {
                               id="cardImage"
                               onChange={this.handleSelectImage}
                             />
+                            {this.state.cardImage === null &&
+                            this.state.submitting ? (
+                              <div className="pt-1">
+                                <p className="my-invalid-feedback">
+                                  Silahkan pilih file
+                                </p>
+                              </div>
+                            ) : null}
                           </div>
                           <div className="form-group col-md">
                             <label className="font-weight-bold">
@@ -295,6 +346,14 @@ class OpenTripAddForm extends Component {
                               id="bannerImage"
                               onChange={this.handleSelectImage}
                             />
+                            {this.state.bannerImage === null &&
+                            this.state.submitting ? (
+                              <div className="pt-1">
+                                <p className="my-invalid-feedback">
+                                  Silahkan pilih file
+                                </p>
+                              </div>
+                            ) : null}
                           </div>
                         </div>
                         <div className="form-group">
@@ -308,7 +367,16 @@ class OpenTripAddForm extends Component {
                             type="text"
                             id="duration"
                             name="duration"
-                            className="form-control"
+                            className={`form-control ${
+                              touched.duration && errors.duration
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="duration"
+                            className="invalid-feedback"
                           />
                         </div>
                         <div className="form-group">
@@ -322,7 +390,17 @@ class OpenTripAddForm extends Component {
                             type="text"
                             id="tripStart"
                             name="departure.start"
-                            className="form-control"
+                            className={`form-control ${
+                              getIn(errors, "departure.start") &&
+                              getIn(touched, "departure.start")
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="departure.start"
+                            className="invalid-feedback"
                           />
                         </div>
 
@@ -364,6 +442,14 @@ class OpenTripAddForm extends Component {
                                     </button>
                                   </div>
                                 </div>
+                                {values.departure.mepo.length === 0 &&
+                                this.state.submitting ? (
+                                  <div className="pt-1">
+                                    <p className="my-invalid-feedback">
+                                      Silahkan masukkan lokasi meeting point
+                                    </p>
+                                  </div>
+                                ) : null}
                               </div>
                               {values.departure.mepo &&
                               values.departure.mepo.length > 0
@@ -399,7 +485,17 @@ class OpenTripAddForm extends Component {
                               type="number"
                               id="priceFull"
                               name="price.priceFull"
-                              className="form-control"
+                              className={`form-control ${
+                                getIn(errors, "price.priceFull") &&
+                                getIn(touched, "price.priceFull")
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="price.priceFull"
+                              className="invalid-feedback"
                             />
                           </div>
                           <div className="form-group col-md">
@@ -413,7 +509,17 @@ class OpenTripAddForm extends Component {
                               type="number"
                               id="priceDP"
                               name="price.priceDP"
-                              className="form-control"
+                              className={`form-control ${
+                                getIn(errors, "price.priceDP") &&
+                                getIn(touched, "price.priceDP")
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="price.priceDP"
+                              className="invalid-feedback"
                             />
                           </div>
                         </div>
@@ -457,6 +563,14 @@ class OpenTripAddForm extends Component {
                                       </button>
                                     </div>
                                   </div>
+                                  {values.schedule.length === 0 &&
+                                  this.state.submitting ? (
+                                    <div className="pt-1">
+                                      <p className="my-invalid-feedback">
+                                        Silahkan masukkan jadwal open trip
+                                      </p>
+                                    </div>
+                                  ) : null}
                                 </div>
                                 {values.schedule && values.schedule.length > 0
                                   ? values.schedule.map((item, index) => {
@@ -506,6 +620,14 @@ class OpenTripAddForm extends Component {
                                     <i className="fas fa-plus fa-lg mr-2"></i>
                                     Hari
                                   </button>
+                                  {values.itinerary.length === 0 &&
+                                  this.state.submitting ? (
+                                    <div className="pt-1">
+                                      <p className="my-invalid-feedback">
+                                        Silahkan masukkan itinerary
+                                      </p>
+                                    </div>
+                                  ) : null}
                                   {values.itinerary.length > 0 ? (
                                     <>
                                       <label htmlFor="itineraryItem">
@@ -726,6 +848,14 @@ class OpenTripAddForm extends Component {
                                       </button>
                                     </div>
                                   </div>
+                                  {values.facility.length === 0 &&
+                                  this.state.submitting ? (
+                                    <div className="pt-1">
+                                      <p className="my-invalid-feedback">
+                                        Silahkan masukkan itinerary
+                                      </p>
+                                    </div>
+                                  ) : null}
                                 </div>
                                 {values.facility && values.facility.length > 0
                                   ? values.facility.map((item, index) => {
@@ -749,6 +879,7 @@ class OpenTripAddForm extends Component {
                           ></FieldArray>
                         </div>
                         <div className="text-right mt-4">
+                          <hr />
                           <button
                             className="btn btn-sm btn-unique"
                             onClick={() => {
@@ -760,6 +891,7 @@ class OpenTripAddForm extends Component {
                           <button
                             className={`btn btn-sm btn-success`}
                             type="submit"
+                            onClick={() => this.setState({ submitting: true })}
                           >
                             <i className="far fa-plus-square mr-2"></i>TAMBAH
                           </button>
@@ -776,5 +908,40 @@ class OpenTripAddForm extends Component {
     );
   }
 }
+
+const ValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Silahkan masukkan nama open trip"),
+  keyword: Yup.array()
+    .required("Silahkan masukkan keyword open trip")
+    .min(1),
+  region: Yup.string()
+    .required("Silahkan pilih wilayah open trip")
+    .notOneOf([""]),
+  highlighted: Yup.boolean().required("Silahkan pilih"),
+  duration: Yup.string().required("Silahkan masukkan durasi open trip"),
+  departure: Yup.object().shape({
+    start: Yup.string().required("Silahkan masukkan kota keberangkatan"),
+    mepo: Yup.array()
+      .required("Silahkan masukkan lokasi meeting point keberangkatan")
+      .min(1)
+  }),
+  price: Yup.object().shape({
+    priceFull: Yup.number()
+      .required("Silahkan masukkan harga LUNAS")
+      .min(0),
+    priceDP: Yup.number()
+      .required("Silahkan masukkan harga DP")
+      .min(0)
+  }),
+  schedule: Yup.array()
+    .required("Silahkan masukkan tanggal keberangkatan")
+    .min(1),
+  itinerary: Yup.array()
+    .required("Silahkan masukkan itinerary")
+    .min(1),
+  facility: Yup.array()
+    .required("Silahkan masukkan fasilitas")
+    .min(1)
+});
 
 export default OpenTripAddForm;

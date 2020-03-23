@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import { confirmAlert } from "react-confirm-alert";
 import helpers from "../helperFunction";
@@ -86,6 +87,15 @@ class OpenTripEditForm extends Component {
   render() {
     return (
       <div className="container-fluid my-5">
+        <div className="row justify-content-center mb-5">
+          <div className="col-md-6">
+            <Link to="/admin">
+              <p className="h5 text-dark">
+                <i className="fas fa-angle-left mr-2"></i>KEMBALI
+              </p>
+            </Link>
+          </div>
+        </div>
         <div className="row justify-content-center">
           <div className="col-md-6">
             <div className="card">
@@ -836,6 +846,7 @@ class OpenTripEditForm extends Component {
                             ></FieldArray>
                           </div>
                           <div className="text-right mt-4">
+                            <hr />
                             <button
                               className="btn btn-sm btn-unique"
                               onClick={() => {
@@ -848,7 +859,7 @@ class OpenTripEditForm extends Component {
                               className={`btn btn-sm btn-success`}
                               type="submit"
                             >
-                              <i className="far fa-plus-square mr-2"></i>TAMBAH
+                              <i className="fas fa-save mr-2"></i>SIMPAN
                             </button>
                           </div>
                         </Form>

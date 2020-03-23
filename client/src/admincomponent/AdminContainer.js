@@ -48,7 +48,7 @@ class AdminContainer extends Component {
                 className="list-group-item list-group-item-action primary-color-dark text-white"
               >
                 <i className="far fa-file-alt fa-lg mr-3 text-white"></i>
-                Reservations
+                Reservation
               </a>
               <a
                 onClick={() => this.setState({ menuSelected: "ot" })}
@@ -87,7 +87,7 @@ class AdminContainer extends Component {
 
               <Link className="navbar-brand ml-3">
                 {this.state.menuSelected === "rsv"
-                  ? "Reservations"
+                  ? "Reservation"
                   : this.state.menuSelected === "prm"
                   ? "Promo"
                   : this.state.menuSelected === "ot"

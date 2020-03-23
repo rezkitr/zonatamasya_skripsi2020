@@ -922,27 +922,27 @@ const ValidationSchema = Yup.object().shape({
   tripName: Yup.string().required(),
   tripStart: Yup.string().required(),
   mepo: Yup.string()
-    .required("Silahkan Pilih Lokasi Meeting Point")
+    .required("Silahkan pilih lokasi meeting point")
     .notOneOf([""]),
   tripDate: Yup.string()
-    .required("Silahkan Pilih Tanggal Keberangkatan")
+    .required("Silahkan pilih tanggal keberangkatan")
     .notOneOf([""]),
   participant: Yup.object().shape({
     coordinator: Yup.object().shape({
-      coorName: Yup.string().required("Silahkan tulis nama lengkap anda"),
+      coorName: Yup.string().required("Silahkan masukkan nama lengkap anda"),
       coorGender: Yup.string().oneOf(["L", "P"], "Invalid"),
-      coorTelp: Yup.string().required("Silahkan tulis No. HP anda"),
+      coorTelp: Yup.string().required("Silahkan masukkan No. HP anda"),
       coorEmail: Yup.string()
         .email("Bukan sebuah email")
-        .required("Silahkan tulis email anda")
+        .required("Silahkan masukkan email anda")
     }),
     member: Yup.array().of(
       Yup.object().shape({
         memberName: Yup.string().required(
-          "Silahkan tulis nama lengkap peserta"
+          "Silahkan masukkan nama lengkap peserta"
         ),
         memberGender: Yup.string().oneOf(["L", "P"], "Invalid"),
-        memberTelp: Yup.string().required("Silahkan tulis No. HP peserta")
+        memberTelp: Yup.string().required("Silahkan masukkan No. HP peserta")
       })
     )
   }),

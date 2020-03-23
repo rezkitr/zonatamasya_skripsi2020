@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import { confirmAlert } from "react-confirm-alert";
 import helpers from "../helperFunction";
@@ -20,7 +21,16 @@ class ReservationEditForm extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container my-5">
+        <div className="row justify-content-center mb-5">
+          <div className="col-md-10">
+            <Link to="/admin">
+              <p className="h5 text-dark">
+                <i className="fas fa-angle-left mr-2"></i>KEMBALI
+              </p>
+            </Link>
+          </div>
+        </div>
         <div className="row justify-content-center mt-5">
           <div className="col-md-10">
             <div className="card">
