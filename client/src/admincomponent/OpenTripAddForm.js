@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { confirmAlert } from "react-confirm-alert";
 
 class OpenTripAddForm extends Component {
   state = {
@@ -43,11 +44,11 @@ class OpenTripAddForm extends Component {
 
   handleItineraryInput = event => {
     this.setState({ itineraryItem: event.target.value }, () => {
-      this.splitItineraryItem(this.state.itineraryItem);
+      this.splitItem(this.state.itineraryItem);
     });
   };
 
-  splitItineraryItem = item => {
+  splitItem = item => {
     if (this.state.itineraryItem.length > 0) {
       let result = item.split("\n");
       this.setState({ splittedItineraryItem: result });
@@ -137,11 +138,28 @@ class OpenTripAddForm extends Component {
                           config
                         )
                         .then(res => {
-                          alert("sukses");
+                          confirmAlert({
+                            title: "Tambah Open Trip",
+                            message: "Data Open Trip Berhasil Ditambakan",
+                            buttons: [
+                              {
+                                label: "OK"
+                              }
+                            ]
+                          });
                         })
                         .catch(err => {
-                          console.log(err);
+                          confirmAlert({
+                            title: "Error",
+                            message: `${err}`,
+                            buttons: [
+                              {
+                                label: "OK"
+                              }
+                            ]
+                          });
                         });
+                      this.props.history.push("/admin");
                     }}
                   >
                     {({ errors, touched, values, isSubmitting }) => (
@@ -752,7 +770,7 @@ class OpenTripAddForm extends Component {
                                   </div>
 
                                   <FieldArray
-                                    name={`itinerary[${this.state.dayCounter -
+                                    name={`itinerary[${values.itinerary.length -
                                       1}]`}
                                     render={arrayHelpers => (
                                       <div>

@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import AdminEditForm from '../admincomponent/AdminEditForm'
+import UserAdminEditForm from "../admincomponent/UserAdminEditForm";
 
 function AdminEdit(props) {
   return (
     <div>
-      <AdminEditForm {...props} adminId={props.match.params.adminId} />
+      <UserAdminEditForm {...props} adminId={props.match.params.adminId} />
     </div>
-  )
+  );
 }
 
-export default AdminEdit
+export default AdminEdit;

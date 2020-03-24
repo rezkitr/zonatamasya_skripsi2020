@@ -1,12 +1,12 @@
-import React from 'react'
-import AdminContainer from '../admincomponent/AdminContainer'
+import React from "react";
+import AdminPageContainer from "../admincomponent/AdminPageContainer";
 
 function AdminHome(props) {
   return (
     <div>
-      <AdminContainer {...props} />
+      <AdminPageContainer {...props} />
     </div>
-  )
+  );
 }
 
-export default AdminHome
+export default AdminHome;

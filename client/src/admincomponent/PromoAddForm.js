@@ -43,24 +43,32 @@ class PromoAddForm extends Component {
                     validationSchema={ValidationSchema}
                     validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
-                      setTimeout(() => {
-                        axios
-                          .post("http://localhost:4000/promo/add", values)
-                          .then(res => {
-                            confirmAlert({
-                              title: "Tambah Promo",
-                              message: "Data Promo Berhasil Ditambakan",
-                              buttons: [
-                                {
-                                  label: "OK"
-                                }
-                              ]
-                            });
-                          })
-                          .catch(err => alert(err));
-                        setSubmitting(false);
-                        this.props.history.push("/admin");
-                      }, 200);
+                      axios
+                        .post("http://localhost:4000/promo/add", values)
+                        .then(res => {
+                          confirmAlert({
+                            title: "Tambah Promo",
+                            message: "Data Promo Berhasil Ditambakan",
+                            buttons: [
+                              {
+                                label: "OK"
+                              }
+                            ]
+                          });
+                        })
+                        .catch(err => {
+                          confirmAlert({
+                            title: "Error",
+                            message: `${err}`,
+                            buttons: [
+                              {
+                                label: "OK"
+                              }
+                            ]
+                          });
+                        });
+
+                      this.props.history.push("/admin");
                     }}
                   >
                     {({ errors, touched, values, isSubmitting }) => (
@@ -90,7 +98,7 @@ class PromoAddForm extends Component {
                                 ? this.props.tripData.map(item => {
                                     return (
                                       <option value={item._id}>
-                                        {item.name}
+                                        {`${item.name} (${item.departure.start})`}
                                       </option>
                                     );
                                   })

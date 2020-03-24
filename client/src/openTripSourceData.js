@@ -34,48 +34,48 @@ export default [
     ]
     tripItinerary: [
       [
-        07.00-11.00#Berkumpul di Mepo pembagian tiket kapal#Pel. Kartini Jepara
-        07.00-11.00#Menyeberang ke Pulau Karimunjawa#Via Siginjai Boat
-        11.00-11.30#Perjalanan ke penginapan/homestay#Local Transport
-        11.30-13.30#Makan siang
-        13.30-14.00#Persiapan tour dan menuju dermaga#Ganti baju
-        14.00-15.30#Snorkeling di Nemo Spot
-        15.30-16.30#Menikmati keindahan Pantai Tanjung Gelam#Bakar ikan
-        16.30-17.00#Kembali ke dermaga kecil Karimunjawa#Sunset Time
-        17.00-17.30#Jalan kaki menuju ke penginapan
-        17.30-...#Makan malam#Free time
+07.00-11.00#Berkumpul di Mepo pembagian tiket kapal#Pel. Kartini Jepara
+07.00-11.00#Menyeberang ke Pulau Karimunjawa#Via Siginjai Boat
+11.00-11.30#Perjalanan ke penginapan/homestay#Local Transport
+11.30-13.30#Makan siang
+13.30-14.00#Persiapan tour dan menuju dermaga#Ganti baju
+14.00-15.30#Snorkeling di Nemo Spot
+15.30-16.30#Menikmati keindahan Pantai Tanjung Gelam#Bakar ikan
+16.30-17.00#Kembali ke dermaga kecil Karimunjawa#Sunset Time
+17.00-17.30#Jalan kaki menuju ke penginapan
+17.30-...#Makan malam#Free time
       ]
       [
-        06.00-07.00#Morning call#Makan Pagi
-        08.00-08.30#Persiapan tour dan menuju dermaga
-        08.30-11.00#Snorkeling di spot terumbu karang Menjangan Kecil
-        11.00-14.00#Bakar ikan di Menjangan Kecil Resort#Free time
-        14.00-15.00#Snorkeling di spot terumbu karang Secret Garden
-        15.00-15.30#Perjalanan menuju Pulau Menjangan Besar
-        15.30-16.30#Aktifitas di penangkaran hiu [Exclude]#Swim with shark
-        16.30-17.00#Kembali ke dermaga kecil#Sunset time
-        18.00-19.30#Makan malam#Free Time
-        19.30-...#Acara bebas serahkan FD ke TL kami#Copy file foto tour
+06.00-07.00#Morning call#Makan Pagi
+08.00-08.30#Persiapan tour dan menuju dermaga
+08.30-11.00#Snorkeling di spot terumbu karang Menjangan Kecil
+11.00-14.00#Bakar ikan di Menjangan Kecil Resort#Free time
+14.00-15.00#Snorkeling di spot terumbu karang Secret Garden
+15.00-15.30#Perjalanan menuju Pulau Menjangan Besar
+15.30-16.30#Aktifitas di penangkaran hiu [Exclude]#Swim with shark
+16.30-17.00#Kembali ke dermaga kecil#Sunset time
+18.00-19.30#Makan malam#Free Time
+19.30-...#Acara bebas serahkan FD ke TL kami#Copy file foto tour
       ]
       [
-        05.00-06.00#Makan Pagi#Kami sediakan
-        06.00-07.00#Free program persiapan
-        07.00-11.00#Menyeberang kembali ke Jepara
+05.00-06.00#Makan Pagi#Kami sediakan
+06.00-07.00#Free program persiapan
+07.00-11.00#Menyeberang kembali ke Jepara
       ]
     ]
     tripFacility: [
-      Tiket kapal Siginjai/Express Jepara-Karimunjawa PP (SIGINJAI 4-5 jam penyeberangan) (EXPRESS +100.000 2 Jam)
-      Tour Leader dari kami
-      Transport penjemputan dermaga ke homestay PP
-      Penginapan homestay 2 malam [Fan & KM. Luar]
-      Pemandu wisata dari HPI [Himpunan Pramuwisata Indonesia]
-      Snorkeling set & life jacket
-      Kapal untuk Hopping Island Karimunjawa
-      Tiket masuk seluruh objek Wisata
-      Mineral water
-      Makan 6x [Bakar ikan 2x]
-      P3K Standar
-      Dokumentasi Up+Under Water [copy file]
+Tiket kapal Siginjai/Express Jepara-Karimunjawa PP (SIGINJAI 4-5 jam penyeberangan) (EXPRESS +100.000 2 Jam)
+Tour Leader dari kami
+Transport penjemputan dermaga ke homestay PP
+Penginapan homestay 2 malam [Fan & KM. Luar]
+Pemandu wisata dari HPI [Himpunan Pramuwisata Indonesia]
+Snorkeling set & life jacket
+Kapal untuk Hopping Island Karimunjawa
+Tiket masuk seluruh objek Wisata
+Mineral water
+Makan 6x [Bakar ikan 2x]
+P3K Standar
+Dokumentasi Up+Under Water [copy file]
     ]
   }
 
@@ -101,8 +101,8 @@ export default [
     ]
     tripItinerary: [
       [
-        22.00-23.00#Penjemputan/berkumpul di meeting point
-        23.00-02.00#Berangkat menuju Bromo#Via Sukapura
+22.00-23.00#Penjemputan/berkumpul di meeting point
+23.00-02.00#Berangkat menuju Bromo#Via Sukapura
       ]
       [
 02.00-02.15#Tiba di Sukapura ganti Jeep Bromo

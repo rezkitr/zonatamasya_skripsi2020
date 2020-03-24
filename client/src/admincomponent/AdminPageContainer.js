@@ -7,7 +7,7 @@ import logo from "../assets/logo2.png";
 
 import RsvList from "./ReservationList";
 import PromoList from "./PromoList";
-import AdminList from "./AdminList";
+import UserAdminList from "./UserAdminList";
 import OpenTripList from "./OpenTripList";
 
 class AdminContainer extends Component {
@@ -146,7 +146,7 @@ class AdminContainer extends Component {
                   ) : this.state.menuSelected === "ot" ? (
                     <OpenTripList />
                   ) : (
-                    <AdminList />
+                    <UserAdminList />
                   )}
                 </div>
               </div>

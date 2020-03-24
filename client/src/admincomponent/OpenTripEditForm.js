@@ -3,8 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import * as Yup from "yup";
-import { confirmAlert } from "react-confirm-alert";
 import helpers from "../helperFunction";
+import { confirmAlert } from "react-confirm-alert";
 
 class OpenTripEditForm extends Component {
   state = {
@@ -143,10 +143,26 @@ class OpenTripEditForm extends Component {
                             values
                           )
                           .then(res => {
-                            alert("sukses 1");
+                            confirmAlert({
+                              title: "Update Open Trip",
+                              message: "Data Open Trip Berhasil Diupdate",
+                              buttons: [
+                                {
+                                  label: "OK"
+                                }
+                              ]
+                            });
                           })
                           .catch(err => {
-                            console.log(err);
+                            confirmAlert({
+                              title: "Error",
+                              message: `${err}`,
+                              buttons: [
+                                {
+                                  label: "OK"
+                                }
+                              ]
+                            });
                           });
 
                         const config = {
@@ -170,7 +186,7 @@ class OpenTripEditForm extends Component {
                               config
                             )
                             .then(res => {
-                              alert("sukses 2");
+                              console.log("all image updated");
                             })
                             .catch(err => {
                               console.log(err);
@@ -189,7 +205,7 @@ class OpenTripEditForm extends Component {
                               config
                             )
                             .then(res => {
-                              alert("sukses 3");
+                              console.log("card image updated");
                             })
                             .catch(err => {
                               console.log(err);
@@ -211,12 +227,13 @@ class OpenTripEditForm extends Component {
                               config
                             )
                             .then(res => {
-                              alert("sukses 4");
+                              console.log("banner image updated");
                             })
                             .catch(err => {
                               console.log(err);
                             });
                         }
+                        this.props.history.push("/admin");
                       }}
                     >
                       {({ errors, touched, values, isSubmitting }) => (
@@ -817,8 +834,8 @@ class OpenTripEditForm extends Component {
                                     </div>
 
                                     <FieldArray
-                                      name={`itinerary[${this.state.dayCounter -
-                                        1}]`}
+                                      name={`itinerary[${values.itinerary
+                                        .length - 1}]`}
                                       render={arrayHelpers => (
                                         <div>
                                           {values.itinerary.length > 0 ? (
@@ -962,7 +979,7 @@ class OpenTripEditForm extends Component {
                               <i className="fas fa-angle-left mr-2"></i>KEMBALI
                             </button>
                             <button
-                              className={`btn btn-sm btn-success`}
+                              className="btn btn-sm btn-success"
                               type="submit"
                               onClick={() =>
                                 this.setState({ submitting: true })

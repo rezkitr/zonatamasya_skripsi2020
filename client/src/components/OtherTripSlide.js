@@ -54,22 +54,22 @@ function OtherTripSlide(props) {
                         src={
                           process.env.PUBLIC_URL +
                           "/upload/opentripImg/" +
-                          item.cardImg
+                          item.cardImage
                         }
                         style={{ height: "160px" }}
                         className="card-img-top"
-                        alt={item.tripName}
+                        alt={item.name}
                       />
                     </Link>
                     <div className="card-body">
                       <Link to={"/opentrip/detail/" + item._id}>
                         <h5 className="card-title font-weight-bold text-dark">
-                          {item.tripName}
+                          {item.name}
                         </h5>
                       </Link>
                       <h6 className="text-muted">
                         <i className="fas fa-plane-departure mr-2"></i>Start{" "}
-                        {item.tripDeparture.start}
+                        {item.departure.start}
                       </h6>
                       <h6>Rp{helpers.priceFormat(item.price.priceFull)}</h6>
                     </div>

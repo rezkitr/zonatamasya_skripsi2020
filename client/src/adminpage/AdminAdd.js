@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import AdminAddForm from '../admincomponent/AdminAddForm'
+import UserAdminAddForm from "../admincomponent/UserAdminAddForm";
 
 function AdminAdd(props) {
   return (
     <div>
-      <AdminAddForm {...props} />
+      <UserAdminAddForm {...props} />
     </div>
-  )
+  );
 }
 
-export default AdminAdd
+export default AdminAdd;

@@ -7,9 +7,8 @@ import helpers from "../helperFunction";
 const PromoItem = props => {
   return (
     <tr>
-      <td>{props.promo.tripId}</td>
       <td>{props.promo.code}</td>
-      <td>{props.promo.discount}</td>
+      <td>{helpers.priceFormat(props.promo.discount)}</td>
       <td>{props.promo.description}</td>
       <td>{helpers.formatDate(props.promo.expDate)}</td>
       <td>
@@ -90,10 +89,6 @@ class PromoList extends Component {
           <table className="table table-hover w-100">
             <thead>
               <tr>
-                <th scope="col">
-                  <i className="fas fa-suitcase-rolling mr-2 fa-lg"></i>Open
-                  Trip
-                </th>
                 <th scope="col">
                   <i className="fas fa-pen mr-2 fa-lg"></i>Kode
                 </th>

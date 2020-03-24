@@ -20,7 +20,7 @@ import CalendarPage from "./pages/Calendar";
 import ContactPage from "./pages/Contact";
 
 import AdminPage from "./adminpage/AdminHome";
-import LoginAdminPage from "./adminpage/LoginAdmin";
+import LoginPage from "./adminpage/Login";
 import RsvDetailPage from "./adminpage/ReservationDetail";
 import RsvEditPage from "./adminpage/ReservationEdit";
 import PromoEditPage from "./adminpage/PromoEdit";
@@ -97,7 +97,7 @@ class App extends Component {
                   exact
                   strict
                   render={props => (
-                    <LoginAdminPage {...props} handleAuth={this.handleAuth} />
+                    <LoginPage {...props} handleAuth={this.handleAuth} />
                   )}
                 />
                 <Route

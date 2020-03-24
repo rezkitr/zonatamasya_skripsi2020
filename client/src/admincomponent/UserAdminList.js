@@ -30,7 +30,7 @@ const AdminItem = props => {
   );
 };
 
-class AdminList extends Component {
+class UserAdminList extends Component {
   state = {
     admins: []
   };
@@ -107,4 +107,4 @@ class AdminList extends Component {
   }
 }
 
-export default AdminList;
+export default UserAdminList;
