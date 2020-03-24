@@ -134,7 +134,6 @@ class OpenTripEditForm extends Component {
                         facility: this.state.opentripData.facility
                       }}
                       validationSchema={ValidationSchema}
-                      validateOnChange={false}
                       validateOnBlur={false}
                       onSubmit={(values, { setSubmitting }) => {
                         axios
@@ -178,6 +177,14 @@ class OpenTripEditForm extends Component {
                             "bannerImage",
                             this.state.bannerImage
                           );
+                          newImgData.append(
+                            "oldCardImage",
+                            this.state.oldCardImage
+                          );
+                          newImgData.append(
+                            "oldBannerImage",
+                            this.state.oldBannerImage
+                          );
 
                           axios
                             .post(
@@ -197,6 +204,10 @@ class OpenTripEditForm extends Component {
                         ) {
                           const newImgData = new FormData();
                           newImgData.append("cardImage", this.state.cardImage);
+                          newImgData.append(
+                            "oldCardImage",
+                            this.state.oldCardImage
+                          );
 
                           axios
                             .post(
@@ -218,6 +229,10 @@ class OpenTripEditForm extends Component {
                           newImgData.append(
                             "bannerImage",
                             this.state.bannerImage
+                          );
+                          newImgData.append(
+                            "oldBannerImage",
+                            this.state.oldBannerImage
                           );
 
                           axios

@@ -1,7 +1,8 @@
 const router = require("express").Router();
-let OpenTrip = require("../models/opentrip.model");
 const multer = require("multer");
-var path = require("path");
+const path = require("path");
+const fs = require("fs");
+let OpenTrip = require("../models/opentrip.model");
 
 // getAll
 router.route("/").get((req, res) => {
@@ -19,19 +20,20 @@ router.route("/:id").get((req, res) => {
 });
 
 // addOpenTrip
+
+const uploadDir = path.join(
+  __dirname + "./../../client/public/upload/opentripImg/"
+);
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(
-      null,
-      path.join(__dirname + "./../../client/public/upload/opentripImg/")
-    );
+    cb(null, uploadDir);
   },
   filename: function(req, file, cb) {
     cb(null, "zt-" + Date.now() + "-" + file.originalname);
   }
 });
 
-// add
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
@@ -126,6 +128,18 @@ router
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
+
+      fs.unlink(uploadDir + req.body.oldCardImage, err => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Old card image deleted");
+      });
+      fs.unlink(uploadDir + req.body.oldBannerImage, err => {
+        if (err) {
+          console.log(err);
+        }
+      });
     }
   );
 
@@ -142,6 +156,12 @@ router
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
+
+    fs.unlink(uploadDir + req.body.oldCardImage, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
   });
 
 // updatebannerImage
@@ -157,6 +177,12 @@ router
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
+
+    fs.unlink(uploadDir + req.body.oldBannerImage, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
   });
 
 // delete
@@ -164,6 +190,20 @@ router.route("/:id").delete((req, res) => {
   OpenTrip.findByIdAndDelete(req.params.id)
     .then(() => res.json("Trip deleted"))
     .catch(err => res.status(400).json("Error : " + err));
+});
+
+// deleteImage
+router.route("/deleteimg").post((req, res) => {
+  fs.unlink(uploadDir + req.body.cardImage, err => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  fs.unlink(uploadDir + req.body.bannerImage, err => {
+    if (err) {
+      console.log(err);
+    }
+  });
 });
 
 module.exports = router;

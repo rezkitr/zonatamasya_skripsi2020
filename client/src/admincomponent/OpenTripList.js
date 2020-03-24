@@ -30,7 +30,11 @@ const TripItem = props => {
         <a
           href="#"
           onClick={() => {
-            props.deleteTrip(props.trip._id);
+            props.deleteTrip(
+              props.trip._id,
+              props.trip.cardImage,
+              props.trip.bannerImage
+            );
           }}
           className="text-danger"
         >
@@ -63,7 +67,8 @@ class OpenTripList extends Component {
     });
   }
 
-  deleteTrip = tripId => {
+  deleteTrip = (tripId, cardImage, bannerImage) => {
+    let imgData = { cardImage, bannerImage };
     confirmAlert({
       title: "Hapus Open Trip",
       message: "Apakah anda yakin?",
@@ -81,6 +86,11 @@ class OpenTripList extends Component {
             this.setState({
               opentrips: this.state.opentrips.filter(ot => ot._id !== tripId)
             });
+
+            axios
+              .post("http://localhost:4000/opentrip/deleteimg", imgData)
+              .then(res => console.log(res.data))
+              .catch(err => console.log(err));
           }
         }
       ]
