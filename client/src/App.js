@@ -129,37 +129,37 @@ class App extends Component {
                   path="/admin/rsv/edit/:rsvId"
                   exact
                   strict
-                  render={props => <RsvEditPage {...props} />}
+                  component={RsvEditPage}
                 />
                 <Route
                   path="/admin/promo/edit/:promoId"
                   exact
                   strict
-                  render={props => <PromoEditPage {...props} />}
+                  component={PromoEditPage}
                 />
                 <Route
                   path="/admin/promo/add"
                   exact
                   strict
-                  render={props => <PromoAddPage {...props} />}
+                  component={PromoAddPage}
                 />
                 <Route
                   path="/admin/admuser/edit/:adminId"
                   exact
                   strict
-                  render={props => <AdminEditPage {...props} />}
+                  component={AdminEditPage}
                 />
                 <Route
                   path="/admin/admuser/add"
                   exact
                   strict
-                  render={props => <AdminAddPage {...props} />}
+                  component={AdminAddPage}
                 />
                 <Route
                   path="/admin/opentrip/add"
                   exact
                   strict
-                  render={props => <OpenTripAddPage {...props} />}
+                  component={OpenTripAddPage}
                 />
                 <Route
                   path="/admin/opentrip/detail/:tripId"
@@ -171,13 +171,13 @@ class App extends Component {
                   path="/admin/opentrip/edit/:tripId"
                   exact
                   strict
-                  render={props => <OpenTripEditPage {...props} />}
+                  component={OpenTripEditPage}
                 />
                 <Route
                   path="/admin/carousel/add"
                   exact
                   strict
-                  render={props => <CarouselAddPage {...props} />}
+                  component={CarouselAddPage}
                 />
               </Switch>
             </>

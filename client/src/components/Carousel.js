@@ -5,7 +5,7 @@ import CarouselImageData from "../carouselImageSource";
 
 function Carousel(props) {
   const carouselItem = props.carouselImages.map((item, index) =>
-    index == 0 ? (
+    index === 0 ? (
       <div key={item._id} className="carousel-item active">
         <div className="view">
           <Link to={`/opentrip/detail/${item.tripId}`}>
@@ -18,8 +18,8 @@ function Carousel(props) {
               }
               alt={item.carouselImage}
             />
+            <div className="mask rgba-black-slight"></div>
           </Link>
-          <div className="mask rgba-black-slight"></div>
         </div>
       </div>
     ) : (
@@ -35,8 +35,8 @@ function Carousel(props) {
               }
               alt={item.carouselImage}
             />
+            <div className="mask rgba-black-slight"></div>
           </Link>
-          <div className="mask rgba-black-slight"></div>
         </div>
       </div>
     )

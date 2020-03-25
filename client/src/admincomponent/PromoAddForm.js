@@ -5,9 +5,9 @@ import * as Yup from "yup";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
-function PromoAddForm() {
+function PromoAddForm(props) {
   return (
     <div className="container-fluid my-5">
       <div className="row justify-content-center mb-5">
@@ -67,7 +67,7 @@ function PromoAddForm() {
                         });
                       });
 
-                    this.props.history.push("/admin");
+                    props.history.push("/admin");
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
@@ -93,8 +93,8 @@ function PromoAddForm() {
                             <option value="" disabled>
                               Pilih Open Trip
                             </option>
-                            {this.props.tripData
-                              ? this.props.tripData.map(item => {
+                            {props.tripData
+                              ? props.tripData.map(item => {
                                   return (
                                     <option value={item._id}>
                                       {`${item.name} (${item.departure.start})`}
@@ -204,7 +204,7 @@ function PromoAddForm() {
                         <button
                           className="btn btn-sm btn-unique"
                           onClick={() => {
-                            this.props.history.push("/admin");
+                            props.history.push("/admin");
                           }}
                         >
                           <i className="fas fa-angle-left mr-2"></i>KEMBALI
@@ -243,4 +243,4 @@ const ValidationSchema = Yup.object().shape({
     .notOneOf([""])
 });
 
-export default DataSource(PromoAddForm);
+export default OpenTripData(PromoAddForm);

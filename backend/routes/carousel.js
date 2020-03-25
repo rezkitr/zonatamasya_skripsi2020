@@ -56,4 +56,17 @@ router.route("/add").post(upload.single("carouselImage"), (req, res) => {
     .catch(err => res.status(400).json("Error" + err));
 });
 
+// deleteCarousel
+router.route("/delete").post((req, res) => {
+  Carousel.findByIdAndDelete(req.body.crsId)
+    .then(() => res.json("Carousel deleted"))
+    .catch(err => res.status(400).json("Error : " + err));
+
+  fs.unlink(uploadDir + req.body.carouselImage, err => {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
+
 module.exports = router;
