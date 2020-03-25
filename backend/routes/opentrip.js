@@ -186,14 +186,11 @@ router
   });
 
 // delete
-router.route("/:id").delete((req, res) => {
-  OpenTrip.findByIdAndDelete(req.params.id)
+router.route("/delete").post((req, res) => {
+  OpenTrip.findByIdAndDelete(req.body.tripId)
     .then(() => res.json("Trip deleted"))
     .catch(err => res.status(400).json("Error : " + err));
-});
 
-// deleteImage
-router.route("/deleteimg").post((req, res) => {
   fs.unlink(uploadDir + req.body.cardImage, err => {
     if (err) {
       console.log(err);

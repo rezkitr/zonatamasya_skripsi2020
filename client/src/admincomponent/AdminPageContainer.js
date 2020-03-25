@@ -14,7 +14,7 @@ import CarouselList from "./CarouselList";
 class AdminContainer extends Component {
   state = {
     showSidebar: false,
-    menuSelected: "crs"
+    menuSelected: "rsv"
   };
 
   toggleSideBar = () => {
@@ -65,18 +65,18 @@ class AdminContainer extends Component {
                 <i className="fas fa-tag fa-lg mr-3 text-white"></i>Promo
               </a>
               <a
-                onClick={() => this.setState({ menuSelected: "adm" })}
-                className="list-group-item list-group-item-action primary-color-dark text-white"
-              >
-                <i className="fas fa-user-secret  fa-lg mr-3 text-white"></i>
-                Admin
-              </a>
-              <a
                 onClick={() => this.setState({ menuSelected: "crs" })}
                 className="list-group-item list-group-item-action primary-color-dark text-white"
               >
                 <i className="far fa-object-ungroup  fa-lg mr-3 text-white"></i>
                 Carousel
+              </a>
+              <a
+                onClick={() => this.setState({ menuSelected: "adm" })}
+                className="list-group-item list-group-item-action primary-color-dark text-white"
+              >
+                <i className="fas fa-user-secret  fa-lg mr-3 text-white"></i>
+                Admin
               </a>
             </div>
           </div>
