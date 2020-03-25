@@ -35,7 +35,11 @@ class TripSearch extends Component {
                   />
                   <div className="input-group-append">
                     <Link
-                      to={`/searchtrip/${this.state.keyword}`}
+                      to={
+                        this.state.keyword.length > 0
+                          ? `/searchtrip/${this.state.keyword}`
+                          : "/"
+                      }
                       className="input-group-text amber"
                     >
                       <i className="fas fa-search mx-2"></i>

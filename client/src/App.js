@@ -31,6 +31,7 @@ import AdminAddPage from "./adminpage/AdminAdd";
 import OpenTripAddPage from "./adminpage/OpenTripAdd";
 import OpenTripDetailPage from "./adminpage/OpenTripDetail";
 import OpenTripEditPage from "./adminpage/OpenTripEdit";
+import CarouselAddPage from "./adminpage/CarouselAdd";
 
 class App extends Component {
   state = {
@@ -171,6 +172,12 @@ class App extends Component {
                   exact
                   strict
                   render={props => <OpenTripEditPage {...props} />}
+                />
+                <Route
+                  path="/admin/carousel/add"
+                  exact
+                  strict
+                  render={props => <CarouselAddPage {...props} />}
                 />
               </Switch>
             </>

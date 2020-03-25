@@ -36,11 +36,13 @@ const reservationRouter = require("./routes/reservation");
 const adminRouter = require("./routes/admin");
 const promoRouter = require("./routes/promo");
 const opentripRouter = require("./routes/opentrip");
+const carouselRouter = require("./routes/carousel");
 
 app.use("/reservation", reservationRouter);
 app.use("/admin", adminRouter);
 app.use("/promo", promoRouter);
 app.use("/opentrip", opentripRouter);
+app.use("/carousel", carouselRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port : ${port}`);

@@ -85,7 +85,7 @@ class PromoList extends Component {
         <Link to="/admin/promo/add" className="green-text font-weight-bold">
           <i className="far fa-plus-square mr-2"></i>Tambah
         </Link>
-        <div class="table-responsive mt-4">
+        <div className="table-responsive mt-4">
           <table className="table table-hover w-100">
             <thead>
               <tr>

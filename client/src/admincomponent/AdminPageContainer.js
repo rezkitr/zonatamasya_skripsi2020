@@ -9,11 +9,12 @@ import RsvList from "./ReservationList";
 import PromoList from "./PromoList";
 import UserAdminList from "./UserAdminList";
 import OpenTripList from "./OpenTripList";
+import CarouselList from "./CarouselList";
 
 class AdminContainer extends Component {
   state = {
     showSidebar: false,
-    menuSelected: "rsv"
+    menuSelected: "crs"
   };
 
   toggleSideBar = () => {
@@ -70,6 +71,13 @@ class AdminContainer extends Component {
                 <i className="fas fa-user-secret  fa-lg mr-3 text-white"></i>
                 Admin
               </a>
+              <a
+                onClick={() => this.setState({ menuSelected: "crs" })}
+                className="list-group-item list-group-item-action primary-color-dark text-white"
+              >
+                <i className="far fa-object-ungroup  fa-lg mr-3 text-white"></i>
+                Carousel
+              </a>
             </div>
           </div>
 
@@ -92,6 +100,8 @@ class AdminContainer extends Component {
                   ? "Promo"
                   : this.state.menuSelected === "ot"
                   ? "Open Trip"
+                  : this.state.menuSelected === "crs"
+                  ? "Carousel"
                   : "Admin"}
               </Link>
 
@@ -145,6 +155,8 @@ class AdminContainer extends Component {
                     <PromoList />
                   ) : this.state.menuSelected === "ot" ? (
                     <OpenTripList />
+                  ) : this.state.menuSelected === "crs" ? (
+                    <CarouselList />
                   ) : (
                     <UserAdminList />
                   )}
