@@ -1,6 +1,19 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-export default class TripSearch extends Component {
+class TripSearch extends Component {
+  state = {
+    keyword: ""
+  };
+
+  keywordChangeHandle = event => {
+    const { name, value } = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
   render() {
     return (
       <div className="searchtrip-section">
@@ -8,23 +21,25 @@ export default class TripSearch extends Component {
           <div className="row justify-content-center">
             <div className="col-md-6">
               <form>
-                <label htmlFor="searchtrip" className="font-weight-bold">
+                <label htmlFor="keyword" className="font-weight-bold">
                   Cari Open Trip
                 </label>
                 <div className="input-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
-                    id="searchtrip"
+                    id="keyword"
+                    name="keyword"
                     placeholder="Mau ke..."
+                    className="form-control form-control-lg"
+                    onChange={this.keywordChangeHandle}
                   />
                   <div className="input-group-append">
-                    <button
-                      className="btn btn-md btn-amber rounded-right m-0 px-3 py-2 z-depth-0 waves-effect"
-                      type="submit"
+                    <Link
+                      to={`/searchtrip/${this.state.keyword}`}
+                      className="input-group-text amber"
                     >
-                      <i className="fas fa-search fa-lg mx-2"></i>
-                    </button>
+                      <i className="fas fa-search mx-2"></i>
+                    </Link>
                   </div>
                 </div>
               </form>
@@ -35,3 +50,4 @@ export default class TripSearch extends Component {
     );
   }
 }
+export default TripSearch;

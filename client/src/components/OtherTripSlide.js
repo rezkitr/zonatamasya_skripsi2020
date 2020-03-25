@@ -3,7 +3,7 @@ import helpers from "../helperFunction";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
 function OtherTripSlide(props) {
   let otherTrips = props.tripData.filter(trip => trip._id !== props.tripId);
@@ -84,4 +84,4 @@ function OtherTripSlide(props) {
   );
 }
 
-export default DataSource(OtherTripSlide);
+export default OpenTripData(OtherTripSlide);

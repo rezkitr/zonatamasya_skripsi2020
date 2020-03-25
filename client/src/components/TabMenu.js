@@ -1,7 +1,7 @@
 import React from "react";
 import helpers from "../helperFunction";
 import { Link } from "react-router-dom";
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
 import OtherTripSlide from "./OtherTripSlide";
 
@@ -174,4 +174,4 @@ function TabMenu(props) {
   );
 }
 
-export default DataSource(TabMenu);
+export default OpenTripData(TabMenu);

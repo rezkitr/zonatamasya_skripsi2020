@@ -145,7 +145,7 @@ class ReservationDetail extends Component {
                     <div className="col-md">
                       <p className="h6 font-weight-bold">Promo</p>
                       <h4 className="purple-text">
-                        {this.state.rsv.promoCode}
+                        {this.state.rsv.promoCode.toUpperCase()}
                       </h4>
                     </div>
                   </div>

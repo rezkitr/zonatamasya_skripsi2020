@@ -18,6 +18,7 @@ import ReservationPage from "./pages/Reservation";
 import GalleryPage from "./pages/Gallery";
 import CalendarPage from "./pages/Calendar";
 import ContactPage from "./pages/Contact";
+import SearchResultPage from "./pages/SearchResult";
 
 import AdminPage from "./adminpage/AdminHome";
 import LoginPage from "./adminpage/Login";
@@ -37,7 +38,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // change to false later
     store.set("loggedIn", true);
   }
 
@@ -83,6 +83,12 @@ class App extends Component {
                     exact
                     strict
                     component={CalendarPage}
+                  />
+                  <Route
+                    path="/searchtrip/:keyword"
+                    exact
+                    strict
+                    component={SearchResultPage}
                   />
                   <Route path="/contact" exact strict component={ContactPage} />
                 </Switch>

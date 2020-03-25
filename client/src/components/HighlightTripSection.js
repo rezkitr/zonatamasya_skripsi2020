@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
 import TripCard from "./TripCard";
 import SectionTitle from "./SectionTitle";
@@ -12,9 +12,9 @@ function TripCardContainer(props) {
         secTitle="Open Trip"
         secTagline="Liburan nyaman, pulang bawa teman!"
       />
-      <dxiv className="row row-cols-md-2 row-cols-lg-5 mx-3">
-        {props.tripData.map(item =>
-          item.highlighted ? (
+      <div className="row row-cols-md-2 row-cols-lg-5 mx-3">
+        {props.tripData.map((item, index) =>
+          item.highlighted && index < 5 ? (
             <div className="col my-3">
               <TripCard
                 key={item._id}
@@ -27,7 +27,7 @@ function TripCardContainer(props) {
             </div>
           ) : null
         )}
-      </dxiv>
+      </div>
 
       <div className="row justify-content-center mt-5">
         <Link to="/opentrip">
@@ -40,4 +40,4 @@ function TripCardContainer(props) {
   );
 }
 
-export default DataSource(TripCardContainer);
+export default OpenTripData(TripCardContainer);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const DataSource = WrappedComponent => {
+const OpenTripData = WrappedComponent => {
   return class extends Component {
     state = {
       tripData: []
@@ -22,4 +22,4 @@ const DataSource = WrappedComponent => {
   };
 };
 
-export default DataSource;
+export default OpenTripData;

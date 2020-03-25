@@ -8,7 +8,8 @@ body {
 .gallery-page,
 .download-page,
 .contact-page,
-.calendar-page {
+.calendar-page,
+.searchresult-page {
   margin-top: 75px;
 }
 
@@ -16,7 +17,8 @@ body {
   min-height: 690px;
 }
 
-.reservation-page {
+.reservation-page,
+.searchresult-page {
   min-height: 710px;
 }
 

@@ -6,7 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
 class ReservationForm extends Component {
   state = {
@@ -953,4 +953,4 @@ const ValidationSchema = Yup.object().shape({
   })
 });
 
-export default DataSource(ReservationForm);
+export default OpenTripData(ReservationForm);

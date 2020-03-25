@@ -1,6 +1,6 @@
 import React from "react";
 import helpers from "../helperFunction";
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
 function CalendarList(props) {
   const tripSched = props.tripData.map((item, index) => {
@@ -218,4 +218,4 @@ function CalendarList(props) {
   );
 }
 
-export default DataSource(CalendarList);
+export default OpenTripData(CalendarList);

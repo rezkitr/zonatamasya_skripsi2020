@@ -1,6 +1,6 @@
 import React from "react";
 
-import DataSource from "../tripDataSource";
+import OpenTripData from "../tripDataSource";
 
 function TripBanner(props) {
   let bannerImage = "";
@@ -31,4 +31,4 @@ function TripBanner(props) {
   );
 }
 
-export default DataSource(TripBanner);
+export default OpenTripData(TripBanner);
