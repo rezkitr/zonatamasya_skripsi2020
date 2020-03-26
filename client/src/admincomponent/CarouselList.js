@@ -4,30 +4,74 @@ import { confirmAlert } from "react-confirm-alert";
 import axios from "axios";
 
 const CarouselItem = props => {
-  return (
-    <div className="col-md-3 p-3 mb-3 text-center">
-      <img
-        className="img-fluid mb-3"
-        src={
-          process.env.PUBLIC_URL +
-          "/upload/carouselImg/" +
-          props.carousel.carouselImage
-        }
-        alt={props.carousel.carouselImage}
-      />
-      <a
-        onClick={() => {
-          props.deleteCarouselImage(
-            props.carousel._id,
-            props.carousel.carouselImage
-          );
-        }}
-        className="text-danger"
-      >
-        <i className="far fa-trash-alt mx-2"></i>
-      </a>
-    </div>
-  );
+  let splitFilename = props.carousel.carouselFile.split(".");
+  let ext = splitFilename[1];
+
+  if (ext === "jpeg" || ext === "png") {
+    return (
+      <div className="col-md-3 mb-4 text-center">
+        <div className="row px-2 py-3 h-100">
+          <img
+            className="img-fluid"
+            src={
+              process.env.PUBLIC_URL +
+              "/upload/carouselFiles/" +
+              props.carousel.carouselFile
+            }
+            alt={props.carousel.carouselFile}
+          />
+        </div>
+        <div className="row">
+          <div className="col text-center">
+            <a
+              onClick={() => {
+                props.deleteCarouselFile(
+                  props.carousel._id,
+                  props.carousel.carouselFile
+                );
+              }}
+              className="text-danger"
+            >
+              <i className="far fa-trash-alt mx-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="col-md-3 mb-4 text-center">
+        <div className="row px-2 h-100">
+          <video
+            autoPlay
+            loop
+            muted
+            className="video-fluid d-block"
+            src={
+              process.env.PUBLIC_URL +
+              "/upload/carouselFiles/" +
+              props.carousel.carouselFile
+            }
+          ></video>
+        </div>
+        <div className="row">
+          <div className="col text-center">
+            <a
+              onClick={() => {
+                props.deleteCarouselFile(
+                  props.carousel._id,
+                  props.carousel.carouselFile
+                );
+              }}
+              className="text-danger"
+            >
+              <i className="far fa-trash-alt mx-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 class CarouselList extends Component {
@@ -50,14 +94,14 @@ class CarouselList extends Component {
         <CarouselItem
           key={item._id}
           carousel={item}
-          deleteCarouselImage={this.deleteCarouselImage}
+          deleteCarouselFile={this.deleteCarouselFile}
         />
       );
     });
   }
 
-  deleteCarouselImage = (crsId, carouselImage) => {
-    let crsData = { crsId, carouselImage };
+  deleteCarouselFile = (crsId, carouselFile) => {
+    let crsData = { crsId, carouselFile };
     confirmAlert({
       title: "Hapus Gambar Carousel",
       message: "Apakah anda yakin?",

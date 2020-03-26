@@ -9,7 +9,7 @@ import DataSource from "../tripDataSource";
 
 class CarouselAddForm extends Component {
   state = {
-    carouselImage: null,
+    carouselFile: null,
     submitting: false
   };
 
@@ -56,7 +56,7 @@ class CarouselAddForm extends Component {
                     onSubmit={(values, { setSubmitting }) => {
                       const data = new FormData();
                       data.append("tripId", values.tripId);
-                      data.append("carouselImage", this.state.carouselImage);
+                      data.append("carouselFile", this.state.carouselFile);
 
                       const config = {
                         headers: {
@@ -135,19 +135,22 @@ class CarouselAddForm extends Component {
                           </div>
                           <div className="form-group">
                             <label
-                              htmlFor="carouselImage"
+                              htmlFor="carouselFile"
                               className="font-weight-bold"
                             >
-                              Gambar Carousel
+                              File Carousel
                             </label>
                             <input
                               type="file"
                               className="form-control-file"
-                              name="carouselImage"
-                              id="carouselImage"
+                              name="carouselFile"
+                              id="carouselFile"
                               onChange={this.handleSelectImage}
                             />
-                            {this.state.carouselImage === null &&
+                            <small className="form-text text-muted">
+                              JPEG/ PNG/ MP4 (Max. 500 MB)
+                            </small>
+                            {this.state.carouselFile === null &&
                             this.state.submitting ? (
                               <div className="pt-1">
                                 <p className="my-invalid-feedback">

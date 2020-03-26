@@ -14,7 +14,7 @@ import CarouselList from "./CarouselList";
 class AdminContainer extends Component {
   state = {
     showSidebar: false,
-    menuSelected: "rsv"
+    menuSelected: "crs"
   };
 
   toggleSideBar = () => {

@@ -7,7 +7,7 @@ const carouselSchema = new Schema({
     type: String,
     required: true
   },
-  carouselImage: {
+  carouselFile: {
     type: String,
     required: true
   }

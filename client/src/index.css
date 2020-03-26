@@ -66,6 +66,12 @@ body {
   height: 720px;
 }
 
+.carousel video {
+  height: 720px;
+  object-fit: cover;
+  margin-bottom: 0;
+}
+
 .searchtrip-section {
   background-color: #ffc048;
   padding-top: 30px;

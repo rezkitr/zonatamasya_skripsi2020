@@ -13,7 +13,7 @@ router.route("/").get((req, res) => {
 
 // addCarousel
 const uploadDir = path.join(
-  __dirname + "./../../client/public/upload/carouselImg/"
+  __dirname + "./../../client/public/upload/carouselFiles/"
 );
 
 const storage = multer.diskStorage({
@@ -26,7 +26,11 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "video/mp4"
+  ) {
     cb(null, true);
   } else {
     cb(null, false);
@@ -36,18 +40,18 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 1024 * 1024 * 512
   },
   fileFilter: fileFilter
 });
 
-router.route("/add").post(upload.single("carouselImage"), (req, res) => {
+router.route("/add").post(upload.single("carouselFile"), (req, res) => {
   const tripId = req.body.tripId;
-  const carouselImage = req.file.filename;
+  const carouselFile = req.file.filename;
 
   const newCarousel = new Carousel({
     tripId,
-    carouselImage
+    carouselFile
   });
 
   newCarousel
@@ -62,7 +66,7 @@ router.route("/delete").post((req, res) => {
     .then(() => res.json("Carousel deleted"))
     .catch(err => res.status(400).json("Error : " + err));
 
-  fs.unlink(uploadDir + req.body.carouselImage, err => {
+  fs.unlink(uploadDir + req.body.carouselFile, err => {
     if (err) {
       console.log(err);
     }
