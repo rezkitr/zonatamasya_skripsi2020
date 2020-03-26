@@ -35,7 +35,7 @@ class PromoCard extends Component {
                   <div className="d-flex flex-column justify-content-center">
                     <h5>
                       KODE PROMO : {"  "}
-                      <span className="badge badge-warning">
+                      <span className="badge badge-info p-2">
                         {this.props.promoCode}
                       </span>
                     </h5>
@@ -44,7 +44,7 @@ class PromoCard extends Component {
                     </h1>
                     <h6>
                       Masa Berlaku :{"  "}
-                      <span className="badge badge-info">
+                      <span className="badge badge-warning p-2">
                         {helpers.formatDate(this.props.expDate)}
                       </span>
                     </h6>
