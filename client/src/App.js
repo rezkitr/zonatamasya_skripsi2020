@@ -17,6 +17,7 @@ import DetailTripPage from "./pages/DetailTrip";
 import ReservationPage from "./pages/Reservation";
 import GalleryPage from "./pages/Gallery";
 import CalendarPage from "./pages/Calendar";
+import PromoPage from "./pages/Promo";
 import ContactPage from "./pages/Contact";
 import SearchResultPage from "./pages/SearchResult";
 
@@ -85,6 +86,7 @@ class App extends Component {
                     strict
                     component={CalendarPage}
                   />
+                  <Route path="/promo" exact strict component={PromoPage} />
                   <Route
                     path="/searchtrip/:keyword"
                     exact
