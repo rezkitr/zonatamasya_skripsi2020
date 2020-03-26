@@ -24,6 +24,7 @@ function PromoList(props) {
                   key={item._id}
                   promoCode={item.code}
                   discount={item.discount}
+                  desc={item.description}
                   expDate={item.expDate}
                   tripId={item.tripId}
                 />
