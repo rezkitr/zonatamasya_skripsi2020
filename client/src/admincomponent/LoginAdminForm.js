@@ -28,7 +28,7 @@ class LoginAdminForm extends Component {
     };
 
     axios
-      .post("http://localhost:4000/admin/login", values)
+      .post("/admin/login", values)
       .then(res => {
         if (res.data) {
           store.set("loggedIn", true);

@@ -13,11 +13,11 @@ class ReservationEditForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:4000/reservation/${this.props.rsvId}`)
+      .get(`/reservation/${this.props.rsvId}`)
       .then(res => {
         this.setState({ rsv: res.data }, () => {
           axios
-            .get(`http://localhost:4000/opentrip/${this.state.rsv.tripId}`)
+            .get(`/opentrip/${this.state.rsv.tripId}`)
             .then(res => {
               this.setState({ opentrip: res.data });
             })
@@ -84,10 +84,7 @@ class ReservationEditForm extends Component {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                       axios
-                        .post(
-                          `http://localhost:4000/reservation/update/${this.props.rsvId}`,
-                          values
-                        )
+                        .post(`/reservation/update/${this.props.rsvId}`, values)
                         .then(res =>
                           confirmAlert({
                             title: "Update Reservasi",

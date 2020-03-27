@@ -13,7 +13,7 @@ import CarouselList from "./CarouselList";
 
 class AdminContainer extends Component {
   state = {
-    showSidebar: false,
+    showSidebar: true,
     menuSelected: "rsv"
   };
 

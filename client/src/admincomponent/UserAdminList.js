@@ -37,7 +37,7 @@ class UserAdminList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/admin/")
+      .get("/admin/")
       .then(res => {
         this.setState({ admins: res.data });
       })
@@ -68,7 +68,7 @@ class UserAdminList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .delete(`http://localhost:4000/admin/${adminId}`)
+              .delete(`/admin/${adminId}`)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

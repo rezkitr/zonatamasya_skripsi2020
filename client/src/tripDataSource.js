@@ -9,7 +9,7 @@ const OpenTripData = WrappedComponent => {
 
     componentDidMount() {
       axios
-        .get("http://localhost:4000/opentrip/")
+        .get("/opentrip/")
         .then(res => {
           this.setState({ tripData: res.data });
         })

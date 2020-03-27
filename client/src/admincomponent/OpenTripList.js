@@ -52,7 +52,7 @@ class OpenTripList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/opentrip/")
+      .get("/opentrip/")
       .then(res => {
         this.setState({ opentrips: res.data });
       })
@@ -80,7 +80,7 @@ class OpenTripList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .post("http://localhost:4000/opentrip/delete", tripData)
+              .post("/opentrip/delete", tripData)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

@@ -131,11 +131,7 @@ class OpenTripAddForm extends Component {
                       };
 
                       axios
-                        .post(
-                          "http://localhost:4000/opentrip/add",
-                          data,
-                          config
-                        )
+                        .post("/opentrip/add", data, config)
                         .then(res => {
                           confirmAlert({
                             title: "Tambah Open Trip",

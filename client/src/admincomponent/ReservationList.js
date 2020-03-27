@@ -50,7 +50,7 @@ class ReservationList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/reservation/")
+      .get("/reservation/")
       .then(res => {
         this.setState({ reservations: res.data });
       })
@@ -59,7 +59,7 @@ class ReservationList extends Component {
 
   componentDidUpdate() {
     axios
-      .get("http://localhost:4000/reservation/")
+      .get("/reservation/")
       .then(res => {
         this.setState({ reservations: res.data });
       })
@@ -90,7 +90,7 @@ class ReservationList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .delete(`http://localhost:4000/reservation/${rsvId}`)
+              .delete(`/reservation/${rsvId}`)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

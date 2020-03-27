@@ -81,7 +81,7 @@ class CarouselList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/carousel/")
+      .get("/carousel/")
       .then(res => {
         this.setState({ carousels: res.data });
       })
@@ -113,7 +113,7 @@ class CarouselList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .post("http://localhost:4000/carousel/delete", crsData)
+              .post("/carousel/delete", crsData)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
 

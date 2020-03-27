@@ -64,11 +64,7 @@ class CarouselAddForm extends Component {
                         }
                       };
                       axios
-                        .post(
-                          "http://localhost:4000/carousel/add",
-                          data,
-                          config
-                        )
+                        .post("/carousel/add", data, config)
                         .then(res => {
                           confirmAlert({
                             title: "Tambah Carousel",

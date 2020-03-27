@@ -12,7 +12,7 @@ class PromoEditForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:4000/promo/id/${this.props.promoId}`)
+      .get(`/promo/id/${this.props.promoId}`)
       .then(res => {
         this.setState({
           promo: res.data
@@ -59,10 +59,7 @@ class PromoEditForm extends Component {
                     validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
                       axios
-                        .post(
-                          `http://localhost:4000/promo/update/${this.props.promoId}`,
-                          values
-                        )
+                        .post(`/promo/update/${this.props.promoId}`, values)
                         .then(res => {
                           confirmAlert({
                             title: "Update Promo",

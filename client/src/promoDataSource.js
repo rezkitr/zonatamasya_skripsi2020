@@ -9,7 +9,7 @@ const PromoDataSource = WrappedComponent => {
 
     componentDidMount() {
       axios
-        .get("http://localhost:4000/promo/")
+        .get("/promo/")
         .then(res => {
           this.setState({ promoData: res.data });
         })

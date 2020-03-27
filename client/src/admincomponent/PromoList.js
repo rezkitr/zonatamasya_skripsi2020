@@ -40,7 +40,7 @@ class PromoList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/promo/")
+      .get("/promo/")
       .then(res => {
         this.setState({ promos: res.data });
       })
@@ -67,7 +67,7 @@ class PromoList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .delete(`http://localhost:4000/promo/${promoId}`)
+              .delete(`/promo/${promoId}`)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

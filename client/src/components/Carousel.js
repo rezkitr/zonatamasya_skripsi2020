@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import CarouselImageData from "../carouselImageSource";
+import CarouselData from "../carouselSource";
 
 function Carousel(props) {
-  const carouselItem = props.carouselImages.map((item, index) => {
+  const carouselItem = props.carouselData.map((item, index) => {
     let splitFilename = item.carouselFile.split(".");
     let ext = splitFilename[1];
 
@@ -53,6 +53,18 @@ function Carousel(props) {
     }
   });
 
+  const indicator = props.carouselData.map((item, index) => {
+    return index === 0 ? (
+      <li
+        data-target="#myCarousel"
+        data-slide-to={index}
+        className="active"
+      ></li>
+    ) : (
+      <li data-target="#myCarousel" data-slide-to={index}></li>
+    );
+  });
+
   return (
     <div>
       <div
@@ -61,6 +73,8 @@ function Carousel(props) {
         data-ride="carousel"
         data-interval="false"
       >
+        <ol className="carousel-indicators">{indicator}</ol>
+
         <div className="carousel-inner" role="listbox">
           {carouselItem}
         </div>
@@ -94,4 +108,4 @@ function Carousel(props) {
   );
 }
 
-export default CarouselImageData(Carousel);
+export default CarouselData(Carousel);

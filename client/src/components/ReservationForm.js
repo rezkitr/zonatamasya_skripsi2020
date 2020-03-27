@@ -31,7 +31,7 @@ class ReservationForm extends Component {
 
     if (ignoreCasePromo.length > 0) {
       axios
-        .get(`http://localhost:4000/promo/${ignoreCasePromo}`)
+        .get(`/promo/${ignoreCasePromo}`)
         .then(res => {
           this.setState({ promoData: res.data });
         })
@@ -169,7 +169,7 @@ class ReservationForm extends Component {
                   onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
                       axios
-                        .post("http://localhost:4000/reservation/add", values)
+                        .post("/reservation/add", values)
                         .then(res => alert(res.data))
                         .catch(err => alert(err));
                       setSubmitting(false);

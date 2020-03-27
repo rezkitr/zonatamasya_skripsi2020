@@ -52,7 +52,7 @@ class UserAdminAddForm extends Component {
                     onSubmit={(values, { setSubmitting }) => {
                       setTimeout(() => {
                         axios
-                          .post("http://localhost:4000/admin/add", values)
+                          .post("/admin/add", values)
                           .then(res => {
                             confirmAlert({
                               title: "Tambah Admin",
