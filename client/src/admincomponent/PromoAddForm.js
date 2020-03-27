@@ -43,7 +43,7 @@ function PromoAddForm(props) {
                   validateOnBlur={false}
                   onSubmit={(values, { setSubmitting }) => {
                     axios
-                      .post("/.netlify/functions/server/promo/add", values)
+                      .post("/promo/add", values)
                       .then(res => {
                         confirmAlert({
                           title: "Tambah Promo",

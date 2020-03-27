@@ -64,11 +64,7 @@ class CarouselAddForm extends Component {
                         }
                       };
                       axios
-                        .post(
-                          "/.netlify/functions/server/carousel/add",
-                          data,
-                          config
-                        )
+                        .post("/carousel/add", data, config)
                         .then(res => {
                           confirmAlert({
                             title: "Tambah Carousel",

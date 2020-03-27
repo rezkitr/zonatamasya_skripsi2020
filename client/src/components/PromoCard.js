@@ -12,7 +12,7 @@ class PromoCard extends Component {
 
   componentDidMount() {
     axios
-      .get(`/.netlify/functions/server/opentrip/${this.props.tripId}`)
+      .get(`/opentrip/${this.props.tripId}`)
       .then(res => {
         this.setState({
           trip: res.data

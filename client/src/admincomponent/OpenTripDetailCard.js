@@ -10,7 +10,7 @@ class OpenTripDetailCard extends Component {
 
   componentDidMount() {
     axios
-      .get(`/.netlify/functions/server/opentrip/${this.props.tripId}`)
+      .get(`/opentrip/${this.props.tripId}`)
       .then(res => {
         this.setState({ ot: res.data });
       })

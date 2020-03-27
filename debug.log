@@ -5,9 +5,14 @@
 [0327/150915.366:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/150915.367:ERROR:crash_report_database_win.cc(469)] failed to stat report
 <<<<<<< HEAD
+<<<<<<< HEAD
 [0327/160301.437:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/160301.437:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/192122.505:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/192122.506:ERROR:crash_report_database_win.cc(469)] failed to stat report
 =======
 >>>>>>> parent of 952a865... fix bug
+=======
+>>>>>>> parent of 952a865... fix bug
+[0327/205012.890:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0327/205012.891:ERROR:crash_report_database_win.cc(469)] failed to stat report

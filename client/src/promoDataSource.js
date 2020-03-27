@@ -9,7 +9,7 @@ const PromoDataSource = WrappedComponent => {
 
     componentDidMount() {
       axios
-        .get("/.netlify/functions/server/promo/")
+        .get("/promo/")
         .then(res => {
           this.setState({ promoData: res.data });
         })

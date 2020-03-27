@@ -3,15 +3,16 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
 
-const reservationRouter = require("../routes/reservation");
-const adminRouter = require("../routes/admin");
-const promoRouter = require("../routes/promo");
-const opentripRouter = require("../routes/opentrip");
-const carouselRouter = require("../routes/carousel");
+const reservationRouter = require("./routes/reservation");
+const adminRouter = require("./routes/admin");
+const promoRouter = require("./routes/promo");
+const opentripRouter = require("./routes/opentrip");
+const carouselRouter = require("./routes/carousel");
 
 require("dotenv").config();
 
 const app = express();
+const router = express.Router();
 const port = process.env.PORT || 4000;
 
 app.use(cors());

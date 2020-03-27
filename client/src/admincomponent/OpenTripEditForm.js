@@ -27,7 +27,7 @@ class OpenTripEditForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`/.netlify/functions/server/opentrip/${this.props.tripId}`)
+      .get(`/opentrip/${this.props.tripId}`)
       .then(res => {
         this.setState({ opentripData: res.data }, () => {
           this.setHighlighted(this.state.opentripData.highlighted);
@@ -137,10 +137,7 @@ class OpenTripEditForm extends Component {
                       validateOnBlur={false}
                       onSubmit={(values, { setSubmitting }) => {
                         axios
-                          .post(
-                            `/.netlify/functions/server/opentrip/update/${this.props.tripId}`,
-                            values
-                          )
+                          .post(`/opentrip/update/${this.props.tripId}`, values)
                           .then(res => {
                             confirmAlert({
                               title: "Update Open Trip",
@@ -188,7 +185,7 @@ class OpenTripEditForm extends Component {
 
                           axios
                             .post(
-                              `/.netlify/functions/server/opentrip/updateimg/${this.props.tripId}`,
+                              `/opentrip/updateimg/${this.props.tripId}`,
                               newImgData,
                               config
                             )
@@ -211,7 +208,7 @@ class OpenTripEditForm extends Component {
 
                           axios
                             .post(
-                              `/.netlify/functions/server/opentrip/updatecardimg/${this.props.tripId}`,
+                              `/opentrip/updatecardimg/${this.props.tripId}`,
                               newImgData,
                               config
                             )
@@ -237,7 +234,7 @@ class OpenTripEditForm extends Component {
 
                           axios
                             .post(
-                              `/.netlify/functions/server/opentrip/updatebannerimg/${this.props.tripId}`,
+                              `/opentrip/updatebannerimg/${this.props.tripId}`,
                               newImgData,
                               config
                             )

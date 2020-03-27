@@ -40,7 +40,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    store.set("loggedIn", true);
+    store.set("loggedIn", false);
   }
 
   handleAuth = () => {

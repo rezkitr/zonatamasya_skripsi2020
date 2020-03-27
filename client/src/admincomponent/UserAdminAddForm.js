@@ -52,7 +52,7 @@ class UserAdminAddForm extends Component {
                     onSubmit={(values, { setSubmitting }) => {
                       setTimeout(() => {
                         axios
-                          .post("/.netlify/functions/server/admin/add", values)
+                          .post("/admin/add", values)
                           .then(res => {
                             confirmAlert({
                               title: "Tambah Admin",

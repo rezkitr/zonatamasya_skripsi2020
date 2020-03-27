@@ -131,11 +131,7 @@ class OpenTripAddForm extends Component {
                       };
 
                       axios
-                        .post(
-                          "/.netlify/functions/server/opentrip/add",
-                          data,
-                          config
-                        )
+                        .post("/opentrip/add", data, config)
                         .then(res => {
                           confirmAlert({
                             title: "Tambah Open Trip",
