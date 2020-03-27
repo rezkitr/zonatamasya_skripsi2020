@@ -40,7 +40,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    store.set("loggedIn", true);
+    store.set("loggedIn", false);
   }
 
   handleAuth = () => {
@@ -55,7 +55,7 @@ class App extends Component {
       <Router>
         <>
           {window.location.pathname !== "/login" &&
-          window.location.pathname.search("/admin") === -1 ? (
+          window.location.pathname.includes("admin") === false ? (
             <>
               <Navbar />
               <ScrollToTop>
