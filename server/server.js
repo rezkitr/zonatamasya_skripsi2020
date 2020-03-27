@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const serverless = require("serverless-http");
 const path = require("path");
 
-const reservationRouter = require("./routes/reservation");
-const adminRouter = require("./routes/admin");
-const promoRouter = require("./routes/promo");
-const opentripRouter = require("./routes/opentrip");
-const carouselRouter = require("./routes/carousel");
+const reservationRouter = require("../routes/reservation");
+const adminRouter = require("../routes/admin");
+const promoRouter = require("../routes/promo");
+const opentripRouter = require("../routes/opentrip");
+const carouselRouter = require("../routes/carousel");
 
 require("dotenv").config();
 

@@ -1207,7 +1207,10 @@
 [0327/141715.605:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/143014.880:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/143014.881:ERROR:crash_report_database_win.cc(469)] failed to stat report
+<<<<<<< HEAD
 [0327/154623.329:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/154623.330:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/160747.211:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0327/160747.212:ERROR:crash_report_database_win.cc(469)] failed to stat report
+=======
+>>>>>>> parent of 952a865... fix bug
