@@ -37,7 +37,7 @@ class UserAdminList extends Component {
 
   componentDidMount() {
     axios
-      .get("/admin/")
+      .get("/.netlify/functions/server/admin/")
       .then(res => {
         this.setState({ admins: res.data });
       })
@@ -68,7 +68,7 @@ class UserAdminList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .delete(`/admin/${adminId}`)
+              .delete(`/.netlify/functions/server/admin/${adminId}`)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

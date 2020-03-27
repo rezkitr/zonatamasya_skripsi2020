@@ -4,14 +4,16 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client-install": "npm install --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "start": "run-p start:**",
+    "start:lambda": "netlify-lambda serve server",
+    "start:app": "cd client && npm start",
+    "build": "run-p build:**",
+    "build:lambda": "netlify-lambda build server",
+    "build:app": "cd client && npm build",
+    "deploy:draft": "netlify deploy --dir=client/build --functions=functions",
+    "deploy:prod": "netlify deploy --dir=client/build --functions=functions --prod"
   },
+  "proxy": "http://localhost:9000",
   "keywords": [],
   "author": "Rezki Triandy",
   "license": "ISC",
@@ -22,6 +24,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.1",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "netlify-lambda": "^1.6.3",
+    "serverless-http": "^2.3.2"
   }
 }

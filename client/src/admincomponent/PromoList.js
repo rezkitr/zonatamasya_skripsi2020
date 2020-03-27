@@ -40,7 +40,7 @@ class PromoList extends Component {
 
   componentDidMount() {
     axios
-      .get("/promo/")
+      .get("/.netlify/functions/server/promo/")
       .then(res => {
         this.setState({ promos: res.data });
       })
@@ -67,7 +67,7 @@ class PromoList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .delete(`/promo/${promoId}`)
+              .delete(`/.netlify/functions/server/promo/${promoId}`)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

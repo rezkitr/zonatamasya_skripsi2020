@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const serverless = require("serverless-http");
 const path = require("path");
 
 const reservationRouter = require("./routes/reservation");
@@ -12,6 +13,7 @@ const carouselRouter = require("./routes/carousel");
 require("dotenv").config();
 
 const app = express();
+const router = express.Router();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
@@ -45,14 +47,19 @@ app.use("/opentrip", opentripRouter);
 app.use("/carousel", carouselRouter);
 
 // serve static assets
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 
 app.listen(port, () => {
   console.log(`Server is running on port : ${port}`);
 });
+
+app.use("/.netlify/functions/server", router); // path must route to lambda
+
+module.exports = app;
+module.exports.handler = serverless(app);

@@ -28,7 +28,7 @@ class LoginAdminForm extends Component {
     };
 
     axios
-      .post("/admin/login", values)
+      .post("/.netlify/functions/server/admin/login", values)
       .then(res => {
         if (res.data) {
           store.set("loggedIn", true);

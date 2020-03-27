@@ -52,7 +52,7 @@ class OpenTripList extends Component {
 
   componentDidMount() {
     axios
-      .get("/opentrip/")
+      .get("/.netlify/functions/server/opentrip/")
       .then(res => {
         this.setState({ opentrips: res.data });
       })
@@ -80,7 +80,7 @@ class OpenTripList extends Component {
           label: "Hapus",
           onClick: () => {
             axios
-              .post("/opentrip/delete", tripData)
+              .post("/.netlify/functions/server/opentrip/delete", tripData)
               .then(res => console.log(res.data))
               .catch(err => console.log(err));
             this.setState({

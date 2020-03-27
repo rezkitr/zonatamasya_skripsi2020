@@ -10,7 +10,7 @@ class ReservationDetail extends Component {
 
   componentDidMount() {
     axios
-      .get(`/reservation/${this.props.rsvId}`)
+      .get(`/.netlify/functions/server/reservation/${this.props.rsvId}`)
       .then(res => {
         this.setState({ rsv: res.data });
       })

@@ -12,7 +12,7 @@ class PromoEditForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`/promo/id/${this.props.promoId}`)
+      .get(`/.netlify/functions/server/promo/id/${this.props.promoId}`)
       .then(res => {
         this.setState({
           promo: res.data
@@ -59,7 +59,10 @@ class PromoEditForm extends Component {
                     validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
                       axios
-                        .post(`/promo/update/${this.props.promoId}`, values)
+                        .post(
+                          `/.netlify/functions/server/promo/update/${this.props.promoId}`,
+                          values
+                        )
                         .then(res => {
                           confirmAlert({
                             title: "Update Promo",

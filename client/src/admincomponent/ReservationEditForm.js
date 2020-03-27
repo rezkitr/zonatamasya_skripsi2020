@@ -13,11 +13,11 @@ class ReservationEditForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`/reservation/${this.props.rsvId}`)
+      .get(`/.netlify/functions/server/reservation/${this.props.rsvId}`)
       .then(res => {
         this.setState({ rsv: res.data }, () => {
           axios
-            .get(`/opentrip/${this.state.rsv.tripId}`)
+            .get(`/.netlify/functions/server/opentrip/${this.state.rsv.tripId}`)
             .then(res => {
               this.setState({ opentrip: res.data });
             })
@@ -84,7 +84,10 @@ class ReservationEditForm extends Component {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                       axios
-                        .post(`/reservation/update/${this.props.rsvId}`, values)
+                        .post(
+                          `/.netlify/functions/server/reservation/update/${this.props.rsvId}`,
+                          values
+                        )
                         .then(res =>
                           confirmAlert({
                             title: "Update Reservasi",

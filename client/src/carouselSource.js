@@ -9,7 +9,7 @@ const CarouselData = WrappedComponent => {
 
     componentDidMount() {
       axios
-        .get("/carousel/")
+        .get("/.netlify/functions/server/carousel/")
         .then(res => {
           this.setState({ carouselData: res.data });
         })

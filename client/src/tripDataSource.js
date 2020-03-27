@@ -9,7 +9,7 @@ const OpenTripData = WrappedComponent => {
 
     componentDidMount() {
       axios
-        .get("/opentrip/")
+        .get("/.netlify/functions/server/opentrip/")
         .then(res => {
           this.setState({ tripData: res.data });
         })
