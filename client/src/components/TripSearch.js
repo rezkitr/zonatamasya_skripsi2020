@@ -27,14 +27,9 @@ class TripSearch extends Component {
   render() {
     return (
       <div
-        className="container-fluid"
+        className="container-fluid searchtrip-section"
         style={{
-          height: "640px",
-          backgroundImage: `url(${bgImage})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "50% 70%",
-          backgroundPosition: "center",
-          backgroundPositionY: "-40px"
+          backgroundImage: `url(${bgImage})`
         }}
       >
         <div className="row justify-content-center">

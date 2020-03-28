@@ -12,7 +12,7 @@ function Home(props) {
     <div className="home-page">
       <Carousel />
       <SearchTrip {...props} />
-      {/* <MenuPanel /> */}
+      <MenuPanel />
       <HighlightTripSection />
       <GallerySection />
       <Services />
