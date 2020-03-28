@@ -892,7 +892,7 @@ class ReservationForm extends Component {
                               <i className="fas fa-angle-left mr-2"></i> KEMBALI
                             </button>
                             <button
-                              type="button"
+                              type="submit"
                               className="btn btn-sm btn-success font-weight-bold"
                               style={{ fontSize: "14px" }}
                               onClick={this._next}
@@ -900,9 +900,7 @@ class ReservationForm extends Component {
                               CHECK OUT
                               <i className="fas fa-angle-right ml-2"></i>
                             </button>
-                            <button type="submit">
-                              {isSubmitting ? "Loading..." : "Submit"}
-                            </button>
+                           
                           </div>
                         </div>
                       )}
