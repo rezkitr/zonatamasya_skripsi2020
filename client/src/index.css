@@ -73,7 +73,9 @@ body {
 }
 
 .page-banner img {
-  width: 400px;
+  width: 320px;
+  height: 200px;
+
 }
 
 .page-banner-title {
