@@ -23,6 +23,38 @@ body {
   min-height: 710px;
 }
 
+.navbar {
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  font-size: 16px;
+  min-height: 75px;
+}
+
+.navbar-brand img {
+  height: 30px;
+}
+
+.navbar-nav {
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.navActive {
+  color: #273c75 !important;
+  font-weight: 900;
+  font-size: larger;
+}
+
+.carousel img {
+  height: 720px;
+}
+
+.carousel video {
+  height: 720px;
+  object-fit: cover;
+  margin-bottom: 0;
+}
+
 .download-page {
   min-height: 400px;
 }
@@ -31,7 +63,6 @@ body {
   height: 500px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position-y: -180px;
   position: relative;
 }
 
@@ -50,26 +81,13 @@ body {
   color: white;
 }
 
-.navbar {
-  font-family: "Muli", sans-serif;
-  font-size: 16px;
-  min-height: 75px;
+.banner-title h1 {
+  font-size: 38px;
+  font-weight: 500;
 }
 
-.navActive {
-  color: #273c75 !important;
-  font-weight: 900;
-  font-size: larger;
-}
-
-.carousel img {
-  height: 720px;
-}
-
-.carousel video {
-  height: 720px;
-  object-fit: cover;
-  margin-bottom: 0;
+.banner-title p {
+  font-size: 14px;
 }
 
 .searchtrip-section {
@@ -96,6 +114,32 @@ body {
 .menu-panel img {
   width: 70px;
   height: 70px;
+}
+
+.promo-card img {
+  height: 120px;
+  width: 40px;
+}
+
+.promo-img {
+  display: none;
+}
+
+.promo-info {
+  margin-left: 20px;
+}
+
+.promo-link {
+  margin-top: 20px;
+}
+
+.promo-card h1 {
+  font-size: 42px;
+}
+
+.promo-card h5,
+.promo-card h6 {
+  font-size: 14px;
 }
 
 .card-img-top {
@@ -240,8 +284,16 @@ footer {
 }
 
 .card-price {
-  width: 70%;
+  width: 100%;
   margin: auto;
+}
+
+.card-price h1 {
+  font-size: 30px;
+}
+
+.card-price p {
+  font-size: 18px;
 }
 
 .tab-link {
@@ -371,11 +423,84 @@ label {
   }
 }
 
-@media (min-width: 576px) {
-  .navbar {
-    text-align: center;
+/* DESKTOP */
+@media (min-width: 992px) {
+  .navbar-brand img {
+    height: 40px;
   }
-  .menupanel-section {
-    margin-bottom: 80px;
+
+  .banner-image {
+    background-position-y: -180px;
+  }
+
+  .banner-title h1 {
+    font-size: 48px;
+    font-weight: 500;
+  }
+
+  .banner-title p {
+    font-size: 24px;
+  }
+
+  .promo-card img {
+    height: 120px;
+    width: 40px;
+  }
+
+  .promo-info {
+    margin-left: 20px;
+  }
+
+  .promo-link {
+    margin-top: 0;
+  }
+
+  .promo-card h1 {
+    font-size: 36px;
+  }
+
+  .promo-card h5,
+  .promo-card h6 {
+    font-size: 14px;
+  }
+
+  .card-price {
+    width: 75%;
+    margin: auto;
+  }
+
+  .card-price h1 {
+    font-size: 36px;
+  }
+
+  .card-price p {
+    font-size: 24px;
+  }
+}
+
+/* XL */
+@media (min-width: 1200px) {
+  .promo-card img {
+    height: 140px;
+    width: 60px;
+  }
+  .promo-img {
+    display: block;
+  }
+  .promo-info {
+    margin-left: 0;
+  }
+
+  .promo-link {
+    margin-top: 0;
+  }
+
+  .promo-card h1 {
+    font-size: 60px;
+  }
+
+  .promo-card h5,
+  .promo-card h6 {
+    font-size: 16px;
   }
 }

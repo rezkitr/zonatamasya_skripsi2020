@@ -150,7 +150,7 @@ function TabMenu(props) {
                   <h1 className="font-weight-bold mb-3">
                     Rp{helpers.priceFormat(price)}
                   </h1>
-                  <p className="text-muted h5">
+                  <p className="text-muted">
                     <i className="fas fa-plane-departure fa-sm mr-3"></i>Start{" "}
                     {start}
                   </p>

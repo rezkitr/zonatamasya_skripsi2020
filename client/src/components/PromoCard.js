@@ -26,20 +26,20 @@ class PromoCard extends Component {
       <>
         {this.state.trip ? (
           <div>
-            <div className="card h-100">
+            <div className="card promo-card h-100">
               <div className="card-body" style={{ backgroundColor: "#ecf0f1" }}>
                 <div className="row">
-                  <div className="col-md-2 text-center py-4 mr-5">
-                    <img src={barcodeImg} height="160px" width="70px" alt="" />
+                  <div className="col-md-2 promo-img text-center py-4 mr-5">
+                    <img src={barcodeImg} alt="barcode" />
                   </div>
-                  <div className="d-flex flex-column justify-content-center">
+                  <div className="d-flex flex-column justify-content-center promo-info">
                     <h5>
                       KODE PROMO : {"  "}
                       <span className="badge badge-info p-2">
                         {this.props.promoCode}
                       </span>
                     </h5>
-                    <h1 style={{ fontSize: "78px", fontWeight: "600" }}>
+                    <h1 className="font-weight-bold">
                       {helpers.priceFormat(this.props.discount)}
                     </h1>
                     <h6>
@@ -49,7 +49,7 @@ class PromoCard extends Component {
                       </span>
                     </h6>
                   </div>
-                  <div className="d-flex flex-column justify-content-center mx-auto">
+                  <div className="d-flex flex-column promo-link justify-content-center mx-auto">
                     <div className="d-flex flex-row">
                       <Link
                         data-toggle="modal"
