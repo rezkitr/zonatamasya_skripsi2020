@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
+import bgImage from "../assets/bg-search.png";
+import searchIcon from "../assets/search.png";
 
 class TripSearch extends Component {
   state = {
@@ -14,40 +16,41 @@ class TripSearch extends Component {
     });
   };
 
+  submitSearch = event => {
+    if (event.key === "Enter") {
+      if (this.state.keyword.length > 0) {
+        this.props.history.push(`/searchtrip/${this.state.keyword}`);
+      }
+    }
+  };
+
   render() {
     return (
-      <div className="searchtrip-section">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-md-6">
-              <form>
-                <label htmlFor="keyword" className="font-weight-bold">
-                  Cari Open Trip
-                </label>
-                <div className="input-group">
-                  <input
-                    type="text"
-                    id="keyword"
-                    name="keyword"
-                    placeholder="Mau ke..."
-                    className="form-control form-control-lg"
-                    onChange={this.keywordChangeHandle}
-                  />
-                  <div className="input-group-append">
-                    <Link
-                      to={
-                        this.state.keyword.length > 0
-                          ? `/searchtrip/${this.state.keyword}`
-                          : "/"
-                      }
-                      className="input-group-text amber"
-                    >
-                      <i className="fas fa-search mx-2"></i>
-                    </Link>
-                  </div>
-                </div>
-              </form>
-            </div>
+      <div
+        className="container-fluid"
+        style={{
+          height: "640px",
+          backgroundImage: `url(${bgImage})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "50% 70%",
+          backgroundPosition: "center",
+          backgroundPositionY: "-40px"
+        }}
+      >
+        <div className="row justify-content-center">
+          <div className="col-md-3" style={{ marginTop: "80px" }}>
+            <form autoComplete="off">
+              <input
+                type="text"
+                name="keyword"
+                id="keyword"
+                placeholder="Cari open trip"
+                className="search-input"
+                style={{ backgroundImage: `url(${searchIcon})` }}
+                onChange={this.keywordChangeHandle}
+                onKeyPress={this.submitSearch}
+              />
+            </form>
           </div>
         </div>
       </div>

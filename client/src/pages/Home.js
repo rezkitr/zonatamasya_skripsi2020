@@ -7,12 +7,12 @@ import HighlightTripSection from "../components/HighlightTripSection";
 import GallerySection from "../components/GallerySection";
 import Services from "../components/Services";
 
-function Home() {
+function Home(props) {
   return (
     <div className="home-page">
       <Carousel />
-      <SearchTrip />
-      <MenuPanel />
+      <SearchTrip {...props} />
+      {/* <MenuPanel /> */}
       <HighlightTripSection />
       <GallerySection />
       <Services />
