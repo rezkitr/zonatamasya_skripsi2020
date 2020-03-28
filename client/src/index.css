@@ -476,6 +476,10 @@ label {
   .card-price p {
     font-size: 24px;
   }
+
+  .menupanel-section {
+    margin-bottom: 100px;
+  }
 }
 
 /* XL */
