@@ -93,7 +93,7 @@ body {
 .searchtrip-section {
   height: 480px;
   background-repeat: no-repeat;
-  background-size: 50% 100%;
+  background-size: 100% 100%;
   background-position: center;
   background-position-y: -35px;
 }
@@ -500,6 +500,10 @@ label {
 
   .menupanel-section {
     margin-bottom: 100px;
+  }
+
+  .searchtrip-section {
+    background-size: 50% 100%;
   }
 }
 
