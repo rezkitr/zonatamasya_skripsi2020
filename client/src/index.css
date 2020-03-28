@@ -69,15 +69,20 @@ body {
 
 .page-banner {
   margin-top: 120px;
+  text-align: center;
+}
+
+.page-banner img {
+  width: 400px;
 }
 
 .page-banner-title {
-  font-size: 60px;
+  font-size: 36px;
   font-weight: 600;
 }
 
 .page-banner-subtitle {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .searchtrip-section {
@@ -501,6 +506,24 @@ label {
   .notfound-page {
     height: 900px;
     background-size: 70% 80%;
+  }
+  .page-banner {
+    text-align: right;
+  }
+  
+  .page-banner img {
+    width: 400px;
+  }
+  
+  .page-banner-title {
+    font-size: 60px;
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .page-banner-subtitle {
+    font-size: 18px;
+    text-align: left;
   }
 }
 
