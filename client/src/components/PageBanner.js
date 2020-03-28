@@ -1,18 +1,17 @@
 import React from "react";
 
+
 function PageBanner(props) {
   return (
-    <div
-      className="banner-image"
-      style={{
-        backgroundImage: `url(${props.bannerImg})`
-      }}
-    >
-      <div className="banner-filter"></div>
-      <div className="banner-title">
-        <h1>{props.bannerTitle}</h1>
-        <hr className="white" style={{ width: "240px" }} />
-        <p>{props.subTitle}</p>
+    <div className="container-fluid page-banner">
+      <div className="row justify-content-center">
+        <div className="col-md-4 text-right my-auto">
+          <img src={props.img} alt="illustration" width="500px" />
+        </div>
+        <div className="col-md-4 my-auto">
+          <h1 className="page-banner-title mb-4">{props.title}</h1>
+          <p className="page-banner-subtitle">{props.subtitle}</p>
+        </div>
       </div>
     </div>
   );

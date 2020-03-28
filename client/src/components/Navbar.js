@@ -66,7 +66,7 @@ function Navbar() {
                   activeClassName="navActive"
                   className="nav-link"
                 >
-                  <i className="fas fa-headset mr-1"></i>Contact
+                  <i className="fas fa-headset mr-1"></i>Kontak
                 </NavLink>
               </li>
             </ul>

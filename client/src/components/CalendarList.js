@@ -2,9 +2,6 @@ import React from "react";
 import helpers from "../helperFunction";
 import OpenTripData from "../tripDataSource";
 
-import PageBanner from "./PageBanner";
-import bannerImg from "../assets/bannerPageImage/calendar.jpg";
-
 function CalendarList(props) {
   const tripSched = props.tripData.map((item, index) => {
     return (
@@ -195,33 +192,29 @@ function CalendarList(props) {
   });
 
   return (
-    <>
-      <PageBanner bannerImg={bannerImg} bannerTitle={"Kalendar Open Trip"} subTitle ={`Masih bingung kapan mau liburan? Lihat jadwal open trip di sini.`} />
-
-      <div className="container-fluid">
-        <div className="row pt-5">
-          <div className="col-md">
-            <table className="table mx-auto w-75">
-              <thead>
-                <tr>
-                  <th
-                    style={{ width: "30%" }}
-                    scope="col"
-                    className="font-weight-bold"
-                  >
-                    <i className="fas fa-suitcase fa-lg mr-2"></i>Open Trip
-                  </th>
-                  <th scope="col" className="font-weight-bold">
-                    <i className="far fa-calendar-alt fa-lg mr-2"></i>Jadwal
-                  </th>
-                </tr>
-              </thead>
-              <tbody>{tripSched}</tbody>
-            </table>
-          </div>
+    <div className="container-fluid" style={{minHeight:"380px"}}>
+      <div className="row pt-5">
+        <div className="col-md">
+          <table className="table mx-auto w-75">
+            <thead>
+              <tr>
+                <th
+                  style={{ width: "30%" }}
+                  scope="col"
+                  className="font-weight-bold"
+                >
+                  <i className="fas fa-suitcase fa-lg mr-2"></i>Open Trip
+                </th>
+                <th scope="col" className="font-weight-bold">
+                  <i className="far fa-calendar-alt fa-lg mr-2"></i>Jadwal
+                </th>
+              </tr>
+            </thead>
+            <tbody>{tripSched}</tbody>
+          </table>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -20,6 +20,7 @@ import CalendarPage from "./pages/Calendar";
 import PromoPage from "./pages/Promo";
 import ContactPage from "./pages/Contact";
 import SearchResultPage from "./pages/SearchResult";
+import NotFoundPage from "./pages/NotFound";
 
 import AdminPage from "./adminpage/AdminHome";
 import LoginPage from "./adminpage/Login";
@@ -94,6 +95,7 @@ class App extends Component {
                     component={SearchResultPage}
                   />
                   <Route path="/contact" exact strict component={ContactPage} />
+                  <Route component={NotFoundPage} />
                 </Switch>
               </ScrollToTop>
               <Footer />
