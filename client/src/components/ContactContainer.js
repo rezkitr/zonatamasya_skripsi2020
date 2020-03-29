@@ -6,6 +6,7 @@ function ContactContainer() {
       <div className="row">
         <div className="col-md text-center p-5">
           <iframe
+            title="zonatamasyaoffice"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.801639185172!2d112.76527961532733!3d-7.263401873381271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f980de75e2a1%3A0xf0e8b6948b5a70ee!2sZona%20Tamasya%20Tour%20Organizer!5e0!3m2!1sen!2sid!4v1583797917007!5m2!1sen!2sid"
             width="100%"
             height="480"
