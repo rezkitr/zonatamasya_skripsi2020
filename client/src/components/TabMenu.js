@@ -161,7 +161,7 @@ function TabMenu(props) {
           <Link to={"/reservation/" + props.tripId}>
             <button
               type="button"
-              className="btn btn-light-green w-50 font-weight-bold"
+              className="btn btn-light-green font-weight-bold rsv-btn"
             >
               RESERVASI<i className="fas fa-arrow-right fa-lg ml-3 "></i>
             </button>

@@ -312,6 +312,10 @@ footer {
   font-weight: 500;
 }
 
+.rsv-btn {
+  width: 75%;
+}
+
 .feature-info p {
   font-size: 16px;
   font-weight: 400;
@@ -567,6 +571,10 @@ label {
 
   .detail-trip-rsv {
     margin-top: 0;
+  }
+
+  .rsv-btn {
+    width: 50%;
   }
 }
 

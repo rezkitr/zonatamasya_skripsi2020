@@ -42,7 +42,6 @@ function OtherTripSlide(props) {
             customTransition="all .5"
             transitionDuration={500}
             containerClass="carousel-container"
-            removeArrowOnDeviceType={["mobile"]}
             itemClass="carousel-item-padding-40-px"
           >
             {otherTrips.map(item => {

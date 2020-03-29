@@ -19,7 +19,9 @@ class TripSearch extends Component {
   submitSearch = event => {
     if (event.key === "Enter") {
       if (this.state.keyword.length > 0) {
-        this.props.history.push(`/searchtrip/${this.state.keyword}`);
+        this.props.history.push(
+          `/searchtrip/${this.state.keyword.toLowerCase()}`
+        );
       }
     }
   };
