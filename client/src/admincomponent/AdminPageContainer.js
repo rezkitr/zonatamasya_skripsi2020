@@ -18,7 +18,7 @@ class AdminContainer extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("isLoggedIn") === "false") {
-      this.props.history.push("/login");
+      this.props.history.push("/admin/login");
     }
   }
 

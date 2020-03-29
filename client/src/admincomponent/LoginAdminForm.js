@@ -27,7 +27,7 @@ class LoginAdminForm extends Component {
     };
 
     axios
-      .post("/admin/login", values)
+      .post("/admin/auth", values)
       .then(res => {
         if (res.data) {
           localStorage.setItem("isLoggedIn", "true");
