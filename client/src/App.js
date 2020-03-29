@@ -100,86 +100,88 @@ class App extends Component {
             </>
           ) : (
             <>
-              <Route
-                path="/login"
-                exact
-                strict
-                render={props => (
-                  <LoginPage {...props} handleAuth={this.handleAuth} />
-                )}
-              />
-              <Route
-                path="/admin"
-                exact
-                strict
-                render={props =>
-                  localStorage.getItem("isLoggedIn") === "true" ? (
-                    <AdminPage {...props} />
-                  ) : (
-                    <Redirect to="/login" />
-                  )
-                }
-              />
-              <Route
-                path="/admin/rsv/detail/:rsvId"
-                exact
-                strict
-                component={RsvDetailPage}
-              />
-              <Route
-                path="/admin/rsv/edit/:rsvId"
-                exact
-                strict
-                component={RsvEditPage}
-              />
-              <Route
-                path="/admin/promo/edit/:promoId"
-                exact
-                strict
-                component={PromoEditPage}
-              />
-              <Route
-                path="/admin/promo/add"
-                exact
-                strict
-                component={PromoAddPage}
-              />
-              <Route
-                path="/admin/admuser/edit/:adminId"
-                exact
-                strict
-                component={AdminEditPage}
-              />
-              <Route
-                path="/admin/admuser/add"
-                exact
-                strict
-                component={AdminAddPage}
-              />
-              <Route
-                path="/admin/opentrip/add"
-                exact
-                strict
-                component={OpenTripAddPage}
-              />
-              <Route
-                path="/admin/opentrip/detail/:tripId"
-                exact
-                strict
-                component={OpenTripDetailPage}
-              />
-              <Route
-                path="/admin/opentrip/edit/:tripId"
-                exact
-                strict
-                component={OpenTripEditPage}
-              />
-              <Route
-                path="/admin/carousel/add"
-                exact
-                strict
-                component={CarouselAddPage}
-              />
+              <ScrollToTop>
+                <Route
+                  path="/login"
+                  exact
+                  strict
+                  render={props => (
+                    <LoginPage {...props} handleAuth={this.handleAuth} />
+                  )}
+                />
+                <Route
+                  path="/admin"
+                  exact
+                  strict
+                  render={props =>
+                    localStorage.getItem("isLoggedIn") === "true" ? (
+                      <AdminPage {...props} />
+                    ) : (
+                      <Redirect to="/login" />
+                    )
+                  }
+                />
+                <Route
+                  path="/admin/rsv/detail/:rsvId"
+                  exact
+                  strict
+                  component={RsvDetailPage}
+                />
+                <Route
+                  path="/admin/rsv/edit/:rsvId"
+                  exact
+                  strict
+                  component={RsvEditPage}
+                />
+                <Route
+                  path="/admin/promo/edit/:promoId"
+                  exact
+                  strict
+                  component={PromoEditPage}
+                />
+                <Route
+                  path="/admin/promo/add"
+                  exact
+                  strict
+                  component={PromoAddPage}
+                />
+                <Route
+                  path="/admin/admuser/edit/:adminId"
+                  exact
+                  strict
+                  component={AdminEditPage}
+                />
+                <Route
+                  path="/admin/admuser/add"
+                  exact
+                  strict
+                  component={AdminAddPage}
+                />
+                <Route
+                  path="/admin/opentrip/add"
+                  exact
+                  strict
+                  component={OpenTripAddPage}
+                />
+                <Route
+                  path="/admin/opentrip/detail/:tripId"
+                  exact
+                  strict
+                  component={OpenTripDetailPage}
+                />
+                <Route
+                  path="/admin/opentrip/edit/:tripId"
+                  exact
+                  strict
+                  component={OpenTripEditPage}
+                />
+                <Route
+                  path="/admin/carousel/add"
+                  exact
+                  strict
+                  component={CarouselAddPage}
+                />
+              </ScrollToTop>
             </>
           )}
         </>
