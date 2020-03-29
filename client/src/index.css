@@ -295,8 +295,16 @@ footer {
 }
 
 .tab-menu {
-  margin-top: 80px;
+  margin-top: 60px;
   min-height: 480px;
+}
+
+.tab-inside-content {
+  margin: auto;
+}
+
+.detail-trip-rsv {
+  margin-top: 30px;
 }
 
 .detail-trip-price {
@@ -546,6 +554,19 @@ label {
 
   .trip-banner-tripinfo {
     margin-left: -120px;
+  }
+
+  .tab-menu {
+    margin-top: 80px;
+    min-height: 480px;
+  }
+
+  .tab-inside-content {
+    margin: inherit;
+  }
+
+  .detail-trip-rsv {
+    margin-top: 0;
   }
 }
 

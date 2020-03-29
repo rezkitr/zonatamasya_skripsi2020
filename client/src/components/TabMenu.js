@@ -35,7 +35,7 @@ function TabMenu(props) {
 
   const facility = props.facility.map(item => {
     return (
-      <p>
+      <p className="tab-inside-content">
         <i className="fas fa-check fa-sm mr-3"></i>
         {item}
       </p>
@@ -54,7 +54,7 @@ function TabMenu(props) {
 
     return (
       <span
-        className={`badge ${badgeColor} mr-2 my-2 p-2`}
+        className={`badge ${badgeColor} mr-2 my-2 p-2 tab-inside-content`}
         style={{
           fontSize: "14px",
           textDecoration: `${pass ? "line-through" : ""}`
@@ -124,7 +124,7 @@ function TabMenu(props) {
                   {props.duration.toUpperCase()}
                 </span>
               </p>
-              <table className="table table-hover table-sm">
+              <table className="table table-hover table-sm tab-inside-content">
                 <thead>
                   <tr>
                     <th scope="col">Hari</th>
@@ -156,7 +156,7 @@ function TabMenu(props) {
             </div>
           </div>
         </div>
-        <div className="col-md-3 text-center">
+        <div className="col-md-3 detail-trip-rsv text-center">
           <h2 className="detail-trip-price">
             Rp{helpers.priceFormat(props.priceFull)}
           </h2>
