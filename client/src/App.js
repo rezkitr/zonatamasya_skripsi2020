@@ -35,19 +35,9 @@ import OpenTripEditPage from "./adminpage/OpenTripEdit";
 import CarouselAddPage from "./adminpage/CarouselAdd";
 
 class App extends Component {
-  state = {
-    isLoggedIn: "false"
-  };
-
   componentDidMount() {
     localStorage.setItem("isLoggedIn", "false");
   }
-
-  handleAuth = () => {
-    this.setState({
-      isLoggedIn: localStorage.getItem("isLoggedIn")
-    });
-  };
 
   render() {
     return (
@@ -101,26 +91,8 @@ class App extends Component {
           ) : (
             <>
               <ScrollToTop>
-                <Route
-                  path="/login"
-                  exact
-                  strict
-                  render={props => (
-                    <LoginPage {...props} handleAuth={this.handleAuth} />
-                  )}
-                />
-                <Route
-                  path="/admin"
-                  exact
-                  strict
-                  render={props =>
-                    localStorage.getItem("isLoggedIn") === "true" ? (
-                      <AdminPage {...props} />
-                    ) : (
-                      <Redirect to="/login" />
-                    )
-                  }
-                />
+                <Route path="/login" exact strict component={LoginPage} />
+                <Route path="/admin" exact strict component={AdminPage} />
                 <Route
                   path="/admin/rsv/detail/:rsvId"
                   exact
