@@ -39,7 +39,7 @@ class DetailTripContainer extends Component {
           name={this.state.trip.name}
           start={this.state.trip.departure.start}
         />
-        {/* <TabMenu
+        <TabMenu
           tripId={this.props.tripId}
           itinerary={this.state.trip.itinerary}
           facility={this.state.trip.facility}
@@ -47,7 +47,7 @@ class DetailTripContainer extends Component {
           start={this.state.trip.departure.start}
           duration={this.state.trip.duration}
           schedule={this.state.trip.schedule}
-        /> */}
+        />
       </div>
     ) : null;
   }

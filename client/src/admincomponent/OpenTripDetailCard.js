@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import helpers from "../helperFunction";
+import dateBadgeColorizer from "../dateBadgeColorizer";
 import axios from "axios";
 
 class OpenTripDetailCard extends Component {
@@ -152,196 +153,25 @@ class OpenTripDetailCard extends Component {
                         let pass = false;
                         let now = new Date();
                         let dateTemp = new Date(schedItem);
+                        let badgeColor = dateBadgeColorizer.colorizeTag(
+                          schedItem
+                        );
 
                         if (dateTemp < now) {
                           pass = true;
                         }
 
-                        switch (schedItem.substr(5, 2)) {
-                          case "01":
-                            return (
-                              <span
-                                className="badge blue accent-4 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "02":
-                            return (
-                              <span
-                                className="badge deep-purple mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "03":
-                            return (
-                              <span
-                                className="badge purple lighten-2 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "04":
-                            return (
-                              <span
-                                className="badge pink mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "05":
-                            return (
-                              <span
-                                className="badge red darken-2 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "06":
-                            return (
-                              <span
-                                className="badge orange darken-3 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "07":
-                            return (
-                              <span
-                                className="badge amber mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "08":
-                            return (
-                              <span
-                                className="badge lime accent-2 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "09":
-                            return (
-                              <span
-                                className="badge green darken-3 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "10":
-                            return (
-                              <span
-                                className="badge teal lighten-3 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "11":
-                            return (
-                              <span
-                                className="badge indigo accent-4 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-                          case "12":
-                            return (
-                              <span
-                                className="badge indigo lighten-3 mr-2 my-2 p-2"
-                                style={{
-                                  fontSize: "14px",
-                                  textDecoration: `${
-                                    pass ? "line-through" : ""
-                                  }`
-                                }}
-                              >
-                                {helpers.formatDate(schedItem)}
-                              </span>
-                            );
-                            break;
-
-                          default:
-                            break;
-                        }
+                        return (
+                          <span
+                            className={`badge ${badgeColor} mr-2 my-2 p-2`}
+                            style={{
+                              fontSize: "14px",
+                              textDecoration: `${pass ? "line-through" : ""}`
+                            }}
+                          >
+                            {helpers.formatDate(schedItem)}
+                          </span>
+                        );
                       })}
                     </div>
                   </div>

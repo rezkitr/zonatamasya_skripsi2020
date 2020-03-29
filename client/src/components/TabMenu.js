@@ -1,5 +1,6 @@
 import React from "react";
 import helpers from "../helperFunction";
+import dateBadgeColorizer from "../dateBadgeColorizer";
 import { Link } from "react-router-dom";
 
 import OtherTripSlide from "./OtherTripSlide";
@@ -9,8 +10,7 @@ function splitItinerary(itin) {
   return result;
 }
 
-function TabMenu (props) {
-
+function TabMenu(props) {
   const itinerary = props.itinerary.map((item, index) => {
     return (
       <>
@@ -42,120 +42,148 @@ function TabMenu (props) {
     );
   });
 
+  const schedule = props.schedule.map(item => {
+    let pass = false;
+    let now = new Date();
+    let dateTemp = new Date(item);
+    let badgeColor = dateBadgeColorizer.colorizeTag(item);
+
+    if (dateTemp < now) {
+      pass = true;
+    }
+
     return (
-      <div className="container-fluid tab-menu">
-        <div className="row justify-content-center">
-          <div className="col-md-6">
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
-              <li className="nav-item">
-                <a
-                  className="nav-link active tab-link"
-                  id="itinerary-tab"
-                  data-toggle="tab"
-                  href="#itinerary"
-                  role="tab"
-                  aria-controls="itinerary"
-                  aria-selected="true"
-                >
-                  <i className="far fa-list-alt mr-2"></i>Itinerary
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link tab-link"
-                  id="facility-tab"
-                  data-toggle="tab"
-                  href="#fasilitas"
-                  role="tab"
-                  aria-controls="facility"
-                  aria-selected="false"
-                >
-                  <i className="fas fa-couch mr-2"></i>Fasilitas
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link tab-link font-weight-bold text-success"
-                  id="reservation-tab"
-                  data-toggle="tab"
-                  href="#reservasi"
-                  role="tab"
-                  aria-controls="reservation"
-                  aria-selected="false"
-                >
-                  <i className="fas fa-file-invoice mr-2"></i>Reservasi
-                </a>
-              </li>
-            </ul>
+      <span
+        className={`badge ${badgeColor} mr-2 my-2 p-2`}
+        style={{
+          fontSize: "14px",
+          textDecoration: `${pass ? "line-through" : ""}`
+        }}
+      >
+        {helpers.formatDate(item)}
+      </span>
+    );
+  });
 
-            <div className="tab-content mt-4" id="myTabContent">
-              <div
-                className="tab-pane fade show active"
-                id="itinerary"
-                role="tabpanel"
-                aria-labelledby="itinerary-tab"
+  return (
+    <div className="container-fluid tab-menu">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <ul className="nav nav-tabs" id="myTab" role="tablist">
+            <li className="nav-item">
+              <a
+                className="nav-link active tab-link"
+                id="itinerary-tab"
+                data-toggle="tab"
+                href="#itinerary"
+                role="tab"
+                aria-controls="itinerary"
+                aria-selected="true"
               >
-                <p className="h3 mb-4">
-                  <span className="badge badge-warning ml-2 px-3 py-2">
-                    <i className="far fa-clock mr-3"></i>
-                    {props.duration.toUpperCase()}
-                  </span>
-                </p>
-                <table className="table table-hover table-sm">
-                  <thead>
-                    <tr>
-                      <th scope="col">Hari</th>
-                      <th scope="col">Waktu</th>
-                      <th scope="col">Kegiatan</th>
-                      <th scope="col">Keterangan</th>
-                    </tr>
-                  </thead>
-                  <tbody>{itinerary}</tbody>
-                </table>
-              </div>
+                <i className="far fa-list-alt mr-2"></i>Itinerary
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link tab-link"
+                id="facility-tab"
+                data-toggle="tab"
+                href="#fasilitas"
+                role="tab"
+                aria-controls="facility"
+                aria-selected="false"
+              >
+                <i className="fas fa-couch mr-2"></i>Fasilitas
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link tab-link"
+                id="schedule-tab"
+                data-toggle="tab"
+                href="#jadwal"
+                role="tab"
+                aria-controls="schedule"
+                aria-selected="false"
+              >
+                <i className="far fa-calendar-check mr-2"></i>Jadwal
+              </a>
+            </li>
+          </ul>
 
-              <div
-                className="tab-pane fade"
-                id="fasilitas"
-                role="tabpanel"
-                aria-labelledby="facility-tab"
-              >
-                {facility}
-              </div>
+          <div className="tab-content mt-4" id="myTabContent">
+            <div
+              className="tab-pane fade show active"
+              id="itinerary"
+              role="tabpanel"
+              aria-labelledby="itinerary-tab"
+            >
+              <p className="h3 mb-4">
+                <span className="badge badge-warning ml-2 px-3 py-2">
+                  <i className="far fa-clock mr-3"></i>
+                  {props.duration.toUpperCase()}
+                </span>
+              </p>
+              <table className="table table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Hari</th>
+                    <th scope="col">Waktu</th>
+                    <th scope="col">Kegiatan</th>
+                    <th scope="col">Keterangan</th>
+                  </tr>
+                </thead>
+                <tbody>{itinerary}</tbody>
+              </table>
+            </div>
 
-              <div
-                className="tab-pane fade"
-                id="reservasi"
-                role="tabpanel"
-                aria-labelledby="price-tab"
-              >
-                <div className="card card-price text-center px-5">
-                  <div className="card-body text-center text-success">
-                    <h1 className="font-weight-bold mb-3">
-                      Rp{helpers.priceFormat(props.priceFull)}
-                    </h1>
-                    <p className="text-muted">
-                      <i className="fas fa-plane-departure fa-sm mr-3"></i>Start{" "}
-                      {props.start}
-                    </p>
-                    <hr />
-                    <Link to={"/reservation/" + props.tripId}>
-                      <button
-                        type="button"
-                        className="btn btn-success mt-3 font-weight-bold"
-                      >
-                        RESERVASI<i className="fas fa-pen-alt fa-lg ml-3 "></i>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+            <div
+              className="tab-pane fade"
+              id="fasilitas"
+              role="tabpanel"
+              aria-labelledby="facility-tab"
+            >
+              {facility}
+            </div>
+
+            <div
+              className="tab-pane fade"
+              id="jadwal"
+              role="tabpanel"
+              aria-labelledby="schedule-tab"
+            >
+              {schedule}
             </div>
           </div>
         </div>
-        <OtherTripSlide tripId={props.tripId} />
+        <div className="col-md-3 text-center">
+          <h2 className="detail-trip-price">
+            Rp{helpers.priceFormat(props.priceFull)}
+          </h2>
+          <Link to={"/reservation/" + props.tripId}>
+            <button
+              type="button"
+              className="btn btn-light-green w-50 font-weight-bold"
+            >
+              RESERVASI<i className="fas fa-arrow-right fa-lg ml-3 "></i>
+            </button>
+          </Link>
+          <div className="mt-5 feature-info">
+            <p>
+              <i className="far fa-map mr-3"></i> Banyak Pilihan
+            </p>
+            <p>
+              <i className="fas fa-users mr-3"></i> Tanpa Minimum Kuota
+            </p>
+            <p>
+              <i className="far fa-credit-card mr-3"></i> Transaksi Aman
+            </p>
+          </div>
+        </div>
       </div>
-    );
-  }
+      <OtherTripSlide tripId={props.tripId} />
+    </div>
+  );
+}
 
 export default TabMenu;

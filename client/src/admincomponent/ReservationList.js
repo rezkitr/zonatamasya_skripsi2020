@@ -30,7 +30,6 @@ const ReservationItem = props => {
         </Link>{" "}
         |{" "}
         <a
-          href="#"
           onClick={() => {
             props.deleteReservation(props.reservation._id);
           }}
