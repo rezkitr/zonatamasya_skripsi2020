@@ -15,12 +15,12 @@ function OtherTripSlide(props) {
       slidesToSlide: 5
     },
     tablet: {
-      breakpoint: { max: 576, min: 320 },
-      items: 4,
-      slidesToSlide: 4
+      breakpoint: { max: 576, min: 280 },
+      items: 1,
+      slidesToSlide: 1
     },
     mobile: {
-      breakpoint: { max: 320, min: 0 },
+      breakpoint: { max: 280, min: 0 },
       items: 1,
       slidesToSlide: 1
     }

@@ -20,16 +20,16 @@ class DetailTripContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  // componentWillUpdate() {
-  //   axios
-  //     .get(`/opentrip/${this.props.tripId}`)
-  //     .then(res => {
-  //       this.setState({
-  //         trip: res.data
-  //       });
-  //     })
-  //     .catch(err => console.log(err));
-  // }
+  componentWillUpdate() {
+    axios
+      .get(`/opentrip/${this.props.tripId}`)
+      .then(res => {
+        this.setState({
+          trip: res.data
+        });
+      })
+      .catch(err => console.log(err));
+  }
 
   render() {
     return this.state.trip ? (
