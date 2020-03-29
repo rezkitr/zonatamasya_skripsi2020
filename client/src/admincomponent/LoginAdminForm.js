@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import axios from "axios";
-import store from "store";
 
 import logo from "../assets/logo2.png";
 import bglogin from "../assets/login-bg2.jpg";
@@ -31,7 +30,7 @@ class LoginAdminForm extends Component {
       .post("/admin/login", values)
       .then(res => {
         if (res.data) {
-          store.set("loggedIn", true);
+          localStorage.setItem("isLoggedIn", "true");
           this.props.handleAuth();
           this.setState({ isLoading: true });
           setTimeout(() => {

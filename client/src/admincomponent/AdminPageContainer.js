@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import store from "store";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 import logo from "../assets/logo2.png";
@@ -26,7 +25,7 @@ class AdminContainer extends Component {
   };
 
   handleLogout = () => {
-    store.remove("loggedIn");
+    localStorage.setItem("isLoggedIn", "false");
     setTimeout(() => {
       this.props.history.push("/login");
     }, 1000);

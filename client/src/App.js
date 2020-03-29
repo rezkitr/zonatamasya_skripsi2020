@@ -6,7 +6,6 @@ import {
   Redirect
 } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
-import store from "store";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -37,21 +36,20 @@ import CarouselAddPage from "./adminpage/CarouselAdd";
 
 class App extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: "false"
   };
 
   componentDidMount() {
-    store.set("loggedIn", false);
+    localStorage.setItem("isLoggedIn", "false");
   }
 
   handleAuth = () => {
     this.setState({
-      isLoggedIn: true
+      isLoggedIn: localStorage.getItem("isLoggedIn")
     });
   };
 
   render() {
-    let loggedIn = store.get("loggedIn");
     return (
       <Router>
         <>
@@ -116,7 +114,7 @@ class App extends Component {
                   exact
                   strict
                   render={props =>
-                    loggedIn ? (
+                    localStorage.getItem("isLoggedIn") === "true" ? (
                       <AdminPage {...props} />
                     ) : (
                       <Redirect to="/login" />
