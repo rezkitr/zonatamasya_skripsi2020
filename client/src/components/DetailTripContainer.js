@@ -20,7 +20,7 @@ class DetailTripContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     axios
       .get(`/opentrip/${this.props.tripId}`)
       .then(res => {

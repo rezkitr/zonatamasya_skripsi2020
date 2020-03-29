@@ -3,8 +3,6 @@ import helpers from "../helperFunction";
 import dateBadgeColorizer from "../dateBadgeColorizer";
 import { Link } from "react-router-dom";
 
-import OtherTripSlide from "./OtherTripSlide";
-
 function splitItinerary(itin) {
   let result = itin.split("#");
   return result;
@@ -181,7 +179,6 @@ function TabMenu(props) {
           </div>
         </div>
       </div>
-      <OtherTripSlide tripId={props.tripId} />
     </div>
   );
 }

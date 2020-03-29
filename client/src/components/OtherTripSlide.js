@@ -10,17 +10,17 @@ function OtherTripSlide(props) {
 
   const responsive = {
     desktop: {
-      breakpoint: { max: 3000, min: 576 },
+      breakpoint: { max: 3000, min: 1024 },
       items: 5,
-      slidesToSlide: 5
+      slidesToSlide: 1
     },
-    tablet: {
-      breakpoint: { max: 576, min: 280 },
-      items: 1,
+    medium: {
+      breakpoint: { max: 1024, min: 576 },
+      items: 3,
       slidesToSlide: 1
     },
     mobile: {
-      breakpoint: { max: 280, min: 0 },
+      breakpoint: { max: 576, min: 0 },
       items: 1,
       slidesToSlide: 1
     }
@@ -34,7 +34,7 @@ function OtherTripSlide(props) {
         <div className="col-md">
           <Carousel
             swipeable={false}
-            draggable={false}
+            draggable={true}
             responsive={responsive}
             ssr={true}
             infinite={true}
