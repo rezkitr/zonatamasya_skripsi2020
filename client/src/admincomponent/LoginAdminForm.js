@@ -63,8 +63,8 @@ class LoginAdminForm extends Component {
   render() {
     return (
       <div
-        className="login-bg"
-        style={{ height: "950px", backgroundImage: `url(${bglogin})` }}
+        className="login-bg border border-black"
+        style={{ backgroundImage: `url(${bglogin})` }}
       >
         <div className="container-fluid login-adm-form">
           <div className="row justify-content-center">

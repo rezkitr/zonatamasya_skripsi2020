@@ -1,5 +1,10 @@
 body {
+  height: 100%;
   font-family: "Roboto", sans-serif;
+}
+
+html {
+  height: 100%;
 }
 
 .home-page,
@@ -124,7 +129,8 @@ body {
   border-radius: 20px;
   background-repeat: no-repeat;
   background-size: 25px 25px;
-  background-position: 25px 18px;
+  background-position-y: center;
+  background-position-x: 20px;
   font-weight: 500;
   box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.7);
   transition: border 0.2s ease-in-out;
@@ -366,16 +372,35 @@ label {
   margin-top: 90px;
 }
 
-.login-adm-form {
-  position: absolute;
-  bottom: 40%;
-  left: 0;
+/* login admin */
+
+.login-admin-page img {
+  width: 320px;
 }
 
-.login-bg {
-  background-size: cover;
+.img-col {
+  margin-top: 60px;
+}
+
+.form-col {
+  margin-top: 20px;
+}
+
+.login-admin-input {
+  width: 100%;
+  padding: 8px 50px;
+  margin: 4px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #95a5a6;
+  font-weight: 400;
   background-repeat: no-repeat;
-  background-position-y: -180px;
+  background-position-y: center;
+}
+
+.login-admin-input:focus {
+  outline: none;
+  border-bottom: 2px solid #4834d4;
 }
 
 /* Sidebar */
@@ -575,6 +600,39 @@ label {
 
   .rsv-btn {
     width: 50%;
+  }
+
+  /* login admin */
+  .login-admin-page img {
+    width: 480px;
+  }
+
+  .login-admin-page .row {
+    height: 100vh;
+  }
+
+  .img-col,
+  .form-col {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .login-admin-input {
+    width: 100%;
+    padding: 8px 50px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #95a5a6;
+    font-weight: 400;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .login-admin-input:focus {
+    outline: none;
+    border-bottom: 2px solid #4834d4;
   }
 }
 

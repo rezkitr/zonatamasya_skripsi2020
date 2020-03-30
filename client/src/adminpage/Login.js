@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react";
 
-import LoginForm from '../admincomponent/LoginAdminForm'
+import LoginForm from "../admincomponent/LoginAdminForm2";
 
 function LoginAdmin(props) {
-  console.log(props)
+  console.log(props);
   return (
     <div>
       <LoginForm {...props} />
     </div>
-  )
+  );
 }
 
-export default LoginAdmin
+export default LoginAdmin;
