@@ -1,6 +1,6 @@
 import React from "react";
 
-import LoginForm from "../admincomponent/LoginAdminForm2";
+import LoginForm from "../admincomponent/LoginAdminForm";
 
 function LoginAdmin(props) {
   console.log(props);

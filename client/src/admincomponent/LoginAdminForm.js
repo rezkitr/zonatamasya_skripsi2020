@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import axios from "axios";
 
-import logo from "../assets/logo2.png";
-import bglogin from "../assets/login-bg2.jpg";
+import loginImage from "../assets/login.png";
+import userIcon from "../assets/user.png";
+import keyIcon from "../assets/key.png";
 
 class LoginAdminForm extends Component {
   state = {
@@ -62,55 +63,51 @@ class LoginAdminForm extends Component {
 
   render() {
     return (
-      <div
-        className="login-bg border border-black"
-        style={{ backgroundImage: `url(${bglogin})` }}
-      >
-        <div className="container-fluid login-adm-form">
+      <div style={{ height: "100vh" }}>
+        <div className="container-fluid login-admin-page">
           <div className="row justify-content-center">
-            <div className="col-md-3 col-sm-6 text-center">
-              <div className="card">
-                <div className="card-body">
-                  <img src={logo} alt="zt-logo" width="80" />
-                  <h5 className="card-title font-weight-bold my-3">
-                    Admin Login
-                  </h5>
-                  <form onSubmit={this.loginSubmit}>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        value={this.state.username}
-                        onChange={this.formHandle}
-                        className="form-control"
-                        placeholder="Username"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={this.state.password}
-                        onChange={this.formHandle}
-                        className="form-control"
-                        placeholder="Password"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className={`btn btn-sm ${
-                        this.state.isLoading
-                          ? "btn-warning disabled"
-                          : "btn-primary"
-                      }`}
-                    >
-                      {this.state.isLoading ? "Hang on..." : "Login"}
-                    </button>
-                  </form>
+            <div className="col-md-4 img-col text-center">
+              <img src={loginImage} alt={loginImage} />
+            </div>
+            <div className="col-md-3 form-col text-center">
+              <h3>Login</h3>
+              <form onSubmit={this.loginSubmit} className="mt-5">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={this.state.username}
+                    onChange={this.formHandle}
+                    className="login-admin-input"
+                    placeholder="Username"
+                    style={{ backgroundImage: `url(${userIcon})` }}
+                  />
                 </div>
-              </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={this.state.password}
+                    onChange={this.formHandle}
+                    className="login-admin-input"
+                    placeholder="Password"
+                    style={{ backgroundImage: `url(${keyIcon})` }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className={`btn btn-sm m-0 w-100 font-weight-bold ${
+                    this.state.isLoading
+                      ? "dusty-grass-gradient disabled"
+                      : "peach-gradient"
+                  }`}
+                >
+                  {this.state.isLoading ? "Hang on..." : "Login"}
+                </button>
+              </form>
             </div>
           </div>
         </div>
@@ -118,5 +115,4 @@ class LoginAdminForm extends Component {
     );
   }
 }
-
 export default LoginAdminForm;
