@@ -33,10 +33,6 @@ import OpenTripEditPage from "./adminpage/OpenTripEdit";
 import CarouselAddPage from "./adminpage/CarouselAdd";
 
 class App extends Component {
-  componentDidMount() {
-    localStorage.setItem("isLoggedIn", "false");
-  }
-
   render() {
     return (
       <Router>
