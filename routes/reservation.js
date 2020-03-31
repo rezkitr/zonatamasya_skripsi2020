@@ -27,7 +27,7 @@ router.route("/add").post((req, res) => {
   const totalParticipant = req.body.totalParticipant;
   const participant = req.body.participant;
   const payment = req.body.payment;
-  const promoCode = req.body.promoCode;
+  const promoCode = req.body.promoData.code;
 
   const newReservation = new Reservation({
     tripId,
