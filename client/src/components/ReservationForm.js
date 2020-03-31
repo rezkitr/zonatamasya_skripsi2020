@@ -11,6 +11,7 @@ import OpenTripData from "../tripDataSource";
 class ReservationForm extends Component {
   state = {
     currentStep: 1,
+    promoCode: "",
     promoData: null,
     promoValid: false,
     snapData: ""
@@ -27,6 +28,12 @@ class ReservationForm extends Component {
     }));
   };
 
+  handlePromoCodeInput = event => {
+    this.setState({
+      promoCode: event.target.value
+    });
+  };
+
   getPromo = (promocode, paymentType) => {
     let ignoreCasePromo = promocode.toUpperCase();
 
@@ -37,12 +44,12 @@ class ReservationForm extends Component {
           this.setState({ promoData: res.data });
         })
         .then(() => {
-          if (this.state.promoData && this.state.promoData.length > 0) {
+          if (this.state.promoData) {
             let now = new Date();
-            let expDate = new Date(this.state.promoData[0].expDate);
+            let expDate = new Date(this.state.promoData.expDate);
 
             if (paymentType === "LUNAS") {
-              if (this.state.promoData[0].tripId === this.props.tripId) {
+              if (this.state.promoData.tripId === this.props.tripId) {
                 if (now <= expDate) {
                   this.setState({ promoValid: true });
                   toast.success("Berhasil menggunakan promo", {
@@ -97,7 +104,7 @@ class ReservationForm extends Component {
 
   getDiscount() {
     if (this.state.promoValid) {
-      return this.state.promoData[0].discount;
+      return this.state.promoData.discount;
     } else {
       return 0;
     }
@@ -148,6 +155,7 @@ class ReservationForm extends Component {
                     tripName: tripName.toUpperCase(),
                     tripStart: tripStart.toUpperCase(),
                     tripPriceFull: priceFull,
+                    tripPriceDP: priceDP,
                     mepo: "".toUpperCase(),
                     reservationDate: new Date().toDateString(),
                     tripDate: "",
@@ -164,16 +172,27 @@ class ReservationForm extends Component {
                     payment: {
                       type: "",
                       amount: 0
-                    },
-                    promoCode: "".toUpperCase()
+                    }
                   }}
                   validationSchema={ValidationSchema}
                   onSubmit={(values, { setSubmitting }) => {
+                    if (this.state.promoValid) {
+                      values.promoData = this.state.promoData;
+                    }
+                    values.promoValid = this.state.promoValid;
                     axios
                       .post("/payment/gettoken", values)
                       .then(res => {
                         this.setState({ snapData: res.data }, () => {
-                          window.snap.pay(`${this.state.snapData.token}`);
+                          window.snap.pay(`${this.state.snapData.token}`, {
+                            onSuccess: function(result) {
+                              axios
+                                .post("/reservation/add", values)
+                                .then(res => alert(res.data))
+                                .catch(err => alert(err));
+                              setSubmitting(false);
+                            }
+                          });
                         });
                       })
                       .catch(err => console.log(err));
@@ -802,17 +821,13 @@ class ReservationForm extends Component {
                                       name="payment.type"
                                       value="LUNAS"
                                       checked={
-                                        (values.payment.type === "LUNAS" &&
-                                          this.state.promoData == null) ||
-                                        (values.payment.type === "LUNAS" &&
-                                          this.state.promoData &&
-                                          this.state.promoData.length == 0)
+                                        values.payment.type === "LUNAS" &&
+                                        this.state.promoData === null
                                           ? (values.payment.amount =
                                               values.totalParticipant *
                                               priceFull)
                                           : values.payment.type === "LUNAS" &&
-                                            this.state.promoData &&
-                                            this.state.promoData.length > 0
+                                            this.state.promoData
                                           ? (values.payment.amount =
                                               values.totalParticipant *
                                                 priceFull -
@@ -854,11 +869,12 @@ class ReservationForm extends Component {
                                 KODE PROMO*
                               </p>
                               <div className="input-group">
-                                <Field
+                                <input
                                   type="text"
                                   name="promoCode"
                                   placeholder="Masukkan Kode Promo"
                                   className="form-control"
+                                  onChange={this.handlePromoCodeInput}
                                 />
                                 <div className="input-group-append">
                                   <button
@@ -866,7 +882,7 @@ class ReservationForm extends Component {
                                     className="btn btn-md btn-amber rounded-right m-0 px-3 py-2 z-depth-0 font-weight-bold"
                                     onClick={() =>
                                       this.getPromo(
-                                        values.promoCode,
+                                        this.state.promoCode,
                                         values.payment.type
                                       )
                                     }

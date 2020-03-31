@@ -24,6 +24,14 @@ router.route("/gettoken").post((req, res) => {
     .slice(-1)
     .join(" ");
 
+  let price = 0;
+
+  if (req.body.payment.type === "LUNAS") {
+    price = req.body.tripPriceFull;
+  } else {
+    price = req.body.tripPriceDP;
+  }
+
   let parameter = {
     transaction_details: {
       order_id: order_id,
@@ -32,7 +40,7 @@ router.route("/gettoken").post((req, res) => {
     item_details: [
       {
         id: req.body.tripId,
-        price: req.body.tripPriceFull,
+        price: price,
         quantity: req.body.totalParticipant,
         name: req.body.tripName
       }
@@ -42,8 +50,20 @@ router.route("/gettoken").post((req, res) => {
       last_name: last_name,
       email: req.body.participant.coordinator.coorEmail,
       phone: req.body.participant.coordinator.coorTelp
+    },
+    promo: {
+      promo_code: req.body.promoData.code
     }
   };
+
+  if (req.body.promoValid && req.body.payment.type === "LUNAS") {
+    parameter.item_details.push({
+      id: req.body.promoData._id,
+      price: -req.body.promoData.discount,
+      quantity: 1,
+      name: "PROMO"
+    });
+  }
 
   snap
     .createTransaction(parameter)

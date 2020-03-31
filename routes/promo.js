@@ -10,7 +10,7 @@ router.route("/").get((req, res) => {
 
 // getPromo
 router.route("/:code").get((req, res) => {
-  Promo.find({ code: req.params.code })
+  Promo.findOne({ code: req.params.code })
     .then(promo => res.json(promo))
     .catch(err => res.status(400).json("Error : " + err));
 });
