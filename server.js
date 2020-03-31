@@ -8,6 +8,7 @@ const adminRouter = require("./routes/admin");
 const promoRouter = require("./routes/promo");
 const opentripRouter = require("./routes/opentrip");
 const carouselRouter = require("./routes/carousel");
+const paymentRouter = require("./routes/payment");
 
 require("dotenv").config();
 
@@ -43,6 +44,7 @@ app.use("/admin", adminRouter);
 app.use("/promo", promoRouter);
 app.use("/opentrip", opentripRouter);
 app.use("/carousel", carouselRouter);
+app.use("/payment", paymentRouter);
 
 // serve static assets
 if (process.env.NODE_ENV === "production") {

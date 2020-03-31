@@ -16,6 +16,8 @@ import ContactPage from "./pages/Contact";
 import SearchResultPage from "./pages/SearchResult";
 import NotFoundPage from "./pages/NotFound";
 
+import PaymentFinishPage from "./pages/PaymentFinish";
+
 import AdminPage from "./adminpage/AdminHome";
 import LoginPage from "./adminpage/Login";
 import RsvDetailPage from "./adminpage/ReservationDetail";
@@ -78,6 +80,13 @@ class App extends Component {
                     component={SearchResultPage}
                   />
                   <Route path="/contact" exact strict component={ContactPage} />
+                  <Route
+                    path="/payment/finish"
+                    exact
+                    strict
+                    component={PaymentFinishPage}
+                  />
+
                   <Route component={NotFoundPage} />
                 </Switch>
               </ScrollToTop>

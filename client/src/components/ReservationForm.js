@@ -12,7 +12,8 @@ class ReservationForm extends Component {
   state = {
     currentStep: 1,
     promoData: null,
-    promoValid: false
+    promoValid: false,
+    snapData: ""
   };
 
   _next = () => {
@@ -146,6 +147,7 @@ class ReservationForm extends Component {
                     tripId: tripId,
                     tripName: tripName.toUpperCase(),
                     tripStart: tripStart.toUpperCase(),
+                    tripPriceFull: priceFull,
                     mepo: "".toUpperCase(),
                     reservationDate: new Date().toDateString(),
                     tripDate: "",
@@ -167,13 +169,14 @@ class ReservationForm extends Component {
                   }}
                   validationSchema={ValidationSchema}
                   onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                      axios
-                        .post("/reservation/add", values)
-                        .then(res => alert(res.data))
-                        .catch(err => alert(err));
-                      setSubmitting(false);
-                    }, 200);
+                    axios
+                      .post("/payment/gettoken", values)
+                      .then(res => {
+                        this.setState({ snapData: res.data }, () => {
+                          window.snap.pay(`${this.state.snapData.token}`);
+                        });
+                      })
+                      .catch(err => console.log(err));
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
@@ -895,12 +898,10 @@ class ReservationForm extends Component {
                               type="submit"
                               className="btn btn-sm btn-success font-weight-bold"
                               style={{ fontSize: "14px" }}
-                              onClick={this._next}
                             >
                               CHECK OUT
                               <i className="fas fa-angle-right ml-2"></i>
                             </button>
-                           
                           </div>
                         </div>
                       )}

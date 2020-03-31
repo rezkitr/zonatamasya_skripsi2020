@@ -16,7 +16,8 @@ html {
 .calendar-page,
 .promo-page,
 .searchresult-page,
-.notfound-page {
+.notfound-page,
+.payment-finish-page {
   margin-top: 75px;
 }
 
