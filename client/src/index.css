@@ -17,7 +17,8 @@ html {
 .promo-page,
 .searchresult-page,
 .notfound-page,
-.payment-finish-page {
+.payment-finish-page,
+.payment-error-page {
   margin-top: 75px;
 }
 

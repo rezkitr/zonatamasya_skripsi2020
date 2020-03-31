@@ -188,9 +188,27 @@ class ReservationForm extends Component {
                             onSuccess: function(result) {
                               axios
                                 .post("/reservation/add", values)
-                                .then(res => alert(res.data))
-                                .catch(err => alert(err));
+                                .then(res => console.log(res.data))
+                                .catch(err => console.log(err));
                               setSubmitting(false);
+                              window.location.replace(
+                                `${result.finish_redirect_url}`
+                              );
+                            },
+                            onPending: function(result) {
+                              axios
+                                .post("/reservation/add", values)
+                                .then(res => console.log(res.data))
+                                .catch(err => console.log(err));
+                              setSubmitting(false);
+                              window.location.replace(
+                                `${result.finish_redirect_url}`
+                              );
+                            },
+                            onError: function(result) {
+                              window.location.replace(
+                                `${result.error_redirect_url}`
+                              );
                             }
                           });
                         });

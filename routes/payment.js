@@ -50,9 +50,6 @@ router.route("/gettoken").post((req, res) => {
       last_name: last_name,
       email: req.body.participant.coordinator.coorEmail,
       phone: req.body.participant.coordinator.coorTelp
-    },
-    promo: {
-      promo_code: req.body.promoData.code
     }
   };
 
@@ -63,6 +60,7 @@ router.route("/gettoken").post((req, res) => {
       quantity: 1,
       name: "PROMO"
     });
+    parameter.promo_code = req.body.promoData.code;
   }
 
   snap

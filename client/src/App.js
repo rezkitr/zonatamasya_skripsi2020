@@ -17,6 +17,7 @@ import SearchResultPage from "./pages/SearchResult";
 import NotFoundPage from "./pages/NotFound";
 
 import PaymentFinishPage from "./pages/PaymentFinish";
+import PaymentErrorPage from "./pages/PaymentError";
 
 import AdminPage from "./adminpage/AdminHome";
 import LoginPage from "./adminpage/Login";
@@ -85,6 +86,12 @@ class App extends Component {
                     exact
                     strict
                     component={PaymentFinishPage}
+                  />
+                  <Route
+                    path="/payment/error"
+                    exact
+                    strict
+                    component={PaymentErrorPage}
                   />
 
                   <Route component={NotFoundPage} />

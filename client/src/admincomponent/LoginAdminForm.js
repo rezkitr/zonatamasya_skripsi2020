@@ -66,7 +66,7 @@ class LoginAdminForm extends Component {
       <div style={{ height: "100vh" }}>
         <div className="container-fluid login-admin-page">
           <div className="row justify-content-center">
-            <div className="col-md-4 img-col text-center">
+            <div className="col-md-4 img-col">
               <img src={loginImage} alt={loginImage} />
             </div>
             <div className="col-md-3 form-col text-center">
