@@ -18,7 +18,9 @@ function CalendarList(props) {
             {item.schedule.map(schedItem => {
               let pass = false;
               let now = new Date();
+              now.setHours(0, 0, 0, 0);
               let dateTemp = new Date(schedItem);
+              dateTemp.setHours(0, 0, 0, 0);
               let badgeColor = dateBadgeColorizer.colorizeTag(schedItem);
 
               if (dateTemp < now) {

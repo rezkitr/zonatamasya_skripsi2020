@@ -58,7 +58,9 @@ class ReservationForm extends Component {
         .then(() => {
           if (this.state.promoData) {
             let now = new Date();
+            now.setHours(0, 0, 0, 0);
             let expDate = new Date(this.state.promoData.expDate);
+            expDate.setHours(0, 0, 0, 0);
 
             if (paymentType === "LUNAS") {
               if (this.state.promoData.tripId === this.props.tripId) {
