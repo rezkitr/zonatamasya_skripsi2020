@@ -17,9 +17,29 @@ html {
 .promo-page,
 .searchresult-page,
 .notfound-page,
-.payment-finish-page,
-.payment-error-page {
+.payment-result-page {
   margin-top: 75px;
+}
+
+.payment-result-page {
+  margin-bottom: 120px;
+}
+
+.payment-result-page .row {
+  margin-top: 100px;
+}
+
+.payment-result-page img {
+  width: 320px;
+}
+
+.payment-result-page h1 {
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.payment-result-page p {
+  font-size: 16px;
 }
 
 .opentrip-page {
@@ -288,10 +308,6 @@ html {
     -webkit-transform: translateZ(-260px) rotateY(-360deg);
     transform: translateZ(-260px) rotateY(-360deg);
   }
-}
-
-footer {
-  margin-top: 120px;
 }
 
 .overlay {
@@ -635,6 +651,28 @@ label {
   .login-admin-input:focus {
     outline: none;
     border-bottom: 2px solid #4834d4;
+  }
+
+  .payment-result-page {
+    margin-bottom: 200px;
+  }
+
+  .payment-result-page .row {
+    margin-top: 140px;
+  }
+
+  .payment-result-page img {
+    width: 480px;
+    height: 420px;
+  }
+
+  .payment-result-page h1 {
+    font-size: 38px;
+    font-weight: 600;
+  }
+
+  .payment-result-page p {
+    font-size: 22px;
   }
 }
 

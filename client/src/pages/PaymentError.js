@@ -5,12 +5,12 @@ import errorImg from "../assets/error.png";
 
 function PaymentError() {
   return (
-    <div className="payment-finish-page" style={{ marginBottom: "200px" }}>
+    <div className="payment-result-page">
       <PaymentInfo
         title={"Reservasi Gagal"}
         image={errorImg}
         text={
-          "Maaf reservasi anda gagal kami proses. Silahkan lakukan reservasi ulang."
+          "Maaf, reservasi anda gagal kami proses. Silahkan lakukan reservasi ulang."
         }
       />
     </div>

@@ -5,7 +5,7 @@ import successImg from "../assets/success.png";
 
 function PaymentFinish() {
   return (
-    <div className="payment-finish-page" style={{ marginBottom: "200px" }}>
+    <div className="payment-result-page">
       <PaymentInfo
         title={"Reservasi Sukses"}
         image={successImg}
