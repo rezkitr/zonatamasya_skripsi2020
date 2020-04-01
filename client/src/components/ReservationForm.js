@@ -12,10 +12,22 @@ class ReservationForm extends Component {
   state = {
     currentStep: 1,
     promoCode: "",
+    tripData: null,
     promoData: null,
     promoValid: false,
     snapData: ""
   };
+
+  componentDidMount() {
+    axios
+      .get(`/opentrip/${this.props.tripId}`)
+      .then(res => {
+        this.setState({
+          tripData: res.data
+        });
+      })
+      .catch(err => console.log(err));
+  }
 
   _next = () => {
     this.setState(prevState => ({
@@ -111,30 +123,7 @@ class ReservationForm extends Component {
   }
 
   render() {
-    // predefined field
-    let tripId = "";
-    let tripName = "";
-    let tripStart = "";
-    let mepo = [];
-    let tripSched = [];
-    let formImage = "";
-    let priceFull = 0;
-    let priceDP = 0;
-
-    this.props.tripData.map(item => {
-      if (item._id === this.props.tripId) {
-        tripId = item._id;
-        tripName = item.name;
-        tripStart = item.departure.start;
-        mepo = item.departure.mepo;
-        tripSched = item.schedule;
-        formImage = item.cardImage;
-        priceFull = item.price.priceFull;
-        priceDP = item.price.priceDP;
-      }
-    });
-
-    return (
+    return this.state.tripData ? (
       <div className="container-fluid reservation-form">
         <ToastContainer />
         <div className="row justify-content-center">
@@ -143,22 +132,24 @@ class ReservationForm extends Component {
               <img
                 className="card-img-top"
                 src={
-                  process.env.PUBLIC_URL + "/upload/opentripImg/" + formImage
+                  process.env.PUBLIC_URL +
+                  "/upload/opentripImg/" +
+                  this.state.tripData.cardImage
                 }
-                alt={formImage}
+                alt={this.state.tripData.cardImage}
               />
               <div className="card-body px-5 py-3">
                 <Formik
                   enableReinitialize
                   initialValues={{
-                    tripId: tripId,
-                    tripName: tripName.toUpperCase(),
-                    tripStart: tripStart.toUpperCase(),
-                    tripPriceFull: priceFull,
-                    tripPriceDP: priceDP,
+                    tripId: this.state.tripData._id,
+                    tripName: this.state.tripData.name,
+                    tripStart: this.state.tripData.departure.start.toUpperCase(),
+                    tripPriceFull: this.state.tripData.price.priceFull,
+                    tripPriceDP: this.state.tripData.price.priceDP,
                     mepo: "".toUpperCase(),
-                    reservationDate: new Date().toDateString(),
                     tripDate: "",
+                    reservationDate: new Date().toDateString(),
                     totalParticipant: 0,
                     participant: {
                       coordinator: {
@@ -298,13 +289,15 @@ class ReservationForm extends Component {
                                 <option value="" disabled>
                                   Pilih Meeting Point
                                 </option>
-                                {mepo.map(item => {
-                                  return (
-                                    <option value={item.toUpperCase()}>
-                                      {item}
-                                    </option>
-                                  );
-                                })}
+                                {this.state.tripData.departure.mepo.map(
+                                  item => {
+                                    return (
+                                      <option value={item.toUpperCase()}>
+                                        {item}
+                                      </option>
+                                    );
+                                  }
+                                )}
                               </Field>
                               <ErrorMessage
                                 component="div"
@@ -335,8 +328,8 @@ class ReservationForm extends Component {
                                 <option value="" disabled>
                                   Pilih Tanggal Keberangkatan
                                 </option>
-                                {tripSched.map(item => {
-                                  let now = new Date("12/12/2019");
+                                {this.state.tripData.schedule.map(item => {
+                                  let now = new Date();
                                   let dateTemp = new Date(item);
                                   if (dateTemp >= now) {
                                     return (
@@ -806,7 +799,8 @@ class ReservationForm extends Component {
                                       checked={
                                         values.payment.type === "DP"
                                           ? (values.payment.amount =
-                                              values.totalParticipant * priceDP)
+                                              values.totalParticipant *
+                                              values.tripPriceDP)
                                           : false
                                       }
                                       className="custom-control-input"
@@ -833,12 +827,12 @@ class ReservationForm extends Component {
                                         this.state.promoData === null
                                           ? (values.payment.amount =
                                               values.totalParticipant *
-                                              priceFull)
+                                              values.tripPriceFull)
                                           : values.payment.type === "LUNAS" &&
                                             this.state.promoData
                                           ? (values.payment.amount =
                                               values.totalParticipant *
-                                                priceFull -
+                                                values.tripPriceFull -
                                               this.getDiscount())
                                           : false
                                       }
@@ -937,7 +931,7 @@ class ReservationForm extends Component {
           </div>
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 
