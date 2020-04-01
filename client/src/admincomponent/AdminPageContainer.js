@@ -18,8 +18,8 @@ class AdminContainer extends Component {
 
   componentDidMount() {
     if (
-      localStorage.getItem("isLoggedIn") === "false" ||
-      localStorage.getItem("isLoggedIn") === null
+      window.localStorage.getItem("isLoggedIn") === "false" ||
+      window.localStorage.getItem("isLoggedIn") === null
     ) {
       this.props.history.push("/admin/login");
     }
@@ -34,7 +34,7 @@ class AdminContainer extends Component {
   };
 
   handleLogout = () => {
-    localStorage.setItem("isLoggedIn", "false");
+    window.localStorage.setItem("isLoggedIn", "false");
     setTimeout(() => {
       window.location.replace("/admin/login");
     }, 1000);

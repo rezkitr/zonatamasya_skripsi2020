@@ -31,7 +31,7 @@ class LoginAdminForm extends Component {
       .post("/admin/auth", values)
       .then(res => {
         if (res.data) {
-          localStorage.setItem("isLoggedIn", "true");
+          window.localStorage.setItem("isLoggedIn", "true");
           this.setState({ isLoading: true });
           setTimeout(() => {
             this.props.history.push("/admin");
