@@ -223,7 +223,12 @@ html {
 
 .reservation-form,
 .tripadd-form {
-  margin-top: 140px;
+  margin-top: 100px;
+}
+
+.reservation-button-col {
+  text-align: center;
+  margin-top: 40px;
 }
 
 .filter-section {
@@ -673,6 +678,16 @@ label {
 
   .payment-result-page p {
     font-size: 22px;
+  }
+
+  .reservation-form,
+  .tripadd-form {
+    margin-top: 140px;
+  }
+
+  .reservation-button-col {
+    text-align: right;
+    margin-top: 40px;
   }
 }
 

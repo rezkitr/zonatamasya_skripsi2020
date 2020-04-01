@@ -355,7 +355,7 @@ class ReservationForm extends Component {
                             </div>
                           </div>
 
-                          <div className="text-right">
+                          <div className="reservation-button-col">
                             <button
                               type="button"
                               className="btn btn-sm btn-success font-weight-bold"
@@ -524,43 +524,35 @@ class ReservationForm extends Component {
                                   ? values.participant.member.map(
                                       (item, index) => {
                                         return (
-                                          <div key={index}>
-                                            <div className="form-row align-items-center">
-                                              <div className="col-md-5">
+                                          <div>
+                                            <div className="form-row mb-3">
+                                              <div className="col-5">
                                                 <label
+                                                  className="sr-only"
                                                   htmlFor={`memberName${index}`}
                                                 >
                                                   Nama Lengkap
                                                 </label>
-                                              </div>
-                                              <div className="col-md-2">
-                                                <label
-                                                  htmlFor={`memberGender${index}`}
-                                                >
-                                                  Jenis Kelamin
-                                                </label>
-                                              </div>
-                                              <div className="col-md-4">
-                                                <label
-                                                  htmlFor={`memberTelp${index}`}
-                                                >
-                                                  No. HP
-                                                </label>
-                                              </div>
-                                            </div>
-                                            <div className="form-row align-items-center">
-                                              <div
-                                                className="col-md-5"
-                                                key={index}
-                                              >
                                                 <Field
                                                   type="text"
                                                   id={`memberName${index}`}
                                                   name={`participant.member[${index}].memberName`}
+                                                  placeholder="Nama Lengkap"
                                                   className="form-control"
                                                 />
+                                                <ErrorMessage
+                                                  component="small"
+                                                  name={`participant.member[${index}].memberName`}
+                                                  className="my-invalid-feedback"
+                                                />
                                               </div>
-                                              <div className="col-md-2">
+                                              <div className="col-2">
+                                                <label
+                                                  className="sr-only"
+                                                  htmlFor={`memberGender${index}`}
+                                                >
+                                                  L/P
+                                                </label>
                                                 <Field
                                                   as="select"
                                                   id={`memberGender${index}`}
@@ -572,48 +564,46 @@ class ReservationForm extends Component {
                                                   </option>
                                                   <option value="P">P</option>
                                                 </Field>
-                                              </div>
-                                              <div className="col-md-4">
-                                                <Field
-                                                  type="text"
-                                                  id={`memberTelp${index}`}
-                                                  name={`participant.member[${index}].memberTelp`}
-                                                  className="form-control"
-                                                />
-                                              </div>
-                                              <div className="col-md">
-                                                <a
-                                                  className="text-danger"
-                                                  onClick={() =>
-                                                    arrayHelpers.remove(index)
-                                                  }
-                                                >
-                                                  <i className="fas fa-times fa-lg ml-4"></i>
-                                                </a>
-                                              </div>
-                                            </div>
-
-                                            <div className="form-row mt-1 mb-3">
-                                              <div className="col-5">
-                                                <ErrorMessage
-                                                  component="div"
-                                                  name={`participant.member[${index}].memberName`}
-                                                  className="my-invalid-feedback"
-                                                />
-                                              </div>
-                                              <div className="col-md-2">
                                                 <ErrorMessage
                                                   component="div"
                                                   name={`participant.member[${index}].memberGender`}
                                                   className="my-invalid-feedback"
                                                 />
                                               </div>
-                                              <div className="col-md-4">
+                                              <div className="col">
+                                                <label
+                                                  className="sr-only"
+                                                  htmlFor={`memberTelp${index}`}
+                                                >
+                                                  No. HP
+                                                </label>
+                                                <Field
+                                                  type="text"
+                                                  id={`memberTelp${index}`}
+                                                  name={`participant.member[${index}].memberTelp`}
+                                                  placeholder="No. HP"
+                                                  className="form-control"
+                                                />
                                                 <ErrorMessage
                                                   component="div"
                                                   name={`participant.member[${index}].memberTelp`}
                                                   className="my-invalid-feedback"
                                                 />
+                                              </div>
+                                              <div
+                                                className="col-1 py-2 text-center"
+                                                style={{
+                                                  boxSizing: "border-box"
+                                                }}
+                                              >
+                                                <a
+                                                  className="text-danger"
+                                                  onClick={() =>
+                                                    arrayHelpers.remove(index)
+                                                  }
+                                                >
+                                                  <i className="fas fa-times fa-lg"></i>
+                                                </a>
                                               </div>
                                             </div>
                                           </div>
@@ -638,7 +628,7 @@ class ReservationForm extends Component {
                               </div>
                             )}
                           ></FieldArray>
-                          <div className="text-right">
+                          <div className="reservation-button-col">
                             <button
                               type="button"
                               className="btn btn-sm btn-cyan font-weight-bold"
@@ -919,7 +909,7 @@ class ReservationForm extends Component {
                               *Promo hanya berlaku untuk pembayaran LUNAS
                             </small>
                           </div>
-                          <div className="text-right">
+                          <div className="reservation-button-col">
                             <button
                               type="button"
                               className="btn btn-sm btn-cyan font-weight-bold"
