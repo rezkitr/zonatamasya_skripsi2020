@@ -166,12 +166,12 @@ class App extends Component {
                     path="/admin/promo/add"
                     exact
                     strict
-                    render={() =>
+                    render={props =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
                       ) : (
-                        <PromoAddPage />
+                        <PromoAddPage {...props} />
                       )
                     }
                   />
@@ -192,12 +192,12 @@ class App extends Component {
                     path="/admin/admuser/add"
                     exact
                     strict
-                    render={() =>
+                    render={props =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
                       ) : (
-                        <AdminAddPage />
+                        <AdminAddPage {...props} />
                       )
                     }
                   />
@@ -205,12 +205,12 @@ class App extends Component {
                     path="/admin/opentrip/add"
                     exact
                     strict
-                    render={() =>
+                    render={props =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
                       ) : (
-                        <OpenTripAddPage />
+                        <OpenTripAddPage {...props} />
                       )
                     }
                   />
@@ -244,12 +244,12 @@ class App extends Component {
                     path="/admin/carousel/add"
                     exact
                     strict
-                    render={() =>
+                    render={props =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
                       ) : (
-                        <CarouselAddPage />
+                        <CarouselAddPage {...props} />
                       )
                     }
                   />

@@ -4,6 +4,7 @@ let Promo = require("../models/promo.model");
 // getAllPromo
 router.route("/").get((req, res) => {
   Promo.find()
+    .sort({ code: "asc", expDate: "asc" })
     .then(promo => res.json(promo))
     .catch(err => res.status(400).json("Error : " + err));
 });
