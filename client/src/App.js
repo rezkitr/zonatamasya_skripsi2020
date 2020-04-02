@@ -105,12 +105,6 @@ class App extends Component {
               <ScrollToTop>
                 <Switch>
                   <Route
-                    path="/admin/login"
-                    exact
-                    strict
-                    component={LoginPage}
-                  />
-                  <Route
                     path="/admin"
                     exact
                     strict
@@ -122,6 +116,12 @@ class App extends Component {
                         <AdminPage {...props} />
                       )
                     }
+                  />
+                  <Route
+                    path="/admin/login"
+                    exact
+                    strict
+                    component={LoginPage}
                   />
                   <Route
                     path="/admin/rsv/detail/:rsvId"
