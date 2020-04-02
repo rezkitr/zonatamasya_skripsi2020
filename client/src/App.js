@@ -114,12 +114,12 @@ class App extends Component {
                     path="/admin"
                     exact
                     strict
-                    render={() =>
+                    render={props =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
                       ) : (
-                        <AdminPage />
+                        <AdminPage {...props} />
                       )
                     }
                   />

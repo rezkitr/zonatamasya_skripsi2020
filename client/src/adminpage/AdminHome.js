@@ -4,7 +4,7 @@ import AdminPageContainer from "../admincomponent/AdminPageContainer";
 function AdminHome(props) {
   return (
     <div>
-      <AdminPageContainer />
+      <AdminPageContainer {...props} />
     </div>
   );
 }

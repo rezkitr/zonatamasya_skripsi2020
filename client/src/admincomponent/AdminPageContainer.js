@@ -27,7 +27,7 @@ class AdminContainer extends Component {
   handleLogout = () => {
     localStorage.setItem("isLoggedIn", "false");
     setTimeout(() => {
-      window.location.replace("/admin/login");
+      this.props.history.push("/admin/login");
     }, 1000);
   };
 
