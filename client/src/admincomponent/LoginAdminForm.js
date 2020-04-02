@@ -71,7 +71,11 @@ class LoginAdminForm extends Component {
             </div>
             <div className="col-md-3 form-col text-center">
               <h3>Login</h3>
-              <form onSubmit={this.loginSubmit} className="mt-5">
+              <form
+                onSubmit={this.loginSubmit}
+                autoComplete="off"
+                className="mt-5"
+              >
                 <div className="form-group">
                   <input
                     type="text"
