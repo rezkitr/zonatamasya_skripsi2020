@@ -12,7 +12,7 @@ class UserAdminEditForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`/admin/id/${this.props.adminId}`)
+      .get(`/adm/id/${this.props.adminId}`)
       .then(res => {
         this.setState({
           admin: res.data
@@ -56,7 +56,7 @@ class UserAdminEditForm extends Component {
                     onSubmit={(values, { setSubmitting }) => {
                       setTimeout(() => {
                         axios
-                          .post(`/admin/update/${this.props.adminId}`, values)
+                          .post(`/adm/update/${this.props.adminId}`, values)
                           .then(res =>
                             confirmAlert({
                               title: "Update Admin",

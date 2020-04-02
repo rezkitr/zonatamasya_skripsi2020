@@ -40,7 +40,7 @@ connection.once("open", () => {
 
 // route
 app.use("/reservation", reservationRouter);
-app.use("/admin", adminRouter);
+app.use("/adm", adminRouter);
 app.use("/promo", promoRouter);
 app.use("/opentrip", opentripRouter);
 app.use("/carousel", carouselRouter);
