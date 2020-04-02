@@ -16,15 +16,6 @@ class AdminContainer extends Component {
     menuSelected: "rsv"
   };
 
-  componentDidMount() {
-    if (
-      window.localStorage.getItem("isLoggedIn") === "false" ||
-      window.localStorage.getItem("isLoggedIn") === null
-    ) {
-      this.props.history.push("/admin/login");
-    }
-  }
-
   toggleSideBar = () => {
     this.setState(prevState => {
       return {

@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 
 import Navbar from "./components/Navbar";
@@ -105,66 +110,148 @@ class App extends Component {
                     strict
                     component={LoginPage}
                   />
-                  <Route path="/admin" exact strict component={AdminPage} />
+                  <Route
+                    path="/admin"
+                    exact
+                    strict
+                    render={() =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <AdminPage />
+                      )
+                    }
+                  />
                   <Route
                     path="/admin/rsv/detail/:rsvId"
                     exact
                     strict
-                    component={RsvDetailPage}
+                    render={props =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <RsvDetailPage {...props} />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/rsv/edit/:rsvId"
                     exact
                     strict
-                    component={RsvEditPage}
+                    render={props =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <RsvEditPage {...props} />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/promo/edit/:promoId"
                     exact
                     strict
-                    component={PromoEditPage}
+                    render={props =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <PromoEditPage {...props} />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/promo/add"
                     exact
                     strict
-                    component={PromoAddPage}
+                    render={() =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <PromoAddPage />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/admuser/edit/:adminId"
                     exact
                     strict
-                    component={AdminEditPage}
+                    render={props =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <AdminEditPage {...props} />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/admuser/add"
                     exact
                     strict
-                    component={AdminAddPage}
+                    render={() =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <AdminAddPage />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/opentrip/add"
                     exact
                     strict
-                    component={OpenTripAddPage}
+                    render={() =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <OpenTripAddPage />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/opentrip/detail/:tripId"
                     exact
                     strict
-                    component={OpenTripDetailPage}
+                    render={props =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <OpenTripDetailPage {...props} />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/opentrip/edit/:tripId"
                     exact
                     strict
-                    component={OpenTripEditPage}
+                    render={props =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <OpenTripEditPage {...props} />
+                      )
+                    }
                   />
                   <Route
                     path="/admin/carousel/add"
                     exact
                     strict
-                    component={CarouselAddPage}
+                    render={() =>
+                      localStorage.getItem("isLoggedIn") === "false" ||
+                      localStorage.getItem("isLoggedIn") === null ? (
+                        <Redirect to="/admin/login" />
+                      ) : (
+                        <CarouselAddPage />
+                      )
+                    }
                   />
                 </Switch>
               </ScrollToTop>
