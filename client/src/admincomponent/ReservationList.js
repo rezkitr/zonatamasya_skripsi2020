@@ -6,41 +6,43 @@ import axios from "axios";
 
 const ReservationItem = props => {
   return (
-    <tr>
-      <td>{props.reservation.tripName}</td>
-      <td>{helpers.formatDate(props.reservation.tripDate)}</td>
-      <td>{props.reservation.tripStart}</td>
-      <td>{props.reservation.mepo}</td>
-      <td>{props.reservation.participant.coordinator.coorName}</td>
-      <td>{props.reservation.totalParticipant}</td>
-      <td>{`${
-        props.reservation.payment.type
-      } [${props.paymentStatus.toUpperCase()}]`}</td>
-      <td>
-        <Link
-          to={"/admin/rsv/detail/" + props.reservation._id}
-          className="text-info"
-        >
-          <i className="fas fa-search mx-2"></i>
-        </Link>{" "}
-        |{" "}
-        <Link
-          to={"/admin/rsv/edit/" + props.reservation._id}
-          className="text-primary"
-        >
-          <i className="far fa-edit mx-2"></i>
-        </Link>{" "}
-        |{" "}
-        <a
-          onClick={() => {
-            props.deleteReservation(props.reservation._id);
-          }}
-          className="text-danger"
-        >
-          <i className="far fa-trash-alt mx-2"></i>
-        </a>
-      </td>
-    </tr>
+    props.paymentStatus.length > 0 && (
+      <tr>
+        <td>{props.reservation.tripName}</td>
+        <td>{helpers.formatDate(props.reservation.tripDate)}</td>
+        <td>{props.reservation.tripStart}</td>
+        <td>{props.reservation.mepo}</td>
+        <td>{props.reservation.participant.coordinator.coorName}</td>
+        <td>{props.reservation.totalParticipant}</td>
+        <td>{`${
+          props.reservation.payment.type
+        } [${props.paymentStatus.toUpperCase()}]`}</td>
+        <td>
+          <Link
+            to={"/admin/rsv/detail/" + props.reservation._id}
+            className="text-info"
+          >
+            <i className="fas fa-search mx-2"></i>
+          </Link>{" "}
+          |{" "}
+          <Link
+            to={"/admin/rsv/edit/" + props.reservation._id}
+            className="text-primary"
+          >
+            <i className="far fa-edit mx-2"></i>
+          </Link>{" "}
+          |{" "}
+          <a
+            onClick={() => {
+              props.deleteReservation(props.reservation._id);
+            }}
+            className="text-danger"
+          >
+            <i className="far fa-trash-alt mx-2"></i>
+          </a>
+        </td>
+      </tr>
+    )
   );
 };
 
