@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const reservationSchema = new Schema(
   {
+    orderId: {
+      type: String,
+      required: true
+    },
     tripId: {
       type: String,
       required: true

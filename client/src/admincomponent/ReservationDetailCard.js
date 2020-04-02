@@ -5,21 +5,30 @@ import axios from "axios";
 
 class ReservationDetail extends Component {
   state = {
-    rsv: null
+    rsv: null,
+    paymentStatus: ""
   };
 
   componentDidMount() {
     axios
       .get(`/reservation/${this.props.rsvId}`)
       .then(res => {
-        this.setState({ rsv: res.data });
+        this.setState({ rsv: res.data }, () => {
+          axios
+            .get(`/payment/getstatus/${this.state.rsv.orderId}`)
+            .then(res => {
+              this.setState({ paymentStatus: res.data });
+            })
+            .catch(err => console.log(err));
+        });
       })
       .catch(err => console.log(err));
   }
 
   render() {
     return (
-      this.state.rsv && (
+      this.state.rsv &&
+      this.state.paymentStatus.length > 0 && (
         <div className="container my-5">
           <div className="row justify-content-center mb-5">
             <div className="col-md-10">
@@ -133,6 +142,12 @@ class ReservationDetail extends Component {
                       <p className="h6 font-weight-bold">Jenis</p>
                       <h4 className="purple-text">
                         {this.state.rsv.payment.type}
+                      </h4>
+                    </div>
+                    <div className="col-md">
+                      <p className="h6 font-weight-bold">Status</p>
+                      <h4 className="purple-text">
+                        {this.state.paymentStatus.toUpperCase()}
                       </h4>
                     </div>
                     <div className="col-md">

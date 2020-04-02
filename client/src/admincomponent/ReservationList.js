@@ -13,7 +13,9 @@ const ReservationItem = props => {
       <td>{props.reservation.mepo}</td>
       <td>{props.reservation.participant.coordinator.coorName}</td>
       <td>{props.reservation.totalParticipant}</td>
-      <td>{props.reservation.payment.type}</td>
+      <td>{`${
+        props.reservation.payment.type
+      } [${props.paymentStatus.toUpperCase()}]`}</td>
       <td>
         <Link
           to={"/admin/rsv/detail/" + props.reservation._id}
@@ -44,7 +46,8 @@ const ReservationItem = props => {
 
 class ReservationList extends Component {
   state = {
-    reservations: []
+    reservations: [],
+    paymentStatus: ""
   };
 
   componentDidMount() {
@@ -67,14 +70,25 @@ class ReservationList extends Component {
 
   mapReservationList() {
     return this.state.reservations.map(item => {
+      this.getPaymentStatus(item.orderId);
       return (
         <ReservationItem
           key={item._id}
           reservation={item}
           deleteReservation={this.deleteReservation}
+          paymentStatus={this.state.paymentStatus}
         />
       );
     });
+  }
+
+  getPaymentStatus(orderId) {
+    axios
+      .get(`/payment/getstatus/${orderId}`)
+      .then(res => {
+        this.setState({ paymentStatus: res.data });
+      })
+      .catch(err => console.log(err));
   }
 
   deleteReservation = rsvId => {

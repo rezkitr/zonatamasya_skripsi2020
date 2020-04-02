@@ -39,22 +39,22 @@ class ReservationEditForm extends Component {
             </Link>
           </div>
         </div>
-        <div className="row justify-content-center mt-5">
-          <div className="col-md-10">
-            <div className="card">
-              <div className="px-3">
-                <i className="far fa-edit fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
-                <div className="float-right text-right p-3">
-                  <p className="text-muted mb-1">
-                    <small>Edit Data Reservasi</small>
-                  </p>
-                  <h6 className="text-right muted">
-                    Reservation ID : {this.props.rsvId}
-                  </h6>
+        {this.state.rsv ? (
+          <div className="row justify-content-center mt-5">
+            <div className="col-md-10">
+              <div className="card">
+                <div className="px-3">
+                  <i className="far fa-edit fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                  <div className="float-right text-right p-3">
+                    <p className="text-muted mb-1">
+                      <small>Edit Data Reservasi</small>
+                    </p>
+                    <h6 className="text-right muted">
+                      Reservation ID : {this.state.rsv.orderId}
+                    </h6>
+                  </div>
                 </div>
-              </div>
-              <div className="card-body p-5">
-                {this.state.rsv ? (
+                <div className="card-body p-5">
                   <Formik
                     enableReinitialize
                     initialValues={{
@@ -344,11 +344,11 @@ class ReservationEditForm extends Component {
                       </Form>
                     )}
                   </Formik>
-                ) : null}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
     );
   }

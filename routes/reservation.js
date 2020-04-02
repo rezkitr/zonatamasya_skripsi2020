@@ -18,6 +18,7 @@ router.route("/:id").get((req, res) => {
 
 // AddRsv
 router.route("/add").post((req, res) => {
+  const orderId = req.body.orderId;
   const tripId = req.body.tripId;
   const tripName = req.body.tripName;
   const tripStart = req.body.tripStart;
@@ -34,6 +35,7 @@ router.route("/add").post((req, res) => {
   }
 
   const newReservation = new Reservation({
+    orderId,
     tripId,
     tripName,
     tripStart,

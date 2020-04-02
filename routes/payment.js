@@ -72,4 +72,17 @@ router.route("/gettoken").post((req, res) => {
       console.log("Error occured:", e.message);
     });
 });
+
+router.route("/getstatus/:order_id").get((req, res) => {
+  snap.transaction
+    .status(req.params.order_id)
+    .then(result => {
+      let paymentstatus = result.transaction_status;
+      res.send(paymentstatus);
+    })
+    .catch(error => {
+      console.log("Error occured:", error.message);
+    });
+});
+
 module.exports = router;

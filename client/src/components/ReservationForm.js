@@ -145,7 +145,7 @@ class ReservationForm extends Component {
                   enableReinitialize
                   initialValues={{
                     tripId: this.state.tripData._id,
-                    tripName: this.state.tripData.name,
+                    tripName: this.state.tripData.name.toUpperCase(),
                     tripStart: this.state.tripData.departure.start.toUpperCase(),
                     tripPriceFull: this.state.tripData.price.priceFull,
                     tripPriceDP: this.state.tripData.price.priceDP,
@@ -179,6 +179,7 @@ class ReservationForm extends Component {
                         this.setState({ snapData: res.data }, () => {
                           window.snap.pay(`${this.state.snapData.token}`, {
                             onSuccess: function(result) {
+                              values.orderId = result.order_id;
                               axios
                                 .post("/reservation/add", values)
                                 .then(res => console.log(res.data))
@@ -189,6 +190,7 @@ class ReservationForm extends Component {
                               );
                             },
                             onPending: function(result) {
+                              values.orderId = result.order_id;
                               axios
                                 .post("/reservation/add", values)
                                 .then(res => console.log(res.data))
