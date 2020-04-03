@@ -538,7 +538,7 @@ class ReservationForm extends Component {
                                                   className="form-control"
                                                 />
                                                 <ErrorMessage
-                                                  component="small"
+                                                  component="div"
                                                   name={`participant.member[${index}].memberName`}
                                                   className="my-invalid-feedback"
                                                 />

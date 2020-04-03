@@ -54,10 +54,14 @@ class ReservationList extends Component {
     axios
       .get("/reservation/")
       .then(res => {
-        this.setState({
-          reservations: res.data,
-          filteredReservations: res.data
-        });
+        this.setState(
+          {
+            reservations: res.data
+          },
+          () => {
+            this.setState({ filteredReservations: this.state.reservations });
+          }
+        );
       })
       .catch(err => console.log(err));
   }
@@ -98,15 +102,20 @@ class ReservationList extends Component {
         {
           label: "Hapus",
           onClick: () => {
-            axios
-              .delete(`/reservation/${rsvId}`)
-              .then(res => console.log(res.data))
-              .catch(err => console.log(err));
             this.setState({
               reservations: this.state.reservations.filter(
                 rsv => rsv._id !== rsvId
+              ),
+              filteredReservations: this.state.filteredReservations.filter(
+                rsv => rsv._id !== rsvId
               )
             });
+            axios
+              .delete(`/reservation/${rsvId}`)
+              .then(res => {
+                console.log(res.data);
+              })
+              .catch(err => console.log(err));
           }
         }
       ]

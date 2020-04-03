@@ -22,7 +22,7 @@ class UserAdminEditForm extends Component {
   }
 
   render() {
-    return (
+    return this.state.admin ? (
       <div className="container-fluid my-5">
         <div className="row justify-content-center mb-5">
           <div className="col-md-4">
@@ -45,117 +45,123 @@ class UserAdminEditForm extends Component {
                 </div>
               </div>
               <div className="card-body p-5">
-                {this.state.admin ? (
-                  <Formik
-                    enableReinitialize
-                    initialValues={{
-                      username: this.state.admin.username,
-                      password: ""
-                    }}
-                    validationSchema={ValidationSchema}
-                    onSubmit={(values, { setSubmitting }) => {
-                      setTimeout(() => {
-                        axios
-                          .post(`/adm/update/${this.props.adminId}`, values)
-                          .then(res =>
-                            confirmAlert({
-                              title: "Update Admin",
-                              message: "Data Admin Berhasil Diupdate",
-                              buttons: [
-                                {
-                                  label: "OK"
-                                }
-                              ]
-                            })
-                          )
-                          .catch(err => alert(err));
-                        setSubmitting(false);
-                        this.props.history.push("/admin");
-                      }, 200);
-                    }}
-                  >
-                    {({ errors, touched, values, isSubmitting }) => (
-                      <Form>
-                        <div>
-                          <div className="form-row">
-                            <div className="form-group col-md">
-                              <label
-                                htmlFor="username"
-                                className="font-weight-bold"
-                              >
-                                Username
-                              </label>
-                            </div>
-                            <div className="form-group col-md">
-                              <label
-                                htmlFor="password"
-                                className="font-weight-bold"
-                              >
-                                Password
-                              </label>
-                            </div>
+                <Formik
+                  enableReinitialize
+                  initialValues={{
+                    username: this.state.admin.username,
+                    password: ""
+                  }}
+                  validationSchema={ValidationSchema}
+                  onSubmit={(values, { setSubmitting }) => {
+                    setTimeout(() => {
+                      axios
+                        .post(`/adm/update/${this.props.adminId}`, values)
+                        .then(res =>
+                          confirmAlert({
+                            title: "Update Admin",
+                            message: "Data Admin Berhasil Diupdate",
+                            buttons: [
+                              {
+                                label: "OK"
+                              }
+                            ]
+                          })
+                        )
+                        .catch(err => alert(err));
+                      setSubmitting(false);
+                      this.props.history.push("/admin");
+                    }, 200);
+                  }}
+                >
+                  {({ errors, touched, values, isSubmitting }) => (
+                    <Form>
+                      <div>
+                        <div className="form-row">
+                          <div className="form-group col-md">
+                            <label
+                              htmlFor="username"
+                              className="font-weight-bold"
+                            >
+                              Username
+                            </label>
                           </div>
-                          <div className="form-row">
-                            <div className="form-group col-md">
-                              <Field
-                                type="text"
-                                id="username"
-                                name="username"
-                                className={`form-control ${
-                                  touched.username && errors.username
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                name="username"
-                                className="invalid-feedback"
-                              />
-                            </div>
-                            <div className="form-group col-md">
-                              <Field
-                                type="text"
-                                id="password"
-                                name="password"
-                                className={`form-control ${
-                                  touched.password && errors.password
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                              />
-                              <ErrorMessage
-                                component="div"
-                                name="password"
-                                className="invalid-feedback"
-                              />
-                            </div>
+                          <div className="form-group col-md">
+                            <label
+                              htmlFor="password"
+                              className="font-weight-bold"
+                            >
+                              Password
+                            </label>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <button
-                            className="btn btn-sm btn-unique"
-                            onClick={() => {
-                              this.props.history.push("/admin");
-                            }}
-                          >
-                            <i className="fas fa-angle-left mr-2"></i>KEMBALI
-                          </button>
-                          <button
-                            className={`btn btn-sm btn-success ${
-                              isSubmitting ? "disabled" : ""
-                            }`}
-                            type="submit"
-                          >
-                            <i className="far fa-save mr-2"></i>SIMPAN
-                          </button>
+                        <div className="form-row">
+                          <div className="form-group col-md">
+                            <Field
+                              type="text"
+                              id="username"
+                              name="username"
+                              className={`form-control ${
+                                touched.username && errors.username
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="username"
+                              className="invalid-feedback"
+                            />
+                          </div>
+                          <div className="form-group col-md">
+                            <Field
+                              type="text"
+                              id="password"
+                              name="password"
+                              className={`form-control ${
+                                touched.password && errors.password
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              component="div"
+                              name="password"
+                              className="invalid-feedback"
+                            />
+                          </div>
                         </div>
-                      </Form>
-                    )}
-                  </Formik>
-                ) : null}
+                      </div>
+                      <div className="text-right">
+                        <button
+                          className="btn btn-sm btn-unique"
+                          onClick={() => {
+                            this.props.history.push("/admin");
+                          }}
+                        >
+                          <i className="fas fa-angle-left mr-2"></i>KEMBALI
+                        </button>
+                        <button
+                          className={`btn btn-sm btn-success ${
+                            isSubmitting ? "disabled" : ""
+                          }`}
+                          type="submit"
+                        >
+                          <i className="far fa-save mr-2"></i>SIMPAN
+                        </button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div className="container-fluid" style={{ height: "100vh" }}>
+        <div className="row h-100">
+          <div className="col my-auto text-center">
+            <h1>Loading...</h1>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ class PromoEditForm extends Component {
   }
 
   render() {
-    return (
+    return this.state.promo ? (
       <div className="container-fluid my-5">
         <div className="row justify-content-center mb-5">
           <div className="col-md-4">
@@ -45,163 +45,169 @@ class PromoEditForm extends Component {
                 </div>
               </div>
               <div className="card-body p-5">
-                {this.state.promo ? (
-                  <Formik
-                    enableReinitialize
-                    initialValues={{
-                      code: this.state.promo.code,
-                      discount: this.state.promo.discount,
-                      description: this.state.promo.description,
-                      expDate: this.state.promo.expDate,
-                      tripId: this.state.promo.tripId
-                    }}
-                    validationSchema={ValidationSchema}
-                    validateOnBlur={false}
-                    onSubmit={(values, { setSubmitting }) => {
-                      axios
-                        .post(`/promo/update/${this.props.promoId}`, values)
-                        .then(res => {
-                          confirmAlert({
-                            title: "Update Promo",
-                            message: "Data Promo Berhasil Diupdate",
-                            buttons: [
-                              {
-                                label: "OK"
-                              }
-                            ]
-                          });
-                        })
-                        .catch(err => {
-                          confirmAlert({
-                            title: "Error",
-                            message: `${err}`,
-                            buttons: [
-                              {
-                                label: "OK"
-                              }
-                            ]
-                          });
+                <Formik
+                  enableReinitialize
+                  initialValues={{
+                    code: this.state.promo.code,
+                    discount: this.state.promo.discount,
+                    description: this.state.promo.description,
+                    expDate: this.state.promo.expDate,
+                    tripId: this.state.promo.tripId
+                  }}
+                  validationSchema={ValidationSchema}
+                  validateOnBlur={false}
+                  onSubmit={(values, { setSubmitting }) => {
+                    axios
+                      .post(`/promo/update/${this.props.promoId}`, values)
+                      .then(res => {
+                        confirmAlert({
+                          title: "Update Promo",
+                          message: "Data Promo Berhasil Diupdate",
+                          buttons: [
+                            {
+                              label: "OK"
+                            }
+                          ]
                         });
-                      this.props.history.push("/admin");
-                    }}
-                  >
-                    {({ errors, touched, values, isSubmitting }) => (
-                      <Form>
-                        <div>
-                          <div className="form-group">
-                            <label
-                              htmlFor="promoCode"
-                              className="font-weight-bold"
-                            >
-                              Kode
-                            </label>
-                            <Field
-                              type="text"
-                              id="promoCode"
-                              name="code"
-                              className={`form-control ${
-                                touched.code && errors.code ? "is-invalid" : ""
-                              }`}
-                            />
-                            <ErrorMessage
-                              component="div"
-                              name="code"
-                              className="invalid-feedback"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label
-                              htmlFor="promoDiscount"
-                              className="font-weight-bold"
-                            >
-                              Diskon
-                            </label>
-                            <Field
-                              type="number"
-                              id="promoDiscount"
-                              name="discount"
-                              className={`form-control ${
-                                touched.discount && errors.discount
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                            />
-                            <ErrorMessage
-                              component="div"
-                              name="discount"
-                              className="invalid-feedback"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label
-                              htmlFor="promoDescription"
-                              className="font-weight-bold"
-                            >
-                              Deskripsi
-                            </label>
-                            <Field
-                              as="textarea"
-                              id="promoDescription"
-                              name="description"
-                              className={`form-control ${
-                                touched.description && errors.description
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                            />
-                            <ErrorMessage
-                              component="div"
-                              name="description"
-                              className="invalid-feedback"
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label
-                              htmlFor="promoExpDate"
-                              className="font-weight-bold"
-                            >
-                              Batas Berlaku
-                            </label>
-                            <Field
-                              type="date"
-                              id="promoExpDate"
-                              name="expDate"
-                              className={`form-control ${
-                                touched.expDate && errors.expDate
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                            />
-                            <ErrorMessage
-                              component="div"
-                              name="expDate"
-                              className="invalid-feedback"
-                            />
-                          </div>
+                      })
+                      .catch(err => {
+                        confirmAlert({
+                          title: "Error",
+                          message: `${err}`,
+                          buttons: [
+                            {
+                              label: "OK"
+                            }
+                          ]
+                        });
+                      });
+                    this.props.history.push("/admin");
+                  }}
+                >
+                  {({ errors, touched, values, isSubmitting }) => (
+                    <Form>
+                      <div>
+                        <div className="form-group">
+                          <label
+                            htmlFor="promoCode"
+                            className="font-weight-bold"
+                          >
+                            Kode
+                          </label>
+                          <Field
+                            type="text"
+                            id="promoCode"
+                            name="code"
+                            className={`form-control ${
+                              touched.code && errors.code ? "is-invalid" : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="code"
+                            className="invalid-feedback"
+                          />
                         </div>
+                        <div className="form-group">
+                          <label
+                            htmlFor="promoDiscount"
+                            className="font-weight-bold"
+                          >
+                            Diskon
+                          </label>
+                          <Field
+                            type="number"
+                            id="promoDiscount"
+                            name="discount"
+                            className={`form-control ${
+                              touched.discount && errors.discount
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="discount"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label
+                            htmlFor="promoDescription"
+                            className="font-weight-bold"
+                          >
+                            Deskripsi
+                          </label>
+                          <Field
+                            as="textarea"
+                            id="promoDescription"
+                            name="description"
+                            className={`form-control ${
+                              touched.description && errors.description
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="description"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label
+                            htmlFor="promoExpDate"
+                            className="font-weight-bold"
+                          >
+                            Batas Berlaku
+                          </label>
+                          <Field
+                            type="date"
+                            id="promoExpDate"
+                            name="expDate"
+                            className={`form-control ${
+                              touched.expDate && errors.expDate
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          />
+                          <ErrorMessage
+                            component="div"
+                            name="expDate"
+                            className="invalid-feedback"
+                          />
+                        </div>
+                      </div>
 
-                        <div className="text-right">
-                          <button
-                            className="btn btn-sm btn-unique"
-                            onClick={() => {
-                              this.props.history.push("/admin");
-                            }}
-                          >
-                            <i className="fas fa-angle-left mr-2"></i>KEMBALI
-                          </button>
-                          <button
-                            className="btn btn-sm btn-success"
-                            type="submit"
-                          >
-                            <i className="far fa-save mr-2"></i>SIMPAN
-                          </button>
-                        </div>
-                      </Form>
-                    )}
-                  </Formik>
-                ) : null}
+                      <div className="text-right">
+                        <button
+                          className="btn btn-sm btn-unique"
+                          onClick={() => {
+                            this.props.history.push("/admin");
+                          }}
+                        >
+                          <i className="fas fa-angle-left mr-2"></i>KEMBALI
+                        </button>
+                        <button
+                          className="btn btn-sm btn-success"
+                          type="submit"
+                        >
+                          <i className="far fa-save mr-2"></i>SIMPAN
+                        </button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div className="container-fluid" style={{ height: "100vh" }}>
+        <div className="row h-100">
+          <div className="col my-auto text-center">
+            <h1>Loading...</h1>
           </div>
         </div>
       </div>
