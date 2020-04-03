@@ -417,12 +417,29 @@ label {
   box-sizing: border-box;
   border: none;
   border-bottom: 1px solid #95a5a6;
-  font-weight: 400;
+  font-weight: 500;
   background-repeat: no-repeat;
   background-position-y: center;
 }
 
 .login-admin-input:focus {
+  outline: none;
+  border-bottom: 2px solid #4834d4;
+}
+
+.admin-search-input {
+  width: 100%;
+  padding: 8px 40px;
+  margin: 4px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #95a5a6;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  background-position-y: center;
+}
+
+.admin-search-input:focus {
   outline: none;
   border-bottom: 2px solid #4834d4;
 }
@@ -500,7 +517,12 @@ label {
 /* DESKTOP */
 @media (min-width: 992px) {
   .navbar-brand img {
-    height: 40px;
+    height: 42px;
+  }
+
+  .navbar-nav {
+    margin-top: 0;
+    padding-bottom: 0;
   }
 
   .banner-image {

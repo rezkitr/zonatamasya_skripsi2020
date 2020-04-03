@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-import logo from "../assets/logo2.png";
+import logo from "../assets/logo1.png";
 
 import RsvList from "./ReservationList";
 import PromoList from "./PromoList";
@@ -40,7 +40,7 @@ class AdminContainer extends Component {
         >
           <div className="primary-color-dark" id="sidebar-wrapper">
             <div className="sidebar-heading text-center pt-4">
-              <img src={logo} alt="ztlogo" width="120" />
+              <img src={logo} alt="ztlogo" width="180" height="48" />
             </div>
             <div className="list-group list-group-flush mt-3">
               <a
