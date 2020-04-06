@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import helpers from "../helperFunction";
 import { confirmAlert } from "react-confirm-alert";
 
+import LoadingScreen from "./LoadingScreen";
+
 class OpenTripEditForm extends Component {
   state = {
     opentripData: null,
@@ -994,13 +996,7 @@ class OpenTripEditForm extends Component {
         </div>
       </div>
     ) : (
-      <div className="container-fluid" style={{ height: "100vh" }}>
-        <div className="row h-100">
-          <div className="col my-auto text-center">
-            <h1>Loading...</h1>
-          </div>
-        </div>
-      </div>
+      <LoadingScreen />
     );
   }
 }

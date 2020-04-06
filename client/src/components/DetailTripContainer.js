@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import OtherTripSlide from "./OtherTripSlide";
 import TripBanner from "./TripBanner";
 import TabMenu from "./TabMenu";
+import LoadingScreen from "./LoadingScreen";
 
 class DetailTripContainer extends Component {
   state = {
@@ -48,8 +50,11 @@ class DetailTripContainer extends Component {
           duration={this.state.tripData.duration}
           schedule={this.state.tripData.schedule}
         />
+        <OtherTripSlide />
       </div>
-    ) : null;
+    ) : (
+      <LoadingScreen />
+    );
   }
 }
 export default DetailTripContainer;

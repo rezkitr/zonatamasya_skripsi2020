@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import helpers from "../helperFunction";
-import dateBadgeColorizer from "../dateBadgeColorizer";
 import axios from "axios";
+
+import LoadingScreen from "./LoadingScreen";
 
 class OpenTripDetailCard extends Component {
   state = {
@@ -152,9 +153,7 @@ class OpenTripDetailCard extends Component {
                       let pass = false;
                       let now = new Date();
                       let dateTemp = new Date(schedItem);
-                      let badgeColor = dateBadgeColorizer.colorizeTag(
-                        schedItem
-                      );
+                      let badgeColor = helpers.colorizeTag(schedItem);
 
                       if (dateTemp < now) {
                         pass = true;
@@ -263,13 +262,7 @@ class OpenTripDetailCard extends Component {
         </div>
       </div>
     ) : (
-      <div className="container-fluid" style={{ height: "100vh" }}>
-        <div className="row h-100">
-          <div className="col my-auto text-center">
-            <h1>Loading...</h1>
-          </div>
-        </div>
-      </div>
+      <LoadingScreen />
     );
   }
 }

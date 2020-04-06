@@ -1,6 +1,5 @@
 import React from "react";
 import helpers from "../helperFunction";
-import dateBadgeColorizer from "../dateBadgeColorizer";
 import { Link } from "react-router-dom";
 
 function splitItinerary(itin) {
@@ -44,7 +43,7 @@ function TabMenu(props) {
     let pass = false;
     let now = new Date();
     let dateTemp = new Date(item);
-    let badgeColor = dateBadgeColorizer.colorizeTag(item);
+    let badgeColor = helpers.colorizeTag(item);
 
     if (dateTemp < now) {
       pass = true;

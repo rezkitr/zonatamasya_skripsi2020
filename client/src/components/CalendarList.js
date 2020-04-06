@@ -1,6 +1,5 @@
 import React from "react";
 import helpers from "../helperFunction";
-import dateBadgeColorizer from "../dateBadgeColorizer";
 import OpenTripData from "../tripDataSource";
 
 function CalendarList(props) {
@@ -21,7 +20,7 @@ function CalendarList(props) {
               now.setHours(0, 0, 0, 0);
               let dateTemp = new Date(schedItem);
               dateTemp.setHours(0, 0, 0, 0);
-              let badgeColor = dateBadgeColorizer.colorizeTag(schedItem);
+              let badgeColor = helpers.colorizeTag(schedItem);
 
               if (dateTemp < now) {
                 pass = true;

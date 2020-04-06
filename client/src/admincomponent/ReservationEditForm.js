@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { confirmAlert } from "react-confirm-alert";
 import helpers from "../helperFunction";
 
+import LoadingScreen from "./LoadingScreen";
+
 class ReservationEditForm extends Component {
   state = {
     rsv: null,
@@ -392,13 +394,7 @@ class ReservationEditForm extends Component {
         </div>
       </div>
     ) : (
-      <div className="container-fluid" style={{ height: "100vh" }}>
-        <div className="row h-100">
-          <div className="col my-auto text-center">
-            <h1>Loading...</h1>
-          </div>
-        </div>
-      </div>
+      <LoadingScreen />
     );
   }
 }

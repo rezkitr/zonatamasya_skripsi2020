@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 
+import LoadingScreen from "./LoadingScreen";
+
 class UserAdminEditForm extends Component {
   state = {
     admin: null
@@ -158,13 +160,7 @@ class UserAdminEditForm extends Component {
         </div>
       </div>
     ) : (
-      <div className="container-fluid" style={{ height: "100vh" }}>
-        <div className="row h-100">
-          <div className="col my-auto text-center">
-            <h1>Loading...</h1>
-          </div>
-        </div>
-      </div>
+      <LoadingScreen />
     );
   }
 }

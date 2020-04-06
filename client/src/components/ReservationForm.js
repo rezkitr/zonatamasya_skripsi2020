@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import OpenTripData from "../tripDataSource";
 
+import LoadingScreen from "./LoadingScreen";
+
 class ReservationForm extends Component {
   state = {
     currentStep: 1,
@@ -935,7 +937,9 @@ class ReservationForm extends Component {
           </div>
         </div>
       </div>
-    ) : null;
+    ) : (
+      <LoadingScreen />
+    );
   }
 }
 

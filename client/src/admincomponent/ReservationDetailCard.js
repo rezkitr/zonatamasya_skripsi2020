@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import helpers from "../helperFunction";
 import axios from "axios";
 
+import LoadingScreen from "./LoadingScreen";
+
 class ReservationDetail extends Component {
   state = {
     rsv: null,
@@ -167,13 +169,7 @@ class ReservationDetail extends Component {
         </div>
       </div>
     ) : (
-      <div className="container-fluid" style={{ height: "100vh" }}>
-        <div className="row h-100">
-          <div className="col my-auto text-center">
-            <h1>Loading...</h1>
-          </div>
-        </div>
-      </div>
+      <LoadingScreen />
     );
   }
 }
