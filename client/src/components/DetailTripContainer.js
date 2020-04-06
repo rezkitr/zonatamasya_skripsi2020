@@ -22,15 +22,20 @@ class DetailTripContainer extends Component {
       .catch(err => console.log(err));
   }
 
-  componentDidUpdate() {
-    axios
-      .get(`/opentrip/${this.props.tripId}`)
-      .then(res => {
-        this.setState({
-          tripData: res.data
-        });
-      })
-      .catch(err => console.log(err));
+  componentDidUpdate(prevProps) {
+    if (this.props.tripId !== prevProps.tripId) {
+      this.setState({ tripData: null });
+      setTimeout(() => {
+        axios
+          .get(`/opentrip/${this.props.tripId}`)
+          .then(res => {
+            this.setState({
+              tripData: res.data
+            });
+          })
+          .catch(err => console.log(err));
+      }, 2500);
+    }
   }
 
   render() {
