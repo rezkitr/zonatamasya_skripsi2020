@@ -2,6 +2,8 @@ import React from "react";
 import helpers from "../helperFunction";
 import { Link } from "react-router-dom";
 
+import PromoCard from "./PromoCardTabMenu";
+
 function splitItinerary(itin) {
   let result = itin.split("#");
   return result;
@@ -16,7 +18,7 @@ function TabMenu(props) {
             {index + 1}
           </th>
         </tr>
-        {item.map(i => {
+        {item.map((i) => {
           let splittedItin = splitItinerary(i);
           return (
             <tr>
@@ -30,7 +32,7 @@ function TabMenu(props) {
     );
   });
 
-  const facility = props.facility.map(item => {
+  const facility = props.facility.map((item) => {
     return (
       <p className="tab-inside-content">
         <i className="fas fa-check fa-sm mr-3"></i>
@@ -39,7 +41,7 @@ function TabMenu(props) {
     );
   });
 
-  const schedule = props.schedule.map(item => {
+  const schedule = props.schedule.map((item) => {
     let pass = false;
     let now = new Date();
     let dateTemp = new Date(item);
@@ -54,11 +56,24 @@ function TabMenu(props) {
         className={`badge ${badgeColor} mr-2 my-2 p-2 tab-inside-content`}
         style={{
           fontSize: "14px",
-          textDecoration: `${pass ? "line-through" : ""}`
+          textDecoration: `${pass ? "line-through" : ""}`,
         }}
       >
         {helpers.formatDate(item)}
       </span>
+    );
+  });
+
+  const promo = props.promoData.map((item) => {
+    return (
+      <div className="col-md-4">
+        <PromoCard
+          key={item._id}
+          promoCode={item.code}
+          discount={item.discount}
+          expDate={item.expDate}
+        />
+      </div>
     );
   });
 
@@ -106,6 +121,19 @@ function TabMenu(props) {
                 <i className="far fa-calendar-check mr-2"></i>Jadwal
               </a>
             </li>
+            <li className="nav-item">
+              <a
+                className="nav-link tab-link"
+                id="promo-tab"
+                data-toggle="tab"
+                href="#promo"
+                role="tab"
+                aria-controls="promo"
+                aria-selected="false"
+              >
+                <i className="fas fa-cut mr-2"></i>Promo
+              </a>
+            </li>
           </ul>
 
           <div className="tab-content mt-4" id="myTabContent">
@@ -150,6 +178,15 @@ function TabMenu(props) {
               aria-labelledby="schedule-tab"
             >
               {schedule}
+            </div>
+
+            <div
+              className="tab-pane fade"
+              id="promo"
+              role="tabpanel"
+              aria-labelledby="promo-tab"
+            >
+              <div className="row">{promo}</div>
             </div>
           </div>
         </div>

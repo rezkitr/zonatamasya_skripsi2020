@@ -4,7 +4,6 @@ import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import OpenTripData from "../tripDataSource";
 
@@ -17,34 +16,34 @@ class ReservationForm extends Component {
     tripData: null,
     promoData: null,
     promoValid: false,
-    snapData: ""
+    snapData: "",
   };
 
   componentDidMount() {
     axios
       .get(`/opentrip/${this.props.tripId}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          tripData: res.data
+          tripData: res.data,
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   _next = () => {
-    this.setState(prevState => ({
-      currentStep: prevState.currentStep >= 2 ? 3 : prevState.currentStep + 1
+    this.setState((prevState) => ({
+      currentStep: prevState.currentStep >= 2 ? 3 : prevState.currentStep + 1,
     }));
   };
   _prev = () => {
-    this.setState(prevState => ({
-      currentStep: prevState.currentStep <= 1 ? 1 : prevState.currentStep - 1
+    this.setState((prevState) => ({
+      currentStep: prevState.currentStep <= 1 ? 1 : prevState.currentStep - 1,
     }));
   };
 
-  handlePromoCodeInput = event => {
+  handlePromoCodeInput = (event) => {
     this.setState({
-      promoCode: event.target.value
+      promoCode: event.target.value,
     });
   };
 
@@ -54,7 +53,7 @@ class ReservationForm extends Component {
     if (ignoreCasePromo.length > 0) {
       axios
         .get(`/promo/${ignoreCasePromo}`)
-        .then(res => {
+        .then((res) => {
           this.setState({ promoData: res.data });
         })
         .then(() => {
@@ -73,7 +72,7 @@ class ReservationForm extends Component {
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
-                    pauseOnHover: true
+                    pauseOnHover: true,
                   });
                 } else {
                   toast.warn("Promo telah berakhir", {
@@ -81,7 +80,7 @@ class ReservationForm extends Component {
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
-                    pauseOnHover: true
+                    pauseOnHover: true,
                   });
                 }
               } else {
@@ -90,7 +89,7 @@ class ReservationForm extends Component {
                   autoClose: 5000,
                   hideProgressBar: false,
                   closeOnClick: true,
-                  pauseOnHover: true
+                  pauseOnHover: true,
                 });
               }
             } else {
@@ -99,7 +98,7 @@ class ReservationForm extends Component {
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
-                pauseOnHover: true
+                pauseOnHover: true,
               });
             }
           } else {
@@ -108,11 +107,11 @@ class ReservationForm extends Component {
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
-              pauseOnHover: true
+              pauseOnHover: true,
             });
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     } else {
       this.setState({ promoData: null });
     }
@@ -160,14 +159,14 @@ class ReservationForm extends Component {
                         coorName: "".toUpperCase(),
                         coorGender: "L",
                         coorTelp: "",
-                        coorEmail: ""
+                        coorEmail: "",
                       },
-                      member: []
+                      member: [],
                     },
                     payment: {
                       type: "",
-                      amount: 0
-                    }
+                      amount: 0,
+                    },
                   }}
                   validationSchema={ValidationSchema}
                   onSubmit={(values, { setSubmitting }) => {
@@ -177,40 +176,44 @@ class ReservationForm extends Component {
                     values.promoValid = this.state.promoValid;
                     axios
                       .post("/payment/gettoken", values)
-                      .then(res => {
+                      .then((res) => {
                         this.setState({ snapData: res.data }, () => {
                           window.snap.pay(`${this.state.snapData.token}`, {
-                            onSuccess: function(result) {
+                            onSuccess: function (result) {
                               values.orderId = result.order_id;
                               axios
                                 .post("/reservation/add", values)
-                                .then(res => console.log(res.data))
-                                .catch(err => console.log(err));
-                              setSubmitting(false);
-                              window.location.replace(
-                                `${result.finish_redirect_url}`
-                              );
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setSubmitting(false);
+                                  window.location.replace(
+                                    `${result.finish_redirect_url}`
+                                  );
+                                })
+                                .catch((err) => console.log(err));
                             },
-                            onPending: function(result) {
+                            onPending: function (result) {
                               values.orderId = result.order_id;
                               axios
                                 .post("/reservation/add", values)
-                                .then(res => console.log(res.data))
-                                .catch(err => console.log(err));
-                              setSubmitting(false);
-                              window.location.replace(
-                                `${result.finish_redirect_url}`
-                              );
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setSubmitting(false);
+                                  window.location.replace(
+                                    `${result.finish_redirect_url}`
+                                  );
+                                })
+                                .catch((err) => console.log(err));
                             },
-                            onError: function(result) {
+                            onError: function (result) {
                               window.location.replace(
                                 `${result.error_redirect_url}`
                               );
-                            }
+                            },
                           });
                         });
                       })
-                      .catch(err => console.log(err));
+                      .catch((err) => console.log(err));
                   }}
                 >
                   {({ errors, touched, values, isSubmitting }) => (
@@ -296,7 +299,7 @@ class ReservationForm extends Component {
                                   Pilih Meeting Point
                                 </option>
                                 {this.state.tripData.departure.mepo.map(
-                                  item => {
+                                  (item) => {
                                     return (
                                       <option value={item.toUpperCase()}>
                                         {item}
@@ -334,7 +337,7 @@ class ReservationForm extends Component {
                                 <option value="" disabled>
                                   Pilih Tanggal Keberangkatan
                                 </option>
-                                {this.state.tripData.schedule.map(item => {
+                                {this.state.tripData.schedule.map((item) => {
                                   let now = new Date();
                                   let dateTemp = new Date(item);
                                   if (dateTemp >= now) {
@@ -517,7 +520,7 @@ class ReservationForm extends Component {
                           <p className="font-weight-bold mt-5">DATA PESERTA</p>
                           <FieldArray
                             name="participant.member"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 {values.participant.member.length > 0
                                   ? values.participant.member.map(
@@ -592,7 +595,7 @@ class ReservationForm extends Component {
                                               <div
                                                 className="col-1 py-2 text-center"
                                                 style={{
-                                                  boxSizing: "border-box"
+                                                  boxSizing: "border-box",
                                                 }}
                                               >
                                                 <a
@@ -618,7 +621,7 @@ class ReservationForm extends Component {
                                     arrayHelpers.push({
                                       memberName: "",
                                       memberGender: "L",
-                                      memberTelp: ""
+                                      memberTelp: "",
                                     })
                                   }
                                 >
@@ -959,7 +962,7 @@ const ValidationSchema = Yup.object().shape({
       coorTelp: Yup.string().required("Silahkan masukkan No. HP anda"),
       coorEmail: Yup.string()
         .email("Bukan sebuah email")
-        .required("Silahkan masukkan email anda")
+        .required("Silahkan masukkan email anda"),
     }),
     member: Yup.array().of(
       Yup.object().shape({
@@ -967,15 +970,15 @@ const ValidationSchema = Yup.object().shape({
           "Silahkan masukkan nama lengkap peserta"
         ),
         memberGender: Yup.string().oneOf(["L", "P"], "Invalid"),
-        memberTelp: Yup.string().required("Silahkan masukkan No. HP peserta")
+        memberTelp: Yup.string().required("Silahkan masukkan No. HP peserta"),
       })
-    )
+    ),
   }),
   payment: Yup.object().shape({
     type: Yup.string()
       .required("Silahkan pilih salah satu jenis pembayaran")
-      .oneOf(["DP", "LUNAS"])
-  })
+      .oneOf(["DP", "LUNAS"]),
+  }),
 });
 
 export default OpenTripData(ReservationForm);

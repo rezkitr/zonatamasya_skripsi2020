@@ -1,24 +1,26 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import helpers from "../helperFunction";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 import barcodeImg from "../assets/barcode.png";
 
 class PromoCard extends Component {
   state = {
-    trip: null
+    trip: null,
   };
 
   componentDidMount() {
     axios
       .get(`/opentrip/${this.props.tripId}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          trip: res.data
+          trip: res.data,
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -58,8 +60,24 @@ class PromoCard extends Component {
                         <i className="far fa-question-circle fa-lg text-success mr-3"></i>
                       </Link>
                       <Link to={`/opentrip/detail/${this.props.tripId}`}>
-                        <i className="far fa-share-square fa-lg text-secondary"></i>
+                        <i className="far fa-share-square fa-lg text-secondary mr-3"></i>
                       </Link>
+                      <CopyToClipboard
+                        text={this.props.promoCode}
+                        onCopy={() =>
+                          toast.info("Promo disalin", {
+                            position: "top-center",
+                            autoClose: 2000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                          })
+                        }
+                      >
+                        <Link>
+                          <i className="far fa-copy fa-lg text-info"></i>
+                        </Link>
+                      </CopyToClipboard>
                     </div>
                   </div>
                 </div>

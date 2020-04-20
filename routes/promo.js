@@ -5,22 +5,29 @@ let Promo = require("../models/promo.model");
 router.route("/").get((req, res) => {
   Promo.find()
     .sort({ code: "asc", expDate: "asc" })
-    .then(promo => res.json(promo))
-    .catch(err => res.status(400).json("Error : " + err));
+    .then((promo) => res.json(promo))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // getPromo
 router.route("/:code").get((req, res) => {
   Promo.findOne({ code: req.params.code })
-    .then(promo => res.json(promo))
-    .catch(err => res.status(400).json("Error : " + err));
+    .then((promo) => res.json(promo))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // getPromobyId
 router.route("/id/:id").get((req, res) => {
   Promo.findById(req.params.id)
-    .then(promo => res.json(promo))
-    .catch(err => res.status(400).json("Error : " + err));
+    .then((promo) => res.json(promo))
+    .catch((err) => res.status(400).json("Error : " + err));
+});
+
+// getPromobyTrip
+router.route("/idtrip/:id").get((req, res) => {
+  Promo.find({ tripId: req.params.id })
+    .then((promo) => res.json(promo))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // addPromo
@@ -36,13 +43,13 @@ router.route("/add").post((req, res) => {
   newPromo
     .save()
     .then(() => res.json("New promo added"))
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // updatePromo
 router.route("/update/:id").post((req, res) => {
   Promo.findById(req.params.id)
-    .then(promo => {
+    .then((promo) => {
       promo.code = req.body.code;
       promo.discount = req.body.discount;
       promo.description = req.body.description;
@@ -52,16 +59,16 @@ router.route("/update/:id").post((req, res) => {
       promo
         .save()
         .then(() => res.json("Promo updated"))
-        .catch(err => res.status(400).json("Error : " + err));
+        .catch((err) => res.status(400).json("Error : " + err));
     })
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // deletePromo
 router.route("/:id").delete((req, res) => {
   Promo.findByIdAndDelete(req.params.id)
     .then(() => res.json("Promo deleted"))
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 module.exports = router;

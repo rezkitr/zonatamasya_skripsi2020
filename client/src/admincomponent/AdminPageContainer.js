@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "react-confirm-alert/src/react-confirm-alert.css";
 
 import logo from "../assets/logo1.png";
 
@@ -13,13 +12,13 @@ import CarouselList from "./CarouselList";
 class AdminContainer extends Component {
   state = {
     showSidebar: true,
-    menuSelected: "rsv"
+    menuSelected: "rsv",
   };
 
   toggleSideBar = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
-        showSidebar: !prevState.showSidebar
+        showSidebar: !prevState.showSidebar,
       };
     });
   };
