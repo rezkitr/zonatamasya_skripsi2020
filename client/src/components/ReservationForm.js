@@ -862,7 +862,13 @@ class ReservationForm extends Component {
                               </div>
                               <div className="row mt-3">
                                 <div className="col-md">
-                                  <h2 className="font-weight-bold">
+                                  <h2
+                                    className={`font-weight-bold ${
+                                      this.state.promoValid
+                                        ? "deep-orange-text"
+                                        : ""
+                                    }`}
+                                  >
                                     Rp
                                     {helpers.priceFormat(values.payment.amount)}
                                   </h2>
