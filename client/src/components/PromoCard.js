@@ -65,7 +65,7 @@ class PromoCard extends Component {
                       <CopyToClipboard
                         text={this.props.promoCode}
                         onCopy={() =>
-                          toast.info("Promo disalin", {
+                          toast.success("Promo disalin", {
                             position: "top-center",
                             autoClose: 2000,
                             hideProgressBar: true,

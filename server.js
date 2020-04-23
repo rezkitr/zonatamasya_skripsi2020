@@ -9,6 +9,7 @@ const promoRouter = require("./routes/promo");
 const opentripRouter = require("./routes/opentrip");
 const carouselRouter = require("./routes/carousel");
 const paymentRouter = require("./routes/payment");
+const photoRouter = require("./routes/photo");
 
 require("dotenv").config();
 
@@ -23,12 +24,12 @@ mongoose
   .connect(uri, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   })
   .then(() => {
     console.log("Connected to database!");
   })
-  .catch(error => {
+  .catch((error) => {
     console.log("Connection failed!");
     console.log(error);
   });
@@ -45,6 +46,7 @@ app.use("/promo", promoRouter);
 app.use("/opentrip", opentripRouter);
 app.use("/carousel", carouselRouter);
 app.use("/payment", paymentRouter);
+app.use("/photo", photoRouter);
 
 // serve static assets
 if (process.env.NODE_ENV === "production") {

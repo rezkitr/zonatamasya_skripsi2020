@@ -28,7 +28,7 @@ function PromoCardTabMenu(props) {
             <CopyToClipboard
               text={props.promoCode}
               onCopy={() =>
-                toast.info("Promo disalin", {
+                toast.success("Promo disalin", {
                   position: "bottom-center",
                   autoClose: 2000,
                   hideProgressBar: true,
