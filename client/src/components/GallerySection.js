@@ -1,25 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Gallery from "react-grid-gallery";
-
-import photos from "../photoSection";
+import PhotoDataSource from "../photoDataSource";
 import bgImage from "../assets/bg-gallery.jpg";
 
-function GallerySection() {
+function GallerySection(props) {
+  let photoData = [];
+
+  props.photoData.map((item, index) => {
+    if (index < 6) {
+      item.thumbnailWidth = Math.floor(Math.random() * 400) + 320;
+      item.thumbnailHeight = Math.floor(Math.random() * 300) + 220;
+      photoData.push(item);
+    }
+  });
+
   return (
     <div
       className="container-fluid gal-section"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
-        backgroundPositionY: "-180px"
+        backgroundPositionY: "-180px",
       }}
     >
       <div className="row p-0">
         <div className="col-md-8 p-5">
           <Gallery
             enableLightbox={false}
-            images={photos}
+            images={photoData}
             enableImageSelection={false}
             rowHeight={240}
             maxRows={2}
@@ -45,4 +54,4 @@ function GallerySection() {
   );
 }
 
-export default GallerySection;
+export default PhotoDataSource(GallerySection);

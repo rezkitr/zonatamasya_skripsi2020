@@ -6,25 +6,26 @@ import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 
 import LoadingScreen from "./LoadingScreen";
+import OpenTripData from "../tripDataSource";
 
 class PromoEditForm extends Component {
   state = {
-    promo: null
+    promo: null,
   };
 
   componentDidMount() {
     axios
       .get(`/promo/id/${this.props.promoId}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          promo: res.data
+          promo: res.data,
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
-    return this.state.promo ? (
+    return this.state.promo && this.props.tripData.length > 0 ? (
       <div className="container-fluid my-5">
         <div className="row justify-content-center mb-5">
           <div className="col-md-4">
@@ -54,33 +55,33 @@ class PromoEditForm extends Component {
                     discount: this.state.promo.discount,
                     description: this.state.promo.description,
                     expDate: this.state.promo.expDate,
-                    tripId: this.state.promo.tripId
+                    tripId: this.state.promo.tripId,
                   }}
                   validationSchema={ValidationSchema}
                   validateOnBlur={false}
                   onSubmit={(values, { setSubmitting }) => {
                     axios
                       .post(`/promo/update/${this.props.promoId}`, values)
-                      .then(res => {
+                      .then((res) => {
                         confirmAlert({
                           title: "Update Promo",
                           message: "Data Promo Berhasil Diupdate",
                           buttons: [
                             {
-                              label: "OK"
-                            }
-                          ]
+                              label: "OK",
+                            },
+                          ],
                         });
                       })
-                      .catch(err => {
+                      .catch((err) => {
                         confirmAlert({
                           title: "Error",
                           message: `${err}`,
                           buttons: [
                             {
-                              label: "OK"
-                            }
-                          ]
+                              label: "OK",
+                            },
+                          ],
                         });
                       });
                     this.props.history.push("/admin");
@@ -89,6 +90,40 @@ class PromoEditForm extends Component {
                   {({ errors, touched, values, isSubmitting }) => (
                     <Form>
                       <div>
+                        <div className="form-group">
+                          <label
+                            htmlFor="promoTripId"
+                            className="font-weight-bold"
+                          >
+                            Open Trip
+                          </label>
+                          <Field
+                            as="select"
+                            id="promoTripId"
+                            name="tripId"
+                            className={`form-control ${
+                              touched.tripId && errors.tripId
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          >
+                            <option value="" disabled>
+                              Pilih Open Trip
+                            </option>
+                            {this.props.tripData.map((item) => {
+                              return (
+                                <option value={item._id}>
+                                  {`${item.name} (${item.departure.start})`}
+                                </option>
+                              );
+                            })}
+                          </Field>
+                          <ErrorMessage
+                            component="div"
+                            name="tripId"
+                            className="invalid-feedback"
+                          />
+                        </div>
                         <div className="form-group">
                           <label
                             htmlFor="promoCode"
@@ -216,14 +251,10 @@ const ValidationSchema = Yup.object().shape({
     .uppercase("Gunakan huruf kapital")
     .required("Silahkan masukkan kode promo")
     .strict(true),
-  discount: Yup.number()
-    .required("Silahkan masukkan nominal diskon")
-    .min(0),
+  discount: Yup.number().required("Silahkan masukkan nominal diskon").min(0),
   description: Yup.string().required("Silahkan masukkan deskripsi promo"),
   expDate: Yup.string().required("Silahkan pilih tanggal batas berlaku promo"),
-  tripId: Yup.string()
-    .required("Silahkan pilih open trip")
-    .notOneOf([""])
+  tripId: Yup.string().required("Silahkan pilih open trip").notOneOf([""]),
 });
 
-export default PromoEditForm;
+export default OpenTripData(PromoEditForm);
