@@ -8,23 +8,23 @@ import LoadingScreen from "./LoadingScreen";
 class ReservationDetail extends Component {
   state = {
     rsv: null,
-    paymentStatus: ""
+    paymentStatus: "",
   };
 
   componentDidMount() {
     axios
       .get(`/reservation/${this.props.rsvId}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ rsv: res.data }, () => {
           axios
             .get(`/payment/getstatus/${this.state.rsv.orderId}`)
-            .then(res => {
+            .then((res) => {
               this.setState({ paymentStatus: res.data });
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -108,7 +108,7 @@ class ReservationDetail extends Component {
                         {this.state.rsv.participant.coordinator.coorTelp} /{" "}
                         {this.state.rsv.participant.coordinator.coorEmail}
                       </p>
-                      {this.state.rsv.participant.member.map(item => {
+                      {this.state.rsv.participant.member.map((item) => {
                         return (
                           <p
                             className="list-group-item h5"
