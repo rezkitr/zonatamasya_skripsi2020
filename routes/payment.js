@@ -9,7 +9,7 @@ const serverKey = process.env.MIDTRANS_SERVER_KEY;
 let snap = new midtransClient.Snap({
   isProduction: false,
   serverKey: serverKey,
-  clientKey: clientKey
+  clientKey: clientKey,
 });
 
 // get snap token
@@ -32,25 +32,27 @@ router.route("/gettoken").post((req, res) => {
     price = req.body.tripPriceDP;
   }
 
+  let itemName = `${req.body.tripName} / ${req.body.tripStart} / ${req.body.tripDate}`;
+
   let parameter = {
     transaction_details: {
       order_id: order_id,
-      gross_amount: req.body.payment.amount
+      gross_amount: req.body.payment.amount,
     },
     item_details: [
       {
         id: req.body.tripId,
         price: price,
         quantity: req.body.totalParticipant,
-        name: req.body.tripName
-      }
+        name: itemName,
+      },
     ],
     customer_details: {
       first_name: first_name,
       last_name: last_name,
       email: req.body.participant.coordinator.coorEmail,
-      phone: req.body.participant.coordinator.coorTelp
-    }
+      phone: req.body.participant.coordinator.coorTelp,
+    },
   };
 
   if (req.body.promoValid && req.body.payment.type === "LUNAS") {
@@ -58,17 +60,17 @@ router.route("/gettoken").post((req, res) => {
       id: req.body.promoData._id,
       price: -req.body.promoData.discount,
       quantity: 1,
-      name: "PROMO"
+      name: "PROMO",
     });
     parameter.promo_code = req.body.promoData.code;
   }
 
   snap
     .createTransaction(parameter)
-    .then(transaction => {
+    .then((transaction) => {
       res.json(transaction);
     })
-    .catch(e => {
+    .catch((e) => {
       console.log("Error occured:", e.message);
     });
 });
@@ -76,11 +78,11 @@ router.route("/gettoken").post((req, res) => {
 router.route("/getstatus/:order_id").get((req, res) => {
   snap.transaction
     .status(req.params.order_id)
-    .then(result => {
+    .then((result) => {
       let paymentstatus = result.transaction_status;
       res.send(paymentstatus);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log("Error occured:", error.message);
     });
 });
