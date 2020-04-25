@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const CarouselData = WrappedComponent => {
+const BannerData = (WrappedComponent) => {
   return class extends Component {
     state = {
-      carouselData: []
+      bannerData: [],
     };
 
     componentDidMount() {
       axios
-        .get("/carousel/")
-        .then(res => {
-          this.setState({ carouselData: res.data });
+        .get("/banner/")
+        .then((res) => {
+          this.setState({ bannerData: res.data });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
 
     render() {
@@ -22,4 +22,4 @@ const CarouselData = WrappedComponent => {
   };
 };
 
-export default CarouselData;
+export default BannerData;

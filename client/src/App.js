@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 
@@ -35,7 +35,7 @@ import AdminAddPage from "./adminpage/AdminAdd";
 import OpenTripAddPage from "./adminpage/OpenTripAdd";
 import OpenTripDetailPage from "./adminpage/OpenTripDetail";
 import OpenTripEditPage from "./adminpage/OpenTripEdit";
-import CarouselAddPage from "./adminpage/CarouselAdd";
+import BannerAddPage from "./adminpage/BannerAdd";
 
 class App extends Component {
   render() {
@@ -108,7 +108,7 @@ class App extends Component {
                     path="/admin"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -127,7 +127,7 @@ class App extends Component {
                     path="/admin/rsv/detail/:rsvId"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -140,7 +140,7 @@ class App extends Component {
                     path="/admin/rsv/edit/:rsvId"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -153,7 +153,7 @@ class App extends Component {
                     path="/admin/promo/edit/:promoId"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -166,7 +166,7 @@ class App extends Component {
                     path="/admin/promo/add"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -179,7 +179,7 @@ class App extends Component {
                     path="/admin/admuser/edit/:adminId"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -192,7 +192,7 @@ class App extends Component {
                     path="/admin/admuser/add"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -205,7 +205,7 @@ class App extends Component {
                     path="/admin/opentrip/add"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -218,7 +218,7 @@ class App extends Component {
                     path="/admin/opentrip/detail/:tripId"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -231,7 +231,7 @@ class App extends Component {
                     path="/admin/opentrip/edit/:tripId"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
@@ -241,15 +241,15 @@ class App extends Component {
                     }
                   />
                   <Route
-                    path="/admin/carousel/add"
+                    path="/admin/banner/add"
                     exact
                     strict
-                    render={props =>
+                    render={(props) =>
                       localStorage.getItem("isLoggedIn") === "false" ||
                       localStorage.getItem("isLoggedIn") === null ? (
                         <Redirect to="/admin/login" />
                       ) : (
-                        <CarouselAddPage {...props} />
+                        <BannerAddPage {...props} />
                       )
                     }
                   />

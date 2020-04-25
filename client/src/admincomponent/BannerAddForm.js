@@ -5,23 +5,24 @@ import * as Yup from "yup";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert";
 
+import LoadingScreen from "./LoadingScreen";
 import DataSource from "../tripDataSource";
 
-class CarouselAddForm extends Component {
+class BannerAddForm extends Component {
   state = {
-    carouselFile: null,
-    submitting: false
+    bannerFile: null,
+    submitting: false,
   };
 
-  handleSelectImage = event => {
+  handleSelectImage = (event) => {
     const { name, files } = event.target;
     this.setState({
-      [name]: files[0]
+      [name]: files[0],
     });
   };
 
   render() {
-    return (
+    return this.props.tripData.length > 0 ? (
       <div className="container-fluid my-5">
         <div className="row justify-content-center mb-5">
           <div className="col-md-4">
@@ -39,7 +40,7 @@ class CarouselAddForm extends Component {
                 <i className="far fa-plus-square fa-lg light-green z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
                 <div className="float-right text-right p-3">
                   <p className="text-muted mb-1">
-                    <small>Tambah Carousel</small>
+                    <small>Tambah Banner</small>
                   </p>
                 </div>
                 <div
@@ -49,42 +50,42 @@ class CarouselAddForm extends Component {
                   <Formik
                     enableReinitialize
                     initialValues={{
-                      tripId: ""
+                      tripId: "",
                     }}
                     validationSchema={ValidationSchema}
                     validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
                       const data = new FormData();
                       data.append("tripId", values.tripId);
-                      data.append("carouselFile", this.state.carouselFile);
+                      data.append("bannerFile", this.state.bannerFile);
 
                       const config = {
                         headers: {
-                          "Content-Type": "multipart/form-data"
-                        }
+                          "Content-Type": "multipart/form-data",
+                        },
                       };
                       axios
-                        .post("/carousel/add", data, config)
-                        .then(res => {
+                        .post("/banner/add", data, config)
+                        .then((res) => {
                           confirmAlert({
-                            title: "Tambah Carousel",
-                            message: "Gambar Carousel Berhasil Ditambakan",
+                            title: "Tambah Banner",
+                            message: "Banner Berhasil Ditambahkan",
                             buttons: [
                               {
-                                label: "OK"
-                              }
-                            ]
+                                label: "OK",
+                              },
+                            ],
                           });
                         })
-                        .catch(err => {
+                        .catch((err) => {
                           confirmAlert({
                             title: "Error",
                             message: `${err}`,
                             buttons: [
                               {
-                                label: "OK"
-                              }
-                            ]
+                                label: "OK",
+                              },
+                            ],
                           });
                         });
                       this.props.history.push("/admin");
@@ -113,8 +114,9 @@ class CarouselAddForm extends Component {
                               <option value="" disabled>
                                 Pilih Open Trip
                               </option>
+                              <option value="nontrip">Non-Trip</option>
                               {this.props.tripData
-                                ? this.props.tripData.map(item => {
+                                ? this.props.tripData.map((item) => {
                                     return (
                                       <option value={item._id}>
                                         {`${item.name} (${item.departure.start})`}
@@ -131,22 +133,22 @@ class CarouselAddForm extends Component {
                           </div>
                           <div className="form-group">
                             <label
-                              htmlFor="carouselFile"
+                              htmlFor="bannerFile"
                               className="font-weight-bold"
                             >
-                              File Carousel
+                              File Banner
                             </label>
                             <input
                               type="file"
                               className="form-control-file"
-                              name="carouselFile"
-                              id="carouselFile"
+                              name="bannerFile"
+                              id="bannerFile"
                               onChange={this.handleSelectImage}
                             />
                             <small className="form-text text-muted">
                               JPEG/ PNG/ MP4 (Max. 500 MB)
                             </small>
-                            {this.state.carouselFile === null &&
+                            {this.state.bannerFile === null &&
                             this.state.submitting ? (
                               <div className="pt-1">
                                 <p className="my-invalid-feedback">
@@ -182,14 +184,14 @@ class CarouselAddForm extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <LoadingScreen />
     );
   }
 }
 
 const ValidationSchema = Yup.object().shape({
-  tripId: Yup.string()
-    .required("Silahkan pilih open trip")
-    .notOneOf([""])
+  tripId: Yup.string().required("Silahkan pilih open trip").notOneOf([""]),
 });
 
-export default DataSource(CarouselAddForm);
+export default DataSource(BannerAddForm);

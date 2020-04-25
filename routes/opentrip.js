@@ -8,15 +8,15 @@ let OpenTrip = require("../models/opentrip.model");
 router.route("/").get((req, res) => {
   OpenTrip.find()
     .sort({ tripName: "asc" })
-    .then(ot => res.json(ot))
-    .catch(err => res.status(400).json("Error : " + err));
+    .then((ot) => res.json(ot))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // getTripbyId
 router.route("/:id").get((req, res) => {
   OpenTrip.findById(req.params.id)
-    .then(ot => res.json(ot))
-    .catch(err => res.status(400).json("Error : " + err));
+    .then((ot) => res.json(ot))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // addOpenTrip
@@ -26,12 +26,12 @@ const uploadDir = path.join(
 );
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, uploadDir);
   },
-  filename: function(req, file, cb) {
-    cb(null, "zt-" + Date.now() + "-" + file.originalname);
-  }
+  filename: function (req, file, cb) {
+    cb(null, "zt-" + Date.now() + "-" + file.originalname.replace(/ /g, "_"));
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -45,9 +45,9 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 10
+    fileSize: 1024 * 1024 * 10,
   },
-  fileFilter: fileFilter
+  fileFilter: fileFilter,
 });
 
 router
@@ -80,20 +80,20 @@ router
         itinerary,
         facility,
         cardImage,
-        bannerImage
+        bannerImage,
       });
 
       newOpenTrip
         .save()
         .then(() => res.json("New open trip added"))
-        .catch(err => res.status(400).json("Error" + err));
+        .catch((err) => res.status(400).json("Error" + err));
     }
   );
 
 // update
 router.route("/update/:id").post((req, res) => {
   OpenTrip.findById(req.params.id)
-    .then(ot => {
+    .then((ot) => {
       ot.name = req.body.name;
       ot.keyword = req.body.keyword;
       ot.region = req.body.region;
@@ -107,9 +107,9 @@ router.route("/update/:id").post((req, res) => {
 
       ot.save()
         .then(() => res.json("Open trip updated"))
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 // updateAllImage
@@ -119,23 +119,23 @@ router
     upload.fields([{ name: "cardImage" }, { name: "bannerImage" }]),
     (req, res) => {
       OpenTrip.findById(req.params.id)
-        .then(ot => {
+        .then((ot) => {
           ot.cardImage = req.files.cardImage[0].filename;
           ot.bannerImage = req.files.bannerImage[0].filename;
 
           ot.save()
             .then(() => res.json("Open trip image updated"))
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 
-      fs.unlink(uploadDir + req.body.oldCardImage, err => {
+      fs.unlink(uploadDir + req.body.oldCardImage, (err) => {
         if (err) {
           console.log(err);
         }
         console.log("Old card image deleted");
       });
-      fs.unlink(uploadDir + req.body.oldBannerImage, err => {
+      fs.unlink(uploadDir + req.body.oldBannerImage, (err) => {
         if (err) {
           console.log(err);
         }
@@ -148,16 +148,16 @@ router
   .route("/updatecardimg/:id")
   .post(upload.single("cardImage"), (req, res) => {
     OpenTrip.findById(req.params.id)
-      .then(ot => {
+      .then((ot) => {
         ot.cardImage = req.file.filename;
 
         ot.save()
           .then(() => res.json("Open trip card image updated"))
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
-    fs.unlink(uploadDir + req.body.oldCardImage, err => {
+    fs.unlink(uploadDir + req.body.oldCardImage, (err) => {
       if (err) {
         console.log(err);
       }
@@ -169,16 +169,16 @@ router
   .route("/updatebannerimg/:id")
   .post(upload.single("bannerImage"), (req, res) => {
     OpenTrip.findById(req.params.id)
-      .then(ot => {
+      .then((ot) => {
         ot.bannerImage = req.file.filename;
 
         ot.save()
           .then(() => res.json("Open trip banner image updated"))
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
-    fs.unlink(uploadDir + req.body.oldBannerImage, err => {
+    fs.unlink(uploadDir + req.body.oldBannerImage, (err) => {
       if (err) {
         console.log(err);
       }
@@ -189,14 +189,14 @@ router
 router.route("/delete").post((req, res) => {
   OpenTrip.findByIdAndDelete(req.body.tripId)
     .then(() => res.json("Trip deleted"))
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 
-  fs.unlink(uploadDir + req.body.cardImage, err => {
+  fs.unlink(uploadDir + req.body.cardImage, (err) => {
     if (err) {
       console.log(err);
     }
   });
-  fs.unlink(uploadDir + req.body.bannerImage, err => {
+  fs.unlink(uploadDir + req.body.bannerImage, (err) => {
     if (err) {
       console.log(err);
     }

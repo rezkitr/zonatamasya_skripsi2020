@@ -9,8 +9,8 @@ function GallerySection(props) {
 
   props.photoData.map((item, index) => {
     if (index < 6) {
-      item.thumbnailWidth = Math.floor(Math.random() * 380) + 300;
-      item.thumbnailHeight = Math.floor(Math.random() * 300) + 220;
+      item.thumbnailWidth = Math.floor(Math.random() * 300) + 290;
+      item.thumbnailHeight = Math.floor(Math.random() * 220) + 210;
       photoData.push(item);
     }
   });

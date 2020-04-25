@@ -7,7 +7,7 @@ import RsvList from "./ReservationList";
 import PromoList from "./PromoList";
 import UserAdminList from "./UserAdminList";
 import OpenTripList from "./OpenTripList";
-import CarouselList from "./CarouselList";
+import BannerList from "./BannerList";
 
 class AdminContainer extends Component {
   state = {
@@ -63,11 +63,11 @@ class AdminContainer extends Component {
                 <i className="fas fa-tag fa-lg mr-3 text-white"></i>Promo
               </a>
               <a
-                onClick={() => this.setState({ menuSelected: "crs" })}
+                onClick={() => this.setState({ menuSelected: "bnr" })}
                 className="list-group-item list-group-item-action primary-color-dark text-white"
               >
                 <i className="far fa-object-ungroup  fa-lg mr-3 text-white"></i>
-                Carousel
+                Banner
               </a>
               <a
                 onClick={() => this.setState({ menuSelected: "adm" })}
@@ -98,8 +98,8 @@ class AdminContainer extends Component {
                   ? "Promo"
                   : this.state.menuSelected === "ot"
                   ? "Open Trip"
-                  : this.state.menuSelected === "crs"
-                  ? "Carousel"
+                  : this.state.menuSelected === "bnr"
+                  ? "Banner"
                   : "Admin"}
               </Link>
 
@@ -153,8 +153,8 @@ class AdminContainer extends Component {
                     <PromoList />
                   ) : this.state.menuSelected === "ot" ? (
                     <OpenTripList />
-                  ) : this.state.menuSelected === "crs" ? (
-                    <CarouselList />
+                  ) : this.state.menuSelected === "bnr" ? (
+                    <BannerList />
                   ) : (
                     <UserAdminList />
                   )}

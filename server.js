@@ -7,7 +7,7 @@ const reservationRouter = require("./routes/reservation");
 const adminRouter = require("./routes/admin");
 const promoRouter = require("./routes/promo");
 const opentripRouter = require("./routes/opentrip");
-const carouselRouter = require("./routes/carousel");
+const bannerRouter = require("./routes/banner");
 const paymentRouter = require("./routes/payment");
 const photoRouter = require("./routes/photo");
 
@@ -44,7 +44,7 @@ app.use("/reservation", reservationRouter);
 app.use("/adm", adminRouter);
 app.use("/promo", promoRouter);
 app.use("/opentrip", opentripRouter);
-app.use("/carousel", carouselRouter);
+app.use("/banner", bannerRouter);
 app.use("/payment", paymentRouter);
 app.use("/photo", photoRouter);
 

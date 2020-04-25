@@ -17,7 +17,7 @@ const PhotoDataSource = (WrappedComponent) => {
               src: item.fields.src.fields.file.url,
               thumbnail: item.fields.src.fields.file.url,
               thumbnailWidth: Math.floor(Math.random() * 500) + 480,
-              thumbnailHeight: Math.floor(Math.random() * 320) + 280,
+              thumbnailHeight: Math.floor(Math.random() * 320) + 290,
               caption: item.fields.caption,
             };
             photoDataTemp.push(photoItem);

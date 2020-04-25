@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import axios from "axios";
 
-const CarouselItem = props => {
-  let splitFilename = props.carousel.carouselFile.split(".");
+const BannerItem = (props) => {
+  let splitFilename = props.banner.fileName.split(".");
   let ext = splitFilename[1];
 
   if (ext === "jpeg" || ext === "png") {
@@ -15,20 +15,17 @@ const CarouselItem = props => {
             className="img-fluid"
             src={
               process.env.PUBLIC_URL +
-              "/upload/carouselFiles/" +
-              props.carousel.carouselFile
+              "/upload/bannerFiles/" +
+              props.banner.fileName
             }
-            alt={props.carousel.carouselFile}
+            alt={props.banner.fileName}
           />
         </div>
         <div className="row">
           <div className="col text-center">
             <a
               onClick={() => {
-                props.deleteCarouselFile(
-                  props.carousel._id,
-                  props.carousel.carouselFile
-                );
+                props.deleteBannerFile(props.banner._id, props.banner.fileName);
               }}
               className="text-danger"
             >
@@ -49,8 +46,8 @@ const CarouselItem = props => {
             className="video-fluid d-block"
             src={
               process.env.PUBLIC_URL +
-              "/upload/carouselFiles/" +
-              props.carousel.carouselFile
+              "/upload/bannerFiles/" +
+              props.banner.fileName
             }
           ></video>
         </div>
@@ -58,10 +55,7 @@ const CarouselItem = props => {
           <div className="col text-center">
             <a
               onClick={() => {
-                props.deleteCarouselFile(
-                  props.carousel._id,
-                  props.carousel.carouselFile
-                );
+                props.deleteBannerFile(props.banner._id, props.banner.fileName);
               }}
               className="text-danger"
             >
@@ -74,68 +68,68 @@ const CarouselItem = props => {
   }
 };
 
-class CarouselList extends Component {
+class BannerList extends Component {
   state = {
-    carousels: []
+    banners: [],
   };
 
   componentDidMount() {
     axios
-      .get("/carousel/")
-      .then(res => {
-        this.setState({ carousels: res.data });
+      .get("/banner/")
+      .then((res) => {
+        this.setState({ banners: res.data });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
-  mapCarouselList() {
-    return this.state.carousels.map(item => {
+  mapBannerList() {
+    return this.state.banners.map((item) => {
       return (
-        <CarouselItem
+        <BannerItem
           key={item._id}
-          carousel={item}
-          deleteCarouselFile={this.deleteCarouselFile}
+          banner={item}
+          deleteBannerFile={this.deleteBannerFile}
         />
       );
     });
   }
 
-  deleteCarouselFile = (crsId, carouselFile) => {
-    let crsData = { crsId, carouselFile };
+  deleteBannerFile = (bnrId, fileName) => {
+    let bnrData = { bnrId, fileName };
     confirmAlert({
-      title: "Hapus Gambar Carousel",
+      title: "Hapus Banner",
       message: "Apakah anda yakin?",
       buttons: [
         {
-          label: "Batal"
+          label: "Batal",
         },
         {
           label: "Hapus",
           onClick: () => {
             axios
-              .post("/carousel/delete", crsData)
-              .then(res => console.log(res.data))
-              .catch(err => console.log(err));
+              .post("/banner/delete", bnrData)
+              .then((res) => console.log(res.data))
+              .catch((err) => console.log(err));
 
             this.setState({
-              carousels: this.state.carousels.filter(crs => crs._id !== crsId)
+              banners: this.state.banners.filter((bnr) => bnr._id !== bnrId),
             });
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
   };
 
   render() {
     return (
       <div className="container-fluid mt-5">
-        <Link to="/admin/carousel/add" className="green-text font-weight-bold">
+        <Link to="/admin/banner/add" className="green-text font-weight-bold">
           <i className="far fa-plus-square mr-2"></i>Tambah
         </Link>
 
-        <div className="row mt-4">{this.mapCarouselList()}</div>
+        <div className="row mt-4">{this.mapBannerList()}</div>
       </div>
     );
   }
 }
-export default CarouselList;
+export default BannerList;
