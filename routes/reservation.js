@@ -4,16 +4,16 @@ let Reservation = require("../models/reservation.model");
 // getAll
 router.route("/").get((req, res) => {
   Reservation.find()
-    .sort({ tripName: "asc", tripDate: "asc" })
-    .then(rsv => res.json(rsv))
-    .catch(err => res.status(400).json("Error : " + err));
+    .sort({ tripDate: "asc", tripName: "asc" })
+    .then((rsv) => res.json(rsv))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // findRsvbyId
 router.route("/:id").get((req, res) => {
   Reservation.findById(req.params.id)
-    .then(rsv => res.json(rsv))
-    .catch(err => res.status(400).json("Error : " + err));
+    .then((rsv) => res.json(rsv))
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // AddRsv
@@ -45,26 +45,26 @@ router.route("/add").post((req, res) => {
     totalParticipant,
     participant,
     payment,
-    promoCode
+    promoCode,
   });
 
   newReservation
     .save()
     .then(() => res.json("New reservation added"))
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // DeleteRsv
 router.route("/:id").delete((req, res) => {
   Reservation.findByIdAndDelete(req.params.id)
     .then(() => res.json("Reservation deleted"))
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 // UpdateRsv
 router.route("/update/:id").post((req, res) => {
   Reservation.findById(req.params.id)
-    .then(rsv => {
+    .then((rsv) => {
       rsv.tripName = req.body.tripName;
       rsv.tripStart = req.body.tripStart;
       rsv.mepo = req.body.mepo;
@@ -78,9 +78,9 @@ router.route("/update/:id").post((req, res) => {
       rsv
         .save()
         .then(() => res.json("Reservation updated"))
-        .catch(err => res.status(400).json("Error : " + err));
+        .catch((err) => res.status(400).json("Error : " + err));
     })
-    .catch(err => res.status(400).json("Error : " + err));
+    .catch((err) => res.status(400).json("Error : " + err));
 });
 
 module.exports = router;

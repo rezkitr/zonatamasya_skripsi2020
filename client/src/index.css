@@ -514,6 +514,10 @@ label {
   }
 }
 
+.rsv-item {
+  font-weight: 400;
+}
+
 /* DESKTOP */
 @media (min-width: 992px) {
   .navbar-brand img {
