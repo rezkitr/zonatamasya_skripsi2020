@@ -45,6 +45,11 @@ const RsvItem = (props) => {
 };
 
 const TripItem = (props) => {
+  let now = new Date();
+  now.setHours(0, 0, 0, 0);
+  let dateTemp = new Date(props.trip.tripDate);
+  dateTemp.setHours(0, 0, 0, 0);
+
   return (
     <div className="card mt-4">
       <div className="card-header">
@@ -52,7 +57,15 @@ const TripItem = (props) => {
           <i className="fas fa-suitcase-rolling fa-sm mr-2"></i>
           <span className="badge badge-light mr-3">{props.trip.tripName}</span>
           <i className="far fa-calendar-check fa-sm mr-2"></i>
-          <span className="badge badge-success mr-3">
+          <span
+            className={`badge ${
+              dateTemp < now
+                ? "badge-danger"
+                : dateTemp > now
+                ? "badge-warning"
+                : "badge-success"
+            }  mr-3`}
+          >
             {helpers.formatDate(props.trip.tripDate)}
           </span>
           <i className="fas fa-users fa-sm mr-2"></i>
