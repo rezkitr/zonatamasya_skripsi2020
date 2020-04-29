@@ -47,7 +47,7 @@ class ReservationForm extends Component {
     });
   };
 
-  getPromo = (promocode, paymentType) => {
+  validatePromo = (promocode, paymentType) => {
     let ignoreCasePromo = promocode.toUpperCase();
 
     if (ignoreCasePromo.length > 0) {
@@ -898,7 +898,7 @@ class ReservationForm extends Component {
                                     type="button"
                                     className="btn btn-md btn-amber rounded-right m-0 px-3 py-2 z-depth-0 font-weight-bold"
                                     onClick={() =>
-                                      this.getPromo(
+                                      this.validatePromo(
                                         this.state.promoCode,
                                         values.payment.type
                                       )
