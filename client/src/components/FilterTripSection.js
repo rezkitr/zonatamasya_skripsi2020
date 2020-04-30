@@ -11,16 +11,16 @@ import FilterResultContainer from "./FilterResultContainer";
 class FilterTripSection extends Component {
   state = {
     filterTag: "",
-    reset: true
+    reset: true,
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     const { name } = event.target;
 
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         filterTag: name,
-        reset: !prevState.reset
+        reset: !prevState.reset,
       };
     });
   };
@@ -29,7 +29,7 @@ class FilterTripSection extends Component {
     return (
       <>
         <div className="container-fluid filter-section">
-          <div className="row row-cols-md-3 row-cols-lg-5 mx-3 justify-content-center">
+          <div className="row row-cols-md-3 row-cols-lg-3 row-cols-xl-5 mx-3 justify-content-center">
             <div className="col-md mb-5 text-center">
               <img
                 className={

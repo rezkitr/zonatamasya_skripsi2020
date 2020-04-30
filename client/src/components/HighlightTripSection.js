@@ -12,7 +12,7 @@ function TripCardContainer(props) {
         secTitle="Open Trip"
         secTagline="Liburan nyaman, pulang bawa teman!"
       />
-      <div className="row row-cols-md-2 row-cols-lg-5 mx-3">
+      <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 mx-3">
         {props.tripData.map((item, index) =>
           item.highlighted && index < 5 ? (
             <div className="col my-3">

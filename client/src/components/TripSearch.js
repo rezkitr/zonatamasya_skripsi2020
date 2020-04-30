@@ -5,18 +5,18 @@ import searchIcon from "../assets/search.png";
 
 class TripSearch extends Component {
   state = {
-    keyword: ""
+    keyword: "",
   };
 
-  keywordChangeHandle = event => {
+  keywordChangeHandle = (event) => {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  submitSearch = event => {
+  submitSearch = (event) => {
     if (event.key === "Enter") {
       if (this.state.keyword.length > 0) {
         this.props.history.push(
@@ -31,11 +31,14 @@ class TripSearch extends Component {
       <div
         className="container-fluid searchtrip-section"
         style={{
-          backgroundImage: `url(${bgImage})`
+          backgroundImage: `url(${bgImage})`,
         }}
       >
         <div className="row justify-content-center">
-          <div className="col-md-3" style={{ marginTop: "80px" }}>
+          <div
+            className="col-sm-8 col-md-8 col-lg-3"
+            style={{ marginTop: "80px" }}
+          >
             <form autoComplete="off">
               <input
                 type="text"
