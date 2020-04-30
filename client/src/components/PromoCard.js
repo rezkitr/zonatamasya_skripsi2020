@@ -27,7 +27,7 @@ class PromoCard extends Component {
     return (
       <>
         {this.state.trip ? (
-          <div>
+          <>
             <div className="card promo-card h-100">
               <div className="card-body" style={{ backgroundColor: "#ecf0f1" }}>
                 <div className="row">
@@ -144,7 +144,7 @@ class PromoCard extends Component {
                 </div>
               </div>
             </div>
-          </div>
+          </>
         ) : null}
       </>
     );
