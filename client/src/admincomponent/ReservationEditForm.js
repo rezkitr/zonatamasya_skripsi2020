@@ -11,23 +11,23 @@ import LoadingScreen from "./LoadingScreen";
 class ReservationEditForm extends Component {
   state = {
     rsv: null,
-    opentrip: null
+    opentrip: null,
   };
 
   componentDidMount() {
     axios
       .get(`/reservation/${this.props.rsvId}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ rsv: res.data }, () => {
           axios
             .get(`/opentrip/${this.state.rsv.tripId}`)
-            .then(res => {
+            .then((res) => {
               this.setState({ opentrip: res.data });
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -76,31 +76,31 @@ class ReservationEditForm extends Component {
                         coorTelp: this.state.rsv.participant.coordinator
                           .coorTelp,
                         coorEmail: this.state.rsv.participant.coordinator
-                          .coorEmail
+                          .coorEmail,
                       },
-                      member: this.state.rsv.participant.member
+                      member: this.state.rsv.participant.member,
                     },
                     payment: {
                       type: this.state.rsv.payment.type,
-                      amount: this.state.rsv.payment.amount
-                    }
+                      amount: this.state.rsv.payment.amount,
+                    },
                   }}
                   validationSchema={ValidationSchema}
                   onSubmit={(values, { setSubmitting }) => {
                     axios
                       .post(`/reservation/update/${this.props.rsvId}`, values)
-                      .then(res =>
+                      .then((res) =>
                         confirmAlert({
                           title: "Update Reservasi",
                           message: "Data Reservasi Berhasil Diupdate",
                           buttons: [
                             {
-                              label: "OK"
-                            }
-                          ]
+                              label: "OK",
+                            },
+                          ],
                         })
                       )
-                      .catch(err => alert(err));
+                      .catch((err) => alert(err));
 
                     setSubmitting(false);
                     this.props.history.push("/admin");
@@ -160,7 +160,7 @@ class ReservationEditForm extends Component {
                             >
                               {this.state.opentrip && this.state.rsv
                                 ? this.state.opentrip.departure.mepo.map(
-                                    item => {
+                                    (item) => {
                                       return item.toUpperCase() ===
                                         this.state.rsv.mepo ? (
                                         <option
@@ -195,7 +195,7 @@ class ReservationEditForm extends Component {
                               className="custom-select"
                             >
                               {this.state.opentrip && this.state.rsv
-                                ? this.state.opentrip.schedule.map(item => {
+                                ? this.state.opentrip.schedule.map((item) => {
                                     return item === this.state.rsv.tripDate ? (
                                       <option value={item} selected>
                                         {helpers.formatDate(item)}
@@ -307,7 +307,7 @@ class ReservationEditForm extends Component {
 
                         <FieldArray
                           name="participant.member"
-                          render={arrayHelpers => (
+                          render={(arrayHelpers) => (
                             <div>
                               {values.participant.member.length > 0 ? (
                                 values.participant.member.map((item, index) => {
@@ -406,7 +406,7 @@ const ValidationSchema = Yup.object().shape({
       coorTelp: Yup.string().required("Silahkan masukkan No. HP anda"),
       coorEmail: Yup.string()
         .email("Bukan sebuah email")
-        .required("Silahkan masukkan email anda")
+        .required("Silahkan masukkan email anda"),
     }),
     member: Yup.array().of(
       Yup.object().shape({
@@ -414,10 +414,10 @@ const ValidationSchema = Yup.object().shape({
           "Silahkan masukkan nama lengkap peserta"
         ),
         memberGender: Yup.string().oneOf(["L", "P"], "Invalid"),
-        memberTelp: Yup.string().required("Silahkan masukkan No. HP peserta")
+        memberTelp: Yup.string().required("Silahkan masukkan No. HP peserta"),
       })
-    )
-  })
+    ),
+  }),
 });
 
 export default ReservationEditForm;

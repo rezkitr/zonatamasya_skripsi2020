@@ -1,4 +1,5 @@
 const router = require("express").Router();
+let Reservation = require("../models/reservation.model");
 const midtransClient = require("midtrans-client");
 require("dotenv").config();
 
@@ -75,6 +76,7 @@ router.route("/gettoken").post((req, res) => {
     });
 });
 
+// getstatus
 router.route("/getstatus/:order_id").get((req, res) => {
   snap.transaction
     .status(req.params.order_id)
@@ -85,6 +87,20 @@ router.route("/getstatus/:order_id").get((req, res) => {
     .catch((error) => {
       console.log("Error occured:", error.message);
     });
+});
+
+// handleNotification
+router.route("/notification").get((req, res) => {
+  snap.transaction.notification(notif).then((res) => {
+    let orderId = res.order_id;
+    let transactionStatus = res.transaction_status;
+
+    if (transactionStatus === "expire") {
+      Reservation.findOneAndDelete({ orderId: orderId })
+        .then(() => res.json("Reservation deleted"))
+        .catch((err) => res.status(400).json("Error : " + err));
+    }
+  });
 });
 
 module.exports = router;

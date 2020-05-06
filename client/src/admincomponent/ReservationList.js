@@ -55,7 +55,7 @@ const TripItem = (props) => {
       <div className="card-header">
         <h4>
           <i className="fas fa-suitcase-rolling fa-sm mr-2"></i>
-          <span className="badge badge-light mr-3">{props.trip.tripName}</span>
+          <span className="badge badge-light mr-3">{`${props.trip.tripName} [ ${props.trip.tripStart} ]`}</span>
           <i className="far fa-calendar-check fa-sm mr-2"></i>
           <span
             className={`badge ${
@@ -96,10 +96,12 @@ const TripItem = (props) => {
 class ReservationList extends Component {
   state = {
     reservations: [],
+    status: [],
     filteredReservations: [],
   };
 
   componentDidMount() {
+    let statusTemp = [];
     axios
       .get("/reservation/")
       .then((res) => {
