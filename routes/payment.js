@@ -93,9 +93,9 @@ router.route("/getstatus/:order_id").get((req, res) => {
 router.route("/notification").post((req, res) => {
   snap.transaction
     .notification(req.body)
-    .then((res) => {
-      let orderId = res.order_id;
-      let transactionStatus = res.transaction_status;
+    .then((response) => {
+      let orderId = response.order_id;
+      let transactionStatus = response.transaction_status;
 
       if (transactionStatus === "expire") {
         Reservation.findOneAndDelete({ orderId: orderId })
