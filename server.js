@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
+const ipfilter = require("express-ipfilter").IpFilter;
 
 const reservationRouter = require("./routes/reservation");
 const adminRouter = require("./routes/admin");
@@ -15,6 +16,7 @@ require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 80;
+const ips = ["103.58.103.177"];
 
 app.use(cors());
 app.use(express.json());
@@ -57,6 +59,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.use(ipfilter(ips, { mode: "allow" }));
 app.listen(port, () => {
   console.log(`Server is running on port : ${port}`);
 });
