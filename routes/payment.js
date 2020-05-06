@@ -91,16 +91,19 @@ router.route("/getstatus/:order_id").get((req, res) => {
 
 // handleNotification
 router.route("/notification").post((req, res) => {
-  snap.transaction.notification(notif).then((res) => {
-    let orderId = res.order_id;
-    let transactionStatus = res.transaction_status;
+  snap.transaction
+    .notification(notificationJson)
+    .then((res) => {
+      let orderId = res.order_id;
+      let transactionStatus = res.transaction_status;
 
-    if (transactionStatus === "expire") {
-      Reservation.findOneAndDelete({ orderId: orderId })
-        .then(() => res.json("Reservation deleted"))
-        .catch((err) => res.status(400).json("Error : " + err));
-    }
-  });
+      if (transactionStatus === "expire") {
+        Reservation.findOneAndDelete({ orderId: orderId })
+          .then(() => res.json("Reservation deleted"))
+          .catch((err) => res.status(400).json("Error : " + err));
+      }
+    })
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;
