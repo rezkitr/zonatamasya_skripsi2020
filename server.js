@@ -16,17 +16,10 @@ require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 80;
-const ips = [
-  "103.58.103.177",
-  "103.208.23.0/24",
-  "103.208.23.6/32",
-  "103.127.16.0/23",
-  "103.127.17.6/32",
-];
+const ips = ["127.0.0.1", "103.58.103.177"];
 
 app.use(cors());
 app.use(express.json());
-app.use(ipfilter(ips, { mode: "allow" }));
 
 const uri = process.env.ATLAS_URI;
 mongoose
@@ -66,6 +59,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.use(ipfilter(ips, { mode: "allow" }));
 app.listen(port, () => {
   console.log(`Server is running on port : ${port}`);
 });
