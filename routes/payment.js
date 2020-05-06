@@ -92,7 +92,7 @@ router.route("/getstatus/:order_id").get((req, res) => {
 // handleNotification
 router.route("/notification").post((req, res) => {
   snap.transaction
-    .notification(notificationJson)
+    .notification(req.body)
     .then((res) => {
       let orderId = res.order_id;
       let transactionStatus = res.transaction_status;

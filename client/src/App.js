@@ -37,8 +37,6 @@ import OpenTripDetailPage from "./adminpage/OpenTripDetail";
 import OpenTripEditPage from "./adminpage/OpenTripEdit";
 import BannerAddPage from "./adminpage/BannerAdd";
 
-import HandleNotification from "./HandleNotification";
-
 class App extends Component {
   render() {
     return (
@@ -254,13 +252,6 @@ class App extends Component {
                         <BannerAddPage {...props} />
                       )
                     }
-                  />
-
-                  <Route
-                    path="/admin/notification/handle"
-                    exact
-                    strict
-                    component={HandleNotification}
                   />
                 </Switch>
               </ScrollToTop>
