@@ -105,7 +105,7 @@ router.route("/notification").post((req, res) => {
       let orderId = response.order_id;
       let transactionStatus = response.transaction_status;
 
-      if (transactionStatus === "expire") {
+      if (transactionStatus === "expire" || transactionStatus === "cancel") {
         Reservation.findOneAndDelete({ orderId: orderId })
           .then(() => res.json("Reservation deleted"))
           .catch((err) => res.status(400).json("Error : " + err));
