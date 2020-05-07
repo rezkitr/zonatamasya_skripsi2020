@@ -102,8 +102,9 @@ router.route("/notification").post((req, res) => {
           .then(() => res.json("Reservation deleted"))
           .catch((err) => res.status(400).json("Error : " + err));
       }
+      res.status(200).end();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.status(500).end());
 });
 
 module.exports = router;
