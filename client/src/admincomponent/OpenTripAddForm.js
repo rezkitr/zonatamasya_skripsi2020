@@ -19,36 +19,36 @@ class OpenTripAddForm extends Component {
     dayCounter: 0,
     cardImage: null,
     bannerImage: null,
-    submitting: false
+    submitting: false,
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  handleSelectImage = event => {
+  handleSelectImage = (event) => {
     const { name, files } = event.target;
     this.setState({
-      [name]: files[0]
+      [name]: files[0],
     });
   };
 
   addDay = () => {
     this.setState({
-      dayCounter: this.state.dayCounter + 1
+      dayCounter: this.state.dayCounter + 1,
     });
   };
 
-  handleItineraryInput = event => {
+  handleItineraryInput = (event) => {
     this.setState({ itineraryItem: event.target.value }, () => {
       this.splitItem(this.state.itineraryItem);
     });
   };
 
-  splitItem = item => {
+  splitItem = (item) => {
     if (this.state.itineraryItem.length > 0) {
       let result = item.split("\n");
       this.setState({ splittedItineraryItem: result });
@@ -91,15 +91,15 @@ class OpenTripAddForm extends Component {
                       duration: "",
                       departure: {
                         start: "",
-                        mepo: []
+                        mepo: [],
                       },
                       price: {
                         priceFull: 0,
-                        priceDP: 0
+                        priceDP: 0,
                       },
                       schedule: [],
                       itinerary: [],
-                      facility: []
+                      facility: [],
                     }}
                     validationSchema={ValidationSchema}
                     validateOnBlur={false}
@@ -126,32 +126,32 @@ class OpenTripAddForm extends Component {
 
                       const config = {
                         headers: {
-                          "Content-Type": "multipart/form-data"
-                        }
+                          "Content-Type": "multipart/form-data",
+                        },
                       };
 
                       axios
-                        .post("/opentrip/add", data, config)
-                        .then(res => {
+                        .post("/ot/add", data, config)
+                        .then((res) => {
                           confirmAlert({
                             title: "Tambah Open Trip",
                             message: "Data Open Trip Berhasil Ditambakan",
                             buttons: [
                               {
-                                label: "OK"
-                              }
-                            ]
+                                label: "OK",
+                              },
+                            ],
                           });
                         })
-                        .catch(err => {
+                        .catch((err) => {
                           confirmAlert({
                             title: "Error",
                             message: `${err}`,
                             buttons: [
                               {
-                                label: "OK"
-                              }
-                            ]
+                                label: "OK",
+                              },
+                            ],
                           });
                         });
                       this.props.history.push("/admin");
@@ -180,7 +180,7 @@ class OpenTripAddForm extends Component {
 
                         <FieldArray
                           name="keyword"
-                          render={arrayHelpers => (
+                          render={(arrayHelpers) => (
                             <div>
                               <div className="form-group">
                                 <label
@@ -421,7 +421,7 @@ class OpenTripAddForm extends Component {
 
                         <FieldArray
                           name="departure.mepo"
-                          render={arrayHelpers => (
+                          render={(arrayHelpers) => (
                             <div>
                               <div className="form-group">
                                 <label
@@ -541,7 +541,7 @@ class OpenTripAddForm extends Component {
                         <div className="form-group">
                           <FieldArray
                             name="schedule"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 <div className="form-group">
                                   <label
@@ -612,7 +612,7 @@ class OpenTripAddForm extends Component {
                         <div className="form-group">
                           <FieldArray
                             name="itinerary"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 <div className="form-group">
                                   <label
@@ -723,11 +723,12 @@ class OpenTripAddForm extends Component {
                                                                     className="badge badge-warning"
                                                                     style={{
                                                                       fontSize:
-                                                                        "16px"
+                                                                        "16px",
                                                                     }}
                                                                   >
-                                                                    {`Hari ${index +
-                                                                      1}`}
+                                                                    {`Hari ${
+                                                                      index + 1
+                                                                    }`}
                                                                   </span>
                                                                 </th>
                                                               </tr>
@@ -736,7 +737,7 @@ class OpenTripAddForm extends Component {
                                                         ) : null}
 
                                                         <tbody>
-                                                          {item.map(i => {
+                                                          {item.map((i) => {
                                                             return (
                                                               <tr>
                                                                 <td>{i}</td>
@@ -765,9 +766,10 @@ class OpenTripAddForm extends Component {
                                   </div>
 
                                   <FieldArray
-                                    name={`itinerary[${values.itinerary.length -
-                                      1}]`}
-                                    render={arrayHelpers => (
+                                    name={`itinerary[${
+                                      values.itinerary.length - 1
+                                    }]`}
+                                    render={(arrayHelpers) => (
                                       <div>
                                         {values.itinerary.length > 0 ? (
                                           <div className="form-group">
@@ -799,12 +801,12 @@ class OpenTripAddForm extends Component {
                                                   type="button"
                                                   onClick={() => {
                                                     this.state.splittedItineraryItem.map(
-                                                      item => {
+                                                      (item) => {
                                                         arrayHelpers.push(item);
                                                       }
                                                     );
                                                     this.setState({
-                                                      itineraryItem: ""
+                                                      itineraryItem: "",
                                                     });
                                                   }}
                                                 >
@@ -825,7 +827,7 @@ class OpenTripAddForm extends Component {
                         <div className="form-group">
                           <FieldArray
                             name="facility"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 <div className="form-group">
                                   <label
@@ -926,9 +928,7 @@ class OpenTripAddForm extends Component {
 
 const ValidationSchema = Yup.object().shape({
   name: Yup.string().required("Silahkan masukkan nama open trip"),
-  keyword: Yup.array()
-    .required("Silahkan masukkan keyword open trip")
-    .min(1),
+  keyword: Yup.array().required("Silahkan masukkan keyword open trip").min(1),
   region: Yup.string()
     .required("Silahkan pilih wilayah open trip")
     .notOneOf([""]),
@@ -938,25 +938,17 @@ const ValidationSchema = Yup.object().shape({
     start: Yup.string().required("Silahkan masukkan kota keberangkatan"),
     mepo: Yup.array()
       .required("Silahkan masukkan lokasi meeting point keberangkatan")
-      .min(1)
+      .min(1),
   }),
   price: Yup.object().shape({
-    priceFull: Yup.number()
-      .required("Silahkan masukkan harga LUNAS")
-      .min(0),
-    priceDP: Yup.number()
-      .required("Silahkan masukkan harga DP")
-      .min(0)
+    priceFull: Yup.number().required("Silahkan masukkan harga LUNAS").min(0),
+    priceDP: Yup.number().required("Silahkan masukkan harga DP").min(0),
   }),
   schedule: Yup.array()
     .required("Silahkan masukkan tanggal keberangkatan")
     .min(1),
-  itinerary: Yup.array()
-    .required("Silahkan masukkan itinerary")
-    .min(1),
-  facility: Yup.array()
-    .required("Silahkan masukkan fasilitas")
-    .min(1)
+  itinerary: Yup.array().required("Silahkan masukkan itinerary").min(1),
+  facility: Yup.array().required("Silahkan masukkan fasilitas").min(1),
 });
 
 export default OpenTripAddForm;

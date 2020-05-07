@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import helpers from "../helperFunction";
 import axios from "axios";
 
-const TripItem = props => {
+const TripItem = (props) => {
   return (
     <tr>
       <td>{props.trip.name}</td>
@@ -47,20 +47,20 @@ const TripItem = props => {
 
 class OpenTripList extends Component {
   state = {
-    opentrips: []
+    opentrips: [],
   };
 
   componentDidMount() {
     axios
-      .get("/opentrip/")
-      .then(res => {
+      .get("/ot/")
+      .then((res) => {
         this.setState({ opentrips: res.data });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   mapTripList() {
-    return this.state.opentrips.map(item => {
+    return this.state.opentrips.map((item) => {
       return (
         <TripItem key={item._id} trip={item} deleteTrip={this.deleteTrip} />
       );
@@ -74,21 +74,21 @@ class OpenTripList extends Component {
       message: "Apakah anda yakin?",
       buttons: [
         {
-          label: "Batal"
+          label: "Batal",
         },
         {
           label: "Hapus",
           onClick: () => {
             axios
-              .post("/opentrip/delete", tripData)
-              .then(res => console.log(res.data))
-              .catch(err => console.log(err));
+              .post("/ot/delete", tripData)
+              .then((res) => console.log(res.data))
+              .catch((err) => console.log(err));
             this.setState({
-              opentrips: this.state.opentrips.filter(ot => ot._id !== tripId)
+              opentrips: this.state.opentrips.filter((ot) => ot._id !== tripId),
             });
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
   };
 

@@ -7,7 +7,7 @@ let OpenTrip = require("../models/opentrip.model");
 // getAll
 router.route("/").get((req, res) => {
   OpenTrip.find()
-    .sort({ tripName: "asc" })
+    .sort({ name: "asc" })
     .then((ot) => res.json(ot))
     .catch((err) => res.status(400).json("Error : " + err));
 });

@@ -44,7 +44,7 @@ function PromoAddForm(props) {
                   validateOnBlur={false}
                   onSubmit={(values, { setSubmitting }) => {
                     axios
-                      .post("/promo/add", values)
+                      .post("/prm/add", values)
                       .then((res) => {
                         confirmAlert({
                           title: "Tambah Promo",

@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const PromoDataSource = WrappedComponent => {
+const PromoDataSource = (WrappedComponent) => {
   return class extends Component {
     state = {
-      promoData: []
+      promoData: [],
     };
 
     componentDidMount() {
       axios
-        .get("/promo/")
-        .then(res => {
+        .get("/prm/")
+        .then((res) => {
           this.setState({ promoData: res.data });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
 
     render() {

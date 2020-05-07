@@ -24,25 +24,25 @@ class OpenTripEditForm extends Component {
     bannerImage: null,
     oldCardImage: "",
     oldBannerImage: "",
-    submitting: false
+    submitting: false,
   };
 
   componentDidMount() {
     axios
-      .get(`/opentrip/${this.props.tripId}`)
-      .then(res => {
+      .get(`/ot/${this.props.tripId}`)
+      .then((res) => {
         this.setState({ opentripData: res.data }, () => {
           this.setHighlighted(this.state.opentripData.highlighted);
           this.setState({
             oldCardImage: this.state.opentripData.cardImage,
-            oldBannerImage: this.state.opentripData.bannerImage
+            oldBannerImage: this.state.opentripData.bannerImage,
           });
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
-  setHighlighted = highlighted => {
+  setHighlighted = (highlighted) => {
     if (highlighted) {
       this.setState({ highlightedTemp: "1" });
     } else {
@@ -50,17 +50,17 @@ class OpenTripEditForm extends Component {
     }
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  handleSelectImage = event => {
+  handleSelectImage = (event) => {
     const { name, files } = event.target;
     this.setState({
-      [name]: files[0]
+      [name]: files[0],
     });
   };
 
@@ -71,17 +71,17 @@ class OpenTripEditForm extends Component {
 
   addDay = () => {
     this.setState({
-      dayCounter: this.state.dayCounter + 1
+      dayCounter: this.state.dayCounter + 1,
     });
   };
 
-  handleItineraryInput = event => {
+  handleItineraryInput = (event) => {
     this.setState({ itineraryItem: event.target.value }, () => {
       this.splitItineraryItem(this.state.itineraryItem);
     });
   };
 
-  splitItineraryItem = item => {
+  splitItineraryItem = (item) => {
     if (this.state.itineraryItem.length > 0) {
       let result = item.split("\n");
       this.setState({ splittedItineraryItem: result });
@@ -124,48 +124,48 @@ class OpenTripEditForm extends Component {
                       duration: this.state.opentripData.duration,
                       departure: {
                         start: this.state.opentripData.departure.start,
-                        mepo: this.state.opentripData.departure.mepo
+                        mepo: this.state.opentripData.departure.mepo,
                       },
                       price: {
                         priceFull: this.state.opentripData.price.priceFull,
-                        priceDP: this.state.opentripData.price.priceDP
+                        priceDP: this.state.opentripData.price.priceDP,
                       },
                       schedule: this.state.opentripData.schedule,
                       itinerary: this.state.opentripData.itinerary,
-                      facility: this.state.opentripData.facility
+                      facility: this.state.opentripData.facility,
                     }}
                     validationSchema={ValidationSchema}
                     validateOnBlur={false}
                     onSubmit={(values, { setSubmitting }) => {
                       axios
-                        .post(`/opentrip/update/${this.props.tripId}`, values)
-                        .then(res => {
+                        .post(`/ot/update/${this.props.tripId}`, values)
+                        .then((res) => {
                           confirmAlert({
                             title: "Update Open Trip",
                             message: "Data Open Trip Berhasil Diupdate",
                             buttons: [
                               {
-                                label: "OK"
-                              }
-                            ]
+                                label: "OK",
+                              },
+                            ],
                           });
                         })
-                        .catch(err => {
+                        .catch((err) => {
                           confirmAlert({
                             title: "Error",
                             message: `${err}`,
                             buttons: [
                               {
-                                label: "OK"
-                              }
-                            ]
+                                label: "OK",
+                              },
+                            ],
                           });
                         });
 
                       const config = {
                         headers: {
-                          "Content-Type": "multipart/form-data"
-                        }
+                          "Content-Type": "multipart/form-data",
+                        },
                       };
 
                       if (this.state.cardImage && this.state.bannerImage) {
@@ -186,14 +186,14 @@ class OpenTripEditForm extends Component {
 
                         axios
                           .post(
-                            `/opentrip/updateimg/${this.props.tripId}`,
+                            `/ot/updateimg/${this.props.tripId}`,
                             newImgData,
                             config
                           )
-                          .then(res => {
+                          .then((res) => {
                             console.log("all image updated");
                           })
-                          .catch(err => {
+                          .catch((err) => {
                             console.log(err);
                           });
                       } else if (
@@ -209,14 +209,14 @@ class OpenTripEditForm extends Component {
 
                         axios
                           .post(
-                            `/opentrip/updatecardimg/${this.props.tripId}`,
+                            `/ot/updatecardimg/${this.props.tripId}`,
                             newImgData,
                             config
                           )
-                          .then(res => {
+                          .then((res) => {
                             console.log("card image updated");
                           })
-                          .catch(err => {
+                          .catch((err) => {
                             console.log(err);
                           });
                       } else if (
@@ -235,14 +235,14 @@ class OpenTripEditForm extends Component {
 
                         axios
                           .post(
-                            `/opentrip/updatebannerimg/${this.props.tripId}`,
+                            `/ot/updatebannerimg/${this.props.tripId}`,
                             newImgData,
                             config
                           )
-                          .then(res => {
+                          .then((res) => {
                             console.log("banner image updated");
                           })
-                          .catch(err => {
+                          .catch((err) => {
                             console.log(err);
                           });
                       }
@@ -272,7 +272,7 @@ class OpenTripEditForm extends Component {
 
                         <FieldArray
                           name="keyword"
-                          render={arrayHelpers => (
+                          render={(arrayHelpers) => (
                             <div>
                               <div className="form-group">
                                 <label
@@ -496,7 +496,7 @@ class OpenTripEditForm extends Component {
 
                         <FieldArray
                           name="departure.mepo"
-                          render={arrayHelpers => (
+                          render={(arrayHelpers) => (
                             <div>
                               <div className="form-group">
                                 <label
@@ -616,7 +616,7 @@ class OpenTripEditForm extends Component {
                         <div className="form-group">
                           <FieldArray
                             name="schedule"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 <div className="form-group">
                                   <label
@@ -687,7 +687,7 @@ class OpenTripEditForm extends Component {
                         <div className="form-group">
                           <FieldArray
                             name="itinerary"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 <div className="form-group">
                                   <label
@@ -798,11 +798,12 @@ class OpenTripEditForm extends Component {
                                                                     className="badge badge-warning"
                                                                     style={{
                                                                       fontSize:
-                                                                        "16px"
+                                                                        "16px",
                                                                     }}
                                                                   >
-                                                                    {`Hari ${index +
-                                                                      1}`}
+                                                                    {`Hari ${
+                                                                      index + 1
+                                                                    }`}
                                                                   </span>
                                                                 </th>
                                                               </tr>
@@ -811,7 +812,7 @@ class OpenTripEditForm extends Component {
                                                         ) : null}
 
                                                         <tbody>
-                                                          {item.map(i => {
+                                                          {item.map((i) => {
                                                             return (
                                                               <tr>
                                                                 <td>{i}</td>
@@ -840,9 +841,10 @@ class OpenTripEditForm extends Component {
                                   </div>
 
                                   <FieldArray
-                                    name={`itinerary[${values.itinerary.length -
-                                      1}]`}
-                                    render={arrayHelpers => (
+                                    name={`itinerary[${
+                                      values.itinerary.length - 1
+                                    }]`}
+                                    render={(arrayHelpers) => (
                                       <div>
                                         {values.itinerary.length > 0 ? (
                                           <div className="form-group">
@@ -874,12 +876,12 @@ class OpenTripEditForm extends Component {
                                                   type="button"
                                                   onClick={() => {
                                                     this.state.splittedItineraryItem.map(
-                                                      item => {
+                                                      (item) => {
                                                         arrayHelpers.push(item);
                                                       }
                                                     );
                                                     this.setState({
-                                                      itineraryItem: ""
+                                                      itineraryItem: "",
                                                     });
                                                   }}
                                                 >
@@ -900,7 +902,7 @@ class OpenTripEditForm extends Component {
                         <div className="form-group">
                           <FieldArray
                             name="facility"
-                            render={arrayHelpers => (
+                            render={(arrayHelpers) => (
                               <div>
                                 <div className="form-group">
                                   <label
@@ -1003,9 +1005,7 @@ class OpenTripEditForm extends Component {
 
 const ValidationSchema = Yup.object().shape({
   name: Yup.string().required("Silahkan masukkan nama open trip"),
-  keyword: Yup.array()
-    .required("Silahkan masukkan keyword open trip")
-    .min(1),
+  keyword: Yup.array().required("Silahkan masukkan keyword open trip").min(1),
   region: Yup.string()
     .required("Silahkan pilih wilayah open trip")
     .notOneOf([""]),
@@ -1015,24 +1015,16 @@ const ValidationSchema = Yup.object().shape({
     start: Yup.string().required("Silahkan masukkan kota keberangkatan"),
     mepo: Yup.array()
       .required("Silahkan masukkan lokasi meeting point keberangkatan")
-      .min(1)
+      .min(1),
   }),
   price: Yup.object().shape({
-    priceFull: Yup.number()
-      .required("Silahkan masukkan harga LUNAS")
-      .min(0),
-    priceDP: Yup.number()
-      .required("Silahkan masukkan harga DP")
-      .min(0)
+    priceFull: Yup.number().required("Silahkan masukkan harga LUNAS").min(0),
+    priceDP: Yup.number().required("Silahkan masukkan harga DP").min(0),
   }),
   schedule: Yup.array()
     .required("Silahkan masukkan tanggal keberangkatan")
     .min(1),
-  itinerary: Yup.array()
-    .required("Silahkan masukkan itinerary")
-    .min(1),
-  facility: Yup.array()
-    .required("Silahkan masukkan fasilitas")
-    .min(1)
+  itinerary: Yup.array().required("Silahkan masukkan itinerary").min(1),
+  facility: Yup.array().required("Silahkan masukkan fasilitas").min(1),
 });
 export default OpenTripEditForm;

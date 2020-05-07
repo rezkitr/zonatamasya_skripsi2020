@@ -14,7 +14,7 @@ class PromoCard extends Component {
 
   componentDidMount() {
     axios
-      .get(`/opentrip/${this.props.tripId}`)
+      .get(`/ot/${this.props.tripId}`)
       .then((res) => {
         this.setState({
           trip: res.data,
@@ -87,7 +87,7 @@ class PromoCard extends Component {
             <div
               className="modal fade"
               id={`modal${this.props.tripId}`}
-              tabindex="-1"
+              tabIndex="-1"
               role="dialog"
               aria-labelledby="exampleModalCenterTitle"
               aria-hidden="true"

@@ -7,16 +7,16 @@ import LoadingScreen from "./LoadingScreen";
 
 class OpenTripDetailCard extends Component {
   state = {
-    ot: null
+    ot: null,
   };
 
   componentDidMount() {
     axios
-      .get(`/opentrip/${this.props.tripId}`)
-      .then(res => {
+      .get(`/ot/${this.props.tripId}`)
+      .then((res) => {
         this.setState({ ot: res.data });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -64,7 +64,7 @@ class OpenTripDetailCard extends Component {
                   </div>
                   <div className="col-md">
                     <p className="h6 font-weight-bold">Keyword</p>
-                    {this.state.ot.keyword.map(item => {
+                    {this.state.ot.keyword.map((item) => {
                       return (
                         <span
                           className="badge badge-secondary mr-2 mb-2 p-1"
@@ -97,7 +97,7 @@ class OpenTripDetailCard extends Component {
                   </div>
                   <div className="col-md">
                     <p className="h6 font-weight-bold">Meeting Point</p>
-                    {this.state.ot.departure.mepo.map(item => {
+                    {this.state.ot.departure.mepo.map((item) => {
                       return (
                         <span
                           className="badge badge-secondary mr-2 mb-2 p-1"
@@ -149,7 +149,7 @@ class OpenTripDetailCard extends Component {
               <div className="card-body p-5">
                 <div className="row">
                   <div className="col-md">
-                    {this.state.ot.schedule.map(schedItem => {
+                    {this.state.ot.schedule.map((schedItem) => {
                       let pass = false;
                       let now = new Date();
                       let dateTemp = new Date(schedItem);
@@ -164,7 +164,7 @@ class OpenTripDetailCard extends Component {
                           className={`badge ${badgeColor} mr-2 my-2 p-2`}
                           style={{
                             fontSize: "14px",
-                            textDecoration: `${pass ? "line-through" : ""}`
+                            textDecoration: `${pass ? "line-through" : ""}`,
                           }}
                         >
                           {helpers.formatDate(schedItem)}
@@ -203,7 +203,7 @@ class OpenTripDetailCard extends Component {
                                           <span
                                             className="badge badge-secondary"
                                             style={{
-                                              fontSize: "16px"
+                                              fontSize: "16px",
                                             }}
                                           >
                                             {`Hari ${index + 1}`}
@@ -215,7 +215,7 @@ class OpenTripDetailCard extends Component {
                                 ) : null}
 
                                 <tbody>
-                                  {item.map(i => {
+                                  {item.map((i) => {
                                     return (
                                       <tr>
                                         <td>{i}</td>
@@ -244,7 +244,7 @@ class OpenTripDetailCard extends Component {
               <div className="card-body p-5">
                 <div className="row">
                   <div className="col-md">
-                    {this.state.ot.facility.map(item => {
+                    {this.state.ot.facility.map((item) => {
                       return (
                         <span
                           className="badge badge-secondary mr-2 mb-2 p-2"

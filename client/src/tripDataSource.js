@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-const OpenTripData = WrappedComponent => {
+const OpenTripData = (WrappedComponent) => {
   return class extends Component {
     state = {
-      tripData: []
+      tripData: [],
     };
 
     componentDidMount() {
       axios
-        .get("/opentrip/")
-        .then(res => {
+        .get("/ot/")
+        .then((res) => {
           this.setState({ tripData: res.data });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
 
     render() {

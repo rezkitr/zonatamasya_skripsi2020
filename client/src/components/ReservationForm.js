@@ -21,7 +21,7 @@ class ReservationForm extends Component {
 
   componentDidMount() {
     axios
-      .get(`/opentrip/${this.props.tripId}`)
+      .get(`/ot/${this.props.tripId}`)
       .then((res) => {
         this.setState({
           tripData: res.data,
@@ -52,7 +52,7 @@ class ReservationForm extends Component {
 
     if (ignoreCasePromo.length > 0) {
       axios
-        .get(`/promo/${ignoreCasePromo}`)
+        .get(`/prm/${ignoreCasePromo}`)
         .then((res) => {
           this.setState({ promoData: res.data });
         })

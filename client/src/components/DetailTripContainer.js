@@ -15,7 +15,7 @@ class DetailTripContainer extends Component {
 
   componentDidMount() {
     axios
-      .get(`/opentrip/${this.props.tripId}`)
+      .get(`/ot/${this.props.tripId}`)
       .then((res) => {
         this.setState({
           tripData: res.data,
@@ -24,7 +24,7 @@ class DetailTripContainer extends Component {
       .catch((err) => console.log(err));
 
     axios
-      .get(`/promo/idtrip/${this.props.tripId}`)
+      .get(`/prm/idtrip/${this.props.tripId}`)
       .then((res) => {
         this.setState({
           promoData: res.data,
@@ -38,7 +38,7 @@ class DetailTripContainer extends Component {
       this.setState({ tripData: null });
       setTimeout(() => {
         axios
-          .get(`/opentrip/${this.props.tripId}`)
+          .get(`/ot/${this.props.tripId}`)
           .then((res) => {
             this.setState({
               tripData: res.data,

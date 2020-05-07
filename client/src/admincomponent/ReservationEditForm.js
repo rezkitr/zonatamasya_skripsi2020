@@ -20,7 +20,7 @@ class ReservationEditForm extends Component {
       .then((res) => {
         this.setState({ rsv: res.data }, () => {
           axios
-            .get(`/opentrip/${this.state.rsv.tripId}`)
+            .get(`/ot/${this.state.rsv.tripId}`)
             .then((res) => {
               this.setState({ opentrip: res.data });
             })

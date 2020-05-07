@@ -42,8 +42,8 @@ connection.once("open", () => {
 // route
 app.use("/reservation", reservationRouter);
 app.use("/adm", adminRouter);
-app.use("/promo", promoRouter);
-app.use("/opentrip", opentripRouter);
+app.use("/prm", promoRouter);
+app.use("/ot", opentripRouter);
 app.use("/banner", bannerRouter);
 app.use("/payment", paymentRouter);
 app.use("/photo", photoRouter);

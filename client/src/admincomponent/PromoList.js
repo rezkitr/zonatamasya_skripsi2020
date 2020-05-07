@@ -4,7 +4,7 @@ import { confirmAlert } from "react-confirm-alert";
 import axios from "axios";
 import helpers from "../helperFunction";
 
-const PromoItem = props => {
+const PromoItem = (props) => {
   return (
     <tr>
       <td>{props.promo.code}</td>
@@ -35,47 +35,47 @@ const PromoItem = props => {
 
 class PromoList extends Component {
   state = {
-    promos: []
+    promos: [],
   };
 
   componentDidMount() {
     axios
-      .get("/promo/")
-      .then(res => {
+      .get("/prm/")
+      .then((res) => {
         this.setState({ promos: res.data });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   mapPromoList() {
-    return this.state.promos.map(item => {
+    return this.state.promos.map((item) => {
       return (
         <PromoItem key={item._id} promo={item} deletePromo={this.deletePromo} />
       );
     });
   }
 
-  deletePromo = promoId => {
+  deletePromo = (promoId) => {
     confirmAlert({
       title: "Hapus Promo",
       message: "Apakah anda yakin?",
       buttons: [
         {
-          label: "Batal"
+          label: "Batal",
         },
         {
           label: "Hapus",
           onClick: () => {
             axios
-              .delete(`/promo/${promoId}`)
-              .then(res => console.log(res.data))
-              .catch(err => console.log(err));
+              .delete(`/prm/${promoId}`)
+              .then((res) => console.log(res.data))
+              .catch((err) => console.log(err));
             this.setState({
-              promos: this.state.promos.filter(prm => prm._id !== promoId)
+              promos: this.state.promos.filter((prm) => prm._id !== promoId),
             });
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
   };
 
