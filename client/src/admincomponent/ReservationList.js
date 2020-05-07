@@ -33,7 +33,7 @@ const RsvItem = (props) => {
         |{" "}
         <a
           onClick={() => {
-            props.deleteReservation(props.rsv._id);
+            props.deleteReservation(props.rsv._id, props.rsv.orderId);
           }}
           className="text-danger"
         >
@@ -174,7 +174,7 @@ class ReservationList extends Component {
     this.setState({ filteredReservations: updatedReservations });
   };
 
-  deleteReservation = (rsvId) => {
+  deleteReservation = (rsvId, orderId) => {
     confirmAlert({
       title: "Hapus Reservasi",
       message: "Apakah anda yakin?",
@@ -195,6 +195,13 @@ class ReservationList extends Component {
             });
             axios
               .delete(`/reservation/${rsvId}`)
+              .then((res) => {
+                console.log(res.data);
+              })
+              .catch((err) => console.log(err));
+
+            axios
+              .post(`/payment/cancel/${orderId}`)
               .then((res) => {
                 console.log(res.data);
               })

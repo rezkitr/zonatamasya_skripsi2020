@@ -89,6 +89,14 @@ router.route("/getstatus/:order_id").get((req, res) => {
     });
 });
 
+// cancelTransaction
+router.route("/cancel/:order_id").post((req, res) => {
+  snap.transaction
+    .cancel(req.params.order_id)
+    .then((result) => console.log("Transaction canceled:", result))
+    .catch((error) => console.log("Error occured:", error.message));
+});
+
 // handleNotification
 router.route("/notification").post((req, res) => {
   snap.transaction
