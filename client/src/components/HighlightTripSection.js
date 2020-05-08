@@ -5,6 +5,27 @@ import OpenTripData from "../tripDataSource";
 import TripCard from "./TripCard";
 import SectionTitle from "./SectionTitle";
 
+function CardItem(props) {
+  let count = 0;
+  return props.tripData.map((item) => {
+    if (item.highlighted && count < 5) {
+      count++;
+      return (
+        <div className="col my-3">
+          <TripCard
+            key={item._id}
+            tripId={item._id}
+            cardImg={item.cardImage}
+            name={item.name}
+            price={item.price.priceFull}
+            start={item.departure.start}
+          />
+        </div>
+      );
+    }
+  });
+}
+
 function TripCardContainer(props) {
   return (
     <div className="container-fluid trip-card">
@@ -13,20 +34,7 @@ function TripCardContainer(props) {
         secTagline="Liburan nyaman, pulang bawa teman!"
       />
       <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 mx-3">
-        {props.tripData.map((item, index) =>
-          item.highlighted && index < 5 ? (
-            <div className="col my-3">
-              <TripCard
-                key={item._id}
-                tripId={item._id}
-                cardImg={item.cardImage}
-                name={item.name}
-                price={item.price.priceFull}
-                start={item.departure.start}
-              />
-            </div>
-          ) : null
-        )}
+        {<CardItem tripData={props.tripData} />}
       </div>
 
       <div className="row justify-content-center mt-5">

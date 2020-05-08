@@ -5,16 +5,6 @@ import PhotoDataSource from "../photoDataSource";
 import bgImage from "../assets/bg-gallery.jpg";
 
 function GallerySection(props) {
-  let photoData = [];
-
-  props.photoData.map((item, index) => {
-    if (index < 6) {
-      item.thumbnailWidth = Math.floor(Math.random() * 300) + 290;
-      item.thumbnailHeight = Math.floor(Math.random() * 280) + 270;
-      photoData.push(item);
-    }
-  });
-
   return (
     <div
       className="container-fluid gal-section"
@@ -28,7 +18,7 @@ function GallerySection(props) {
         <div className="col-md-8 p-5">
           <Gallery
             enableLightbox={false}
-            images={photoData}
+            images={props.photoHighlight}
             enableImageSelection={false}
             rowHeight={240}
             maxRows={2}
