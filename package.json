@@ -16,7 +16,7 @@
   "author": "Rezki Triandy",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "concurrently": "^5.1.0",
     "contentful": "^7.14.3",
     "cors": "^2.8.5",
